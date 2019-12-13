@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="320px"
+    android:padding="10dp"
+    android:layout_margin="3dp"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/lay_aluno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cinza"
+        android:padding="5dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_aluno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="aluno"
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="16dp"
+            segmentedgroup:layout_constraintEnd_toEndOf="parent"
+            segmentedgroup:layout_constraintStart_toStartOf="parent"
+            segmentedgroup:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Status: "
+            android:visibility="gone"
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="16dp"
+            segmentedgroup:layout_constraintEnd_toEndOf="@+id/bt_frequencia"
+            segmentedgroup:layout_constraintStart_toStartOf="@+id/bt_frequencia"
+            segmentedgroup:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_frequencia"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            segmentedgroup:layout_constraintBottom_toBottomOf="@+id/tv_aluno3"
+            segmentedgroup:layout_constraintEnd_toEndOf="parent"
+            segmentedgroup:layout_constraintStart_toEndOf="@+id/bt_frequencia3"
+            segmentedgroup:layout_constraintTop_toTopOf="@+id/tv_aluno2" />
+
+        <TextView
+            android:id="@+id/tv_aluno2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:text="Faltas Bimestre: "
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="16dp"
+            segmentedgroup:layout_constraintStart_toStartOf="parent"
+            segmentedgroup:layout_constraintTop_toBottomOf="@+id/tv_aluno" />
+
+        <TextView
+            android:id="@+id/tv_aluno3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="none"
+            android:singleLine="true"
+            android:text="Faltas no Ano:    "
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="16dp"
+            segmentedgroup:layout_constraintStart_toStartOf="parent"
+            segmentedgroup:layout_constraintTop_toBottomOf="@+id/tv_aluno2" />
+
+        <TextView
+            android:id="@+id/tv_ativo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Inativo"
+            android:textColor="@color/amarelo_texto_dia_letivo"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            segmentedgroup:layout_constraintBottom_toBottomOf="parent"
+            segmentedgroup:layout_constraintEnd_toEndOf="parent"
+            segmentedgroup:layout_constraintStart_toStartOf="parent"
+            segmentedgroup:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_frequencia1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/button_nao_aplica"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            segmentedgroup:layout_constraintBottom_toBottomOf="@+id/bt_frequencia2"
+            segmentedgroup:layout_constraintEnd_toStartOf="@+id/bt_frequencia2"
+            segmentedgroup:layout_constraintTop_toTopOf="@+id/bt_frequencia2" />
+
+        <Button
+            android:id="@+id/bt_frequencia2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_presenca"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            segmentedgroup:layout_constraintBottom_toBottomOf="parent"
+            segmentedgroup:layout_constraintEnd_toEndOf="parent"
+            segmentedgroup:layout_constraintStart_toStartOf="parent"
+            segmentedgroup:layout_constraintTop_toBottomOf="@+id/tv_aluno3" />
+
+        <Button
+            android:id="@+id/bt_frequencia3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/button_falta"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            segmentedgroup:layout_constraintBottom_toBottomOf="@+id/bt_frequencia2"
+            segmentedgroup:layout_constraintStart_toEndOf="@+id/bt_frequencia2"
+            segmentedgroup:layout_constraintTop_toTopOf="@+id/bt_frequencia2" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

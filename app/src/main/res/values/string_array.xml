@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tipo">
+        <item>Todas</item>
+        <item>Avaliação</item>
+        <item>Atividade</item>
+        <item>Trabalho</item>
+        <item>Outros</item>
+    </string-array>
+
+    <string-array name="tipoDisciplina">
+        <item>Selecione</item>
+        <item>Matemática</item>
+        <item>Língua Portuguesa</item>
+        <item>Ciências Natureza/Humanas</item>
+    </string-array>
+
+    <string-array name="tiposAtividades">
+        <item>Selecione</item>
+        <item>Avaliação</item>
+        <item>Atividade</item>
+        <item>Trabalho</item>
+        <item>Outros</item>
+    </string-array>
+
+    <string-array name="tiposDisciplinas">
+        <item>Selecione</item>
+        <item>Matemática</item>
+        <item>Língua Portuguesa</item>
+        <item>Ciências Natureza/Humanas</item>
+    </string-array>
+
+    <string-array name="tiposMedia">
+        <item>Selecione</item>
+        <item>Ponderada</item>
+        <item>Aritmética</item>
+        <item>Soma</item>
+    </string-array>
+
+</resources>

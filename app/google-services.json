@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "904473601289",
+    "firebase_url": "https://diariodeclasse-65715.firebaseio.com",
+    "project_id": "diariodeclasse-65715",
+    "storage_bucket": "diariodeclasse-65715.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904473601289:android:2339bb7daaff7842",
+        "android_client_info": {
+          "package_name": "br.gov.sp.educacao.sed.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904473601289-4p5n6sd0ehh1ko257smtf7bqd96hkssa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCepePij9Q4cuYStPr-RNFsMIW_R2rGxMQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

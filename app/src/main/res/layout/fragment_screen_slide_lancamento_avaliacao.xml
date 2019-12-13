@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/tvNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/button_blue"
+        android:ellipsize="end"
+        android:padding="15dp"
+        android:gravity="center"
+        android:singleLine="false"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/titulo_turma"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/numberOfPlayersPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:divider="@color/azul_escuro"
+        android:scaleX="1.0"
+        android:scaleY="1.0"
+        app:layout_constraintBottom_toBottomOf="@+id/numberOfPlayersPickerDezena"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/numberOfPlayersPickerDezena" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text=","
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/numberOfPlayersPickerDezena"
+        app:layout_constraintEnd_toEndOf="@+id/tv_status"
+        app:layout_constraintStart_toStartOf="@+id/tv_status"
+        app:layout_constraintTop_toTopOf="@+id/numberOfPlayersPickerDezena" />
+
+    <NumberPicker
+        android:id="@+id/numberOfPlayersPickerDezena"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+
+    <NumberPicker
+        android:id="@+id/numberOfPlayersPickerCentena"
+        android:layout_width="@dimen/number_decimal_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toBottomOf="@+id/numberOfPlayersPickerDezena"
+        app:layout_constraintStart_toEndOf="@+id/numberOfPlayersPickerDezena"
+        app:layout_constraintTop_toTopOf="@+id/numberOfPlayersPickerDezena" />
+
+    <Button
+        android:id="@+id/bt_confirma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_green"
+        android:enabled="true"
+        android:padding="17dp"
+        android:text="Confirmar"
+        android:textColor="@color/white"
+        android:textSize="@dimen/titulo_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfPlayersPickerDezena" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="Nota: 10.00"
+        android:textSize="40sp"
+        android:textColor="@color/cinza_titulo_indice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNome" />
+
+</android.support.constraint.ConstraintLayout>

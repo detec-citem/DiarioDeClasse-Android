@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lay_diretoria"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cinza_indice"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_diretoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:elevation="1dp"
+            android:drawableLeft="@drawable/ic_escola"
+            android:drawableStart="@drawable/ic_escola"
+            android:drawablePadding="15dp"
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="@dimen/titulo_turma"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/nome_escola_ausente"
+            android:padding="9dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_margin="3dp">
+
+        <LinearLayout
+            android:id="@+id/lay_turma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/cinzaFrequenciaLancamento"
+            android:paddingTop="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_turma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:text="Turma" />
+
+            <TextView
+                android:id="@+id/tv_disciplina"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/cinza_titulo_indice" />
+
+            <TextView
+                android:id="@+id/tv_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="22sp"
+                android:textColor="@color/cinza_titulo_indice"
+                android:layout_marginBottom="5dp"
+                android:text="Tipo Ensino" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

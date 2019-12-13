@@ -1,0 +1,25 @@
+[
+    {
+        "Nome": "ILDA LUCIA ALVES FERREIRA MATSUI",
+        "RG": "15463392",
+        "Dig_Rg": "6",
+        "UF_Rg": null,
+        "CPF": "04384557892",
+        "RS": "87938469",
+        "NomeImagem": "https://seddesenv.blob.core.windows.net/fotoservidor/04384557892_6409.jpg",
+        "ImagemBase64": "Aguardando Foto"
+        "NomeImagemQrCode": "Aguardando Foto",
+        "ImagemQrCodeBase64": "Aguardando Foto",
+        "CodigoCargo": 6409,
+        "Cargo": "PROFESSOR EDUCACAO BASICA II",
+        "CodigoCargoAtual": 6409,
+        "CargoAtual": "PROFESSOR EDUCACAO BASICA II",
+        "Validade": "08/2020",
+        "StatusAprovacao": true,
+        "StatusAprovacaoDesc": "Aprovada",
+        "StatusRegistro": true,
+        "StatusRegistroDesc": "Ativo",
+        "CodigoDiretoria": 0,
+        "NomePessoaSocial": null
+    }
+]

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtMatematica"
+        android:padding="10dp"
+        android:text="Matemática"
+        android:layout_margin="10dp"
+        android:onClick="usuarioSelecionouMateriaAnosIniciais"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPortugues"
+        android:padding="10dp"
+        android:text="Língua Portuguesa"
+        android:layout_margin="10dp"
+        android:onClick="usuarioSelecionouMateriaAnosIniciais"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtCiencias"
+        android:padding="10dp"
+        android:text="Ciências Natureza/Humanas"
+        android:layout_margin="10dp"
+        android:onClick="usuarioSelecionouMateriaAnosIniciais"
+        android:textSize="15dp" />
+
+</LinearLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.gov.sp.educacao.sed.mobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="ANDROID.PERMISSION.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".util.AnalyticsApplication"
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.Toolbar">
+        <activity android:name=".comunicados.ComunicadosActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/icone_notificacao" />
+
+        <activity
+            android:name=".Menu.MainActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Login.LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Menu.HomeActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Frequencia.FrequenciaLancamentoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Frequencia.FrequenciaConsultaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Avaliacao.ListaAvaliacoesActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Avaliacao.AvaliacoesSliderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".Avaliacao.ListaAlunosAvaliacoesActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".Fechamento.FechamentoActivity"
+            android:label="@string/fechamento"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RegistroDeAula.RegistroAulaActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Fechamento.FechamentoCalcularMedia"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Turmas.TurmasListaActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Turmas.AlunosListaActivity" />
+        <activity android:name=".Turmas.AlunoDetalheActivity" />
+        <activity
+            android:name=".Fechamento.FechamentoSliderActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".Fechamento.FechamentoLista"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".util.ActivityTabelas"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
+            android:name=".Carteirinha.CarteirinhaActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".util.ReceberNotificacao">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".Carteirinha.ListaCarteirinhasActivity" />
+        <activity android:name=".Frequencia.Calendario" />
+    </application>
+
+</manifest>

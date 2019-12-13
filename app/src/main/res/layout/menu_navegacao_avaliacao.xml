@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:id="@+id/turma_atual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="1°SÉRIE A TARDE"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/menuPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Menu Principal"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/turma_atual" />
+
+    <TextView
+        android:id="@+id/mudarTurma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Mudar Turma"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/menuPrincipal"
+        />
+
+    <TextView
+        android:id="@+id/listarAlunos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Listar Alunos"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/mudarTurma" />
+
+    <TextView
+        android:id="@+id/avaliacoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Avaliações"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/listarAlunos" />
+
+    <TextView
+        android:id="@+id/frequencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Frequência"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/avaliacoes" />
+
+    <TextView
+        android:id="@+id/registro_aulas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Registro de Aulas"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/frequencia" />
+
+    <TextView
+        android:id="@+id/fechamento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:text="Fechamento"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/registro_aulas"/>
+
+</android.support.constraint.ConstraintLayout>

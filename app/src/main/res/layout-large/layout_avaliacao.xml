@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="3dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/lay_avaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cinzaFrequenciaLancamento"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/horario"
+            android:layout_width="wrap_content"
+            android:maxWidth="360dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="false"
+            android:text="Bimestral todas materias"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="22sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="nome"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="data"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/grey_medio"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnEditarFrequencia"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:clickable="true"
+        android:padding="17dp"
+        android:src="@drawable/ic_mode_edit_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lay_avaliacao"
+        app:layout_constraintEnd_toStartOf="@+id/btnExcluirFrequencia"
+        app:layout_constraintTop_toTopOf="@+id/lay_avaliacao" />
+
+    <ImageView
+        android:id="@+id/btnExcluirFrequencia"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:clickable="true"
+        android:padding="12dp"
+        android:src="@drawable/deletaravaliacao"
+        app:layout_constraintBottom_toBottomOf="@+id/lay_avaliacao"
+        app:layout_constraintEnd_toEndOf="@+id/lay_avaliacao"
+        app:layout_constraintTop_toTopOf="@+id/lay_avaliacao" />
+
+</android.support.constraint.ConstraintLayout>

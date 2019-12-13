@@ -1,0 +1,26 @@
+{
+    "IdUsuario": 222222,
+    "NumeroCpf": "22222222222",
+    "numeroRg": "22222222",
+    "digitoRg": "2",
+    "Nome": "TESTE TESTE TESTE",
+    "Token": "aaa",
+    "Perfis": [
+        {
+            "Codigo": 4,
+            "Nome": "Professor",
+            "Nivel": 0,
+            "Comportamento": 4,
+            "AnosLetivos": [
+                2019,
+                2018,
+                2017,
+                2016,
+                2015,
+                2014
+            ]
+        }
+    ],
+    "Id": 222222,
+    "Login": "rg222222222sp"
+}

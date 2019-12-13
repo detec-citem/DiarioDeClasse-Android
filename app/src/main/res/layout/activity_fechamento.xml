@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_metade_arredondado"
+        android:elevation="5dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_turma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/cinza_indice"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/tv_diretoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_escola"
+            android:drawableLeft="@drawable/ic_escola"
+            android:drawablePadding="15dp"
+            android:elevation="1dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:padding="9dp"
+            android:singleLine="true"
+            android:text="@string/nome_escola_ausente"
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="17dp" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="6dp"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_tipo_fechamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay_turma"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Bimestre"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lay_turma" />
+
+    <TextView
+        android:id="@+id/tv_aulas_realizadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/button_blue"
+        android:padding="10dp"
+        android:text="Aulas Realizadas"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/txt_justificativa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_fechamento" />
+
+    <TextView
+        android:id="@+id/tv_aulas_planejadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_aulas_realizadas"
+        android:layout_alignLeft="@+id/tv_aulas_realizadas"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_blue"
+        android:padding="10dp"
+        android:text="Aulas Planejadas"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_aulas_realizadas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_aulas_realizadas" />
+
+    <EditText
+        android:id="@+id/txt_aulas_realizadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_aulas_realizadas"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/tv_aulas_realizadas"
+        android:layout_toRightOf="@+id/tv_aulas_realizadas"
+        android:ems="2"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/tv_aulas_realizadas"
+        app:layout_constraintStart_toStartOf="@+id/tv_aulas_realizadas"
+        app:layout_constraintTop_toBottomOf="@+id/tv_aulas_realizadas" />
+
+    <EditText
+        android:id="@+id/txt_aulas_planejadas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/tv_aulas_planejadas"
+        android:layout_toRightOf="@+id/tv_aulas_planejadas"
+        android:ems="2"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="0"
+        android:textSize="17dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/tv_aulas_planejadas"
+        app:layout_constraintStart_toStartOf="@+id/tv_aulas_planejadas"
+        app:layout_constraintTop_toBottomOf="@+id/tv_aulas_planejadas" />
+
+    <EditText
+        android:id="@+id/txt_justificativa"
+        android:layout_width="250dp"
+        android:layout_height="69dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Justificativa"
+        android:inputType="textPersonName"
+        android:padding="20dp"
+        android:visibility="visible"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lay_turma" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_justificativa">
+
+        <Button
+            android:id="@+id/calcularMedia"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_green"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Calcular Médias"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/btn_confirma_fechamento"
+            app:layout_constraintEnd_toEndOf="@+id/btn_confirma_fechamento"
+            app:layout_constraintStart_toStartOf="@+id/btn_confirma_fechamento"
+            app:layout_constraintTop_toBottomOf="@+id/txt_justificativa" />
+
+        <Button
+            android:id="@+id/btn_confirma_fechamento"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_green"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/confirma"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txt_justificativa"
+            app:layout_constraintStart_toStartOf="@+id/txt_justificativa" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

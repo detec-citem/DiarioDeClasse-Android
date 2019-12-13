@@ -1,0 +1,25 @@
+<resources>
+    <dimen name="texto_grid">20sp</dimen>
+    <dimen name="texto_ano">20sp</dimen>
+    <dimen name="titulo_turma">18sp</dimen>
+    <dimen name="titulo_toolbar">18sp</dimen>
+    <dimen name="texto_spinner_data">16sp</dimen>
+
+    <dimen name="texto_tab">16sp</dimen>
+
+    <dimen name="texto_sub">80dp</dimen>
+    <dimen name="texto_num_picker">18sp</dimen>
+
+    <dimen name="number_width">80dp</dimen>
+
+    <dimen name="number_decimal_width">40dp</dimen>
+
+    <dimen name="texto_item_conteudo">16sp</dimen>
+    <dimen name="texto_item_habilidade">14sp</dimen>
+
+    <dimen name="texto_fechamento_confirmado">24sp</dimen>
+    <dimen name="texto_label_adapter">16sp</dimen>
+
+    // GridView
+    <dimen name="gridview_item_padding">4dp</dimen>
+</resources>

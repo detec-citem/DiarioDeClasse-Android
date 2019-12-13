@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:id="@+id/compartilhar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:text="Compartilhar"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/avaliar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:text="Avaliar o Aplicativo"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/compartilhar" />
+
+    <TextView
+        android:id="@+id/sincronizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:text="Sincronizar"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/avaliar" />
+
+    <TextView
+        android:id="@+id/sobre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:text="Sobre"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/sincronizar" />
+
+    <TextView
+        android:id="@+id/sair"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:text="Sair"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/sobre" />
+
+    <TextView
+        android:id="@+id/tabelas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="onClickMenuLateral"
+        android:padding="10dp"
+        android:visibility="visible"
+        android:text="Tabelas"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/sair"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,51 @@
+<resources>
+    <style name="Theme.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverFlow</item>
+    </style>
+    <style name="OverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action</item>
+    </style>
+    <style name="Theme.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/titulo_toolbar</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="Theme.MyThemeBottom" parent="Theme.Toolbar">
+        <item name="colorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="Menu" parent="Base.Theme.AppCompat.CompactMenu">
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/dialogarredondado</item>
+    </style>
+
+
+    <style name="CalDroidTheme" parent="CaldroidDefault">
+        <item name="styleCaldroidMonthName">@style/CaldroidThemeMonthName</item>
+        <item name="styleCaldroidWeekdayView">@style/CaldroidThemeWeekday</item>
+    </style>
+    <style name="CaldroidThemeMonthName" parent="CaldroidDefaultMonthName">
+        <item name="android:textColor">@color/vermelho_titulo_calendario</item>
+        <item name="android:textSize">@dimen/titulo_toolbar</item>
+    </style>
+    <style name="CaldroidThemeArrowButton" parent="CaldroidDefaultArrowButton">
+        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">28dp</item>
+    </style>
+    <style name="CaldroidThemeWeekday" parent="CaldroidDefaultWeekday">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="AppTheme.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+</resources>

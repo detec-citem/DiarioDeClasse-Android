@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_avaliar_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginlarge"
+        android:gravity="center_horizontal"
+        android:text="@string/avaliar_este_aplicativo"
+        android:textSize="@dimen/fontsizelabelcabecalho"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tv_avaliar_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginlarge"
+        android:layout_below="@+id/tv_avaliar_titulo"
+        android:gravity="center_horizontal"
+        android:text="@string/o_que_voce_acha"
+        android:textSize="@dimen/fontsizetextedit"
+        android:textColor="@color/black"
+        />
+
+    <RatingBar
+        android:id="@+id/rb_avaliar_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_avaliar_app"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/marginlarge"
+        android:layout_marginLeft="@dimen/marginlarge"
+        android:layout_marginRight="@dimen/marginlarge"
+        android:numStars="5"
+        android:stepSize="1.0"
+        style="?android:attr/ratingBarStyle"
+        />
+
+</RelativeLayout>

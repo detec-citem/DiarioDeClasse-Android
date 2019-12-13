@@ -1,0 +1,177 @@
+<resources>
+
+    <string name="erro_turmas">Verifique sua conexão e tente novamente</string>
+    <string name="erro_servidor">Erro no servidor! Tente novamente mais tarde</string>
+    <string name="erro_login">Usuário ou senha inválidos</string>
+    <string name="erro_nao_disponivel">Serviço não disponível, tente novamente mais tarde</string>
+    <string name="sincronize_novamente">Erro! Faça o sincronismo novamente</string>
+    <string name="sincronizacao_realizada">Sincronização realizada com sucesso</string>
+    <string name="verifica_usuario">Verificando usuário</string>
+    <string name="autentica_usuario">Aguarde, autenticando usuário</string>
+    <string name="carrega_info">Carregando Informações do usuário. O processo leva alguns minutos. Por favor, aguarde.</string>
+
+    <string name="notificacoes">Notificações</string>
+    <string name="confirma">Confirmar</string>
+
+    <string name="nao">Não</string>
+
+    <string name="carteirinha">GOVERNO DO ESTADO \n DE SÃO PAULO</string>
+
+    <!-- Itens da Home -->
+    <string name="turmas">Turmas</string>
+    <string name="registro_aulas">Registro de aulas</string>
+    <string name="frequencia">Frequência</string>
+    <string name="avaliacao">Avaliação</string>
+    <string name="fechamento">Fechamento</string>
+    <string name="selecionado">Selecionado</string>
+    <string name="nao_selecionado">Não selecionado</string>
+    <string name="compartilhar">Compartilhar</string>
+    <string name="avaliar">Avaliar o aplicativo</string>
+    <string name="sair">Sair</string>
+    <string name="sobre">Sobre</string>
+
+    <string name="app_name">Di@rio de classe</string>
+    <string name="hintusuario">Digite o Usuário</string>
+    <string name="hintsenha">Digite a Senha</string>
+    <string name="lbtlogar">ENTRAR</string>
+    <string name="content_desc_logo_main">Logo Secretária Escolar Digital</string>
+    <string name="hintdata">Selecione a data</string>
+    <string name="obrigatorio">Preenchimento obrigatório!</string>
+    <string name="titulo_lancamento">Lançamento</string>
+    <string name="faltas_ano">Faltas no Ano:</string>
+    <string name="faltas_bimestre">Faltas no Bimestre:</string>
+    <string name="faltas_sequencia">Faltas em Sequência:</string>
+    <string name="anterior">Anterior</string>
+    <string name="proximo">Próximo</string>
+    <string name="conecte_wifi">Conecte-se à uma rede Wi-Fi</string>
+    <string name="usuario_nao_encontrado">Usuário não encontrado</string>
+    <string name="observacoes">Observações</string>
+    <string name="hint_digite_peso">Digite o peso</string>
+
+    <!-- Strings para as TABS -->
+    <string name="tab_lancamento">LANÇAMENTO</string>
+    <string name="tab_consulta">CONSULTA</string>
+
+    <string name="horario">Horário</string>
+    <string name="title_activity_registro_aulas">RegistroAulasActivity</string>
+
+    <string name="periodo">Período</string>
+
+    <string name="lancamento_consulta">Lançamento / Consulta</string>
+    <string name="nova_ava">Nova Avaliação</string>
+    <string name="edit_ava">Editar Avaliação</string>
+    <string name="nota">Nota</string>
+    <string name="label_nota">Nota:</string>
+    <string name="label_faltas">Faltas:</string>
+    <string name="label_aulas_compensadas">A/C:</string>
+    <string name="label_faltas_acumuladas">F/A:</string>
+    <string name="calcular_media">Calcular média</string>
+    <string name="calcular">Calcular</string>
+    <string name="label_disciplina">Disciplina:</string>
+    <string name="label_tipo_media">Tipo de média:</string>
+
+    <!-- Buttons -->
+
+    <!-- AlertBuilder -->
+    <string name="cadastrar">Cadastrar</string>
+
+    <!-- Toast -->
+    <string name="complete_campos">Complete os campos</string>
+    <string name="selecione_tipo">Selecione o tipo</string>
+    <string name="registro_realizado">Registro realizado com sucesso</string>
+    <string name="nao_possivel_deletar_habilidade">Nao foi possível deletar a habilidade</string>
+    <string name="frequencia_todos_alunos">Foi feita a chamada para todos os alunos</string>
+    <string name="confirmacao_lancamento_notas">O lançamento de notas foi confirmado! As notas serão lançadas durante a sincronização com o servidor.</string>
+    <string name="chamada_replicada">Chamada replicada com sucesso</string>
+    <string name="lancar_avaliacao_sem_nota">Não é possivel lançar nota para avaliação que não vale nota</string>
+    <string name="calcule_media_primeiro">Calcule a média da turma primeiro</string>
+    <string name="valor_ausencias_maior_faltas">O valor das ausências compensadas não pode ser maior que as faltas</string>
+    <string name="medias_salvas">As médias foram salvas</string>
+    <string name="calcule_medias">Calcule as médias</string>
+    <string name="lancar_notas_antes">É preciso lançar todas as notas da turma antes</string>
+    <string name="media_apenas_uma_prova">Não é possível calcular a média de apenas 1 prova</string>
+    <string name="digite_todos_pesos">Digite todos os pesos</string>
+
+    <string name="sigla_falta">F</string>
+    <string name="sigla_compareceu">C</string>
+    <string name="sigla_nao_se_aplica">N</string>
+    <string name="sigla_transferido">Inativo</string>
+    <string name="desc_falta">Faltou</string>
+    <string name="desc_compareceu">Compareceu</string>
+    <string name="desc_nao_se_aplica">Não se aplica</string>
+    <string name="desc_transferido">Inativo</string>
+
+
+    <string name="desc_turma">Turma</string>
+    <string name="desc_matricula">RA</string>
+    <string name="desc_status">Status</string>
+    <string name="desc_responsavel">Responsáveis</string>
+    <string name="desc_nome_pai">Nome do pai</string>
+    <string name="desc_nome_mae">Nome da mãe</string>
+    <string name="desc_info_indisp">[Informação não disponível]</string>
+
+    <string name="sinc_manual">Sincronizar</string>
+    <string name="confirma_sinc">Deseja sincronizar manualmente?</string>
+    <string name="enviar_fechamento_turma">Deseja enviar o fechamento da turma %s?</string>
+    <string name="inicia_sinc">Sincronização com servidor iniciada</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="salvar">Salvar</string>
+
+    <string name="content_arrow">Seta indicativa de abertura do conteúdo</string>
+    <string name="matricula_aluno">RA: %s</string>
+    <string name="posicao_aluno_turma" formatted="false">%s/%s</string>
+    <string name="label_nome_avaliacao">%s: </string>
+    <string name="status_aluno">Status: %s</string>
+    <string name="desc_ativo">Ativo</string>
+    <string name="titulo_alunos">Alunos</string>
+    <string name="titulo_aluno">Aluno</string>
+    <string name="no_such_column">no such column</string>
+    <string name="problemas_inicializacao">Erro durante inicialização do aplicativo. Por favor, vá até as configurações de aplicativos do Android, selecione %s e apague os dados.</string>
+    <string name="o_que_voce_acha">Olá, o que você acha do aplicativo?</string>
+    <string name="enviar">Enviar</string>
+    <string name="avaliar_este_aplicativo">Avaliar este aplicativo</string>
+    <string name="avaliar_play_store">"Gostou do aplicativo?\nQuer nos avaliar na Play Store?"</string>
+    <string name="nao_obrigado">Não, obrigado</string>
+    <string name="avaliar_agora">Avaliar agora</string>
+    <string name="nome_escola_ausente">Nome da Escola ou Turma Ausente</string>
+    <string name="formato_data_ddmmaaaa">DD/MM/AAAA</string>
+
+    <string name="dialog_nova_avaliacao_bimestre">Bimestre</string>
+    <string name="dialog_nova_avaliacao_nome_avaliacao">Nome da avaliação</string>
+    <string name="dialog_nova_avaliacao_data_avaliacao">Data da avaliação</string>
+    <string name="dialog_nova_avaliacao_tipo_avaliacao">Tipo de avaliação</string>
+    <string name="dialog_nova_avaliacao_vale_nota">Vale nota</string>
+    <string name="dialog_replicar_chamada">Deseja replicar a chamada para os demais horários do dia?</string>
+
+    <string name="selecione">Selecione</string>
+    <string name="menu_share">Baixe o aplicativo Di@rio de classe no Google Play através do link</string>
+    <string name="menu_share_link_play">https://play.google.com/store/apps/details?id=br.gov.sp.educacao.sed.mobile</string>
+    <string name="aulas_realizadas_planejadas_justificativa_warning">Preencha a justificativa, pois as Aulas Realizadas são menores que as Planejadas!</string>
+    <string name="aulas_realizadas_planejadas_warning">Aulas Planejadas não pode ser menor que Aulas Realizadas!</string>
+    <string name="inf_aulas_realizadas">Informe as Aulas Realizadas.</string>
+    <string name="inf_aulas_planejadas">Informe as Aulas Planejadas.</string>
+    <string name="aulas_fechamento_zeradas">Nenhum dos campos de aula pode ser zero! Lance novamente as aulas.</string>
+    <string name="sem_periodo_fechamento">Não há período vigente para realizar o fechamento</string>
+    <string name="notas_sem_arredondamento">Existem notas sem arredondamento! Verifique.</string>
+    <string name="status_confirmado">CONFIRMADO</string>
+    <string name="status_transferido">INATIVO</string>
+    <string name="status_abrev_transferido">INA</string>
+    <string name="atencao">Atenção!</string>
+    <string name="dados_incompletos_no_servidor">
+        É necessário que o calendário escolar esteja homologado e a associação do professor à classe completa. O procedimento de associação é realizado em duas etapas:\n1) Inserir a associação do professor: João dá aula para o 6º Ano A de Artes\n2) Inserir o horário do professor: João dá aula de Artes para o 6º Ano A às segundas e quintas às 07 horas\nPor gentileza, verifique com o GOE/AOE da sua escola para que você possa utilizar o aplicativo Di@rio de Classe.
+    </string>
+    <string name="tentar_novamente">Sincronizar novamente</string>
+    <string name="dados_incompletos_no_dispostivo_sem_internet">Seu dispostivo não foi sincronizado e você está sem WiFi, conecte-se e sincronize!</string>
+    <string name="logoff_with_unsaved_data_warning_msg">Existem turmas com dados não sincronizados e se você sair esses dados serão perdidos</string>
+    <string name="label_sair">Sair</string>
+    <string name="label_cancelar">Cancelar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="notaAvaliacao">Nota: %1$d,%2$d%3$d</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+</resources>

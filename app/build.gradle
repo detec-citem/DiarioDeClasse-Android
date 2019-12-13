@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+//apply plugin: 'com.google.firebase.firebase-perf'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    compileOptions.encoding = 'UTF-8'
+
+    defaultConfig {
+        applicationId "br.gov.sp.educacao.sed.mobile"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 2004
+        versionName '2.0.04'
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "ENABLE_MENU_TABLE", "true"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'com.netflix.feign:feign-gson:8.7.1'
+    implementation 'com.netflix.feign:feign-core:8.7.1'
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
+    implementation 'com.google.android.gms:play-services-analytics:16.0.4'
+    implementation 'com.google.firebase:firebase-appindexing:17.1.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+
+    implementation 'com.google.firebase:firebase-analytics:16.0.5'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    //implementation 'com.google.firebase:firebase-perf:16.2.0'
+    implementation 'com.roomorama:caldroid:2.1.0'
+    implementation 'net.danlew:android.joda:2.9.9.1'
+
+
+}
+
+def signingProperties = "signing.properties"
+
+def signingKeys = [
+        storeFile    : { x -> file(x) },
+        storePassword: { x -> x },
+        keyAlias     : { x -> x },
+        keyPassword  : { x -> x },
+]
+
+// Find signing.properties in the project root, or in $HOME/.gradle
+def f = ["${rootDir}/${signingProperties}", "${gradle.gradleUserHomeDir}/${signingProperties}"].find {
+    file(it).exists()
+}
+
+if (f) {
+    logger.info "Loading signing properties from ${f}"
+    def props = new Properties()
+    props.load(new FileInputStream(f))
+
+    // For each property apply it to the release signing config
+    signingKeys.any { k, fn ->
+        if (!props.containsKey(k)) {
+            logger.error "Missing property ${k}"
+            android.buildTypes.release.signingConfig = null
+            return true
+        }
+        android.signingConfigs.release[k] = fn(props[k]);
+        return
+    }
+} else {
+    logger.info "Missing ${signingProperties} file"
+    android.buildTypes.release.signingConfig = null
+}
+apply plugin: 'com.google.gms.google-services'

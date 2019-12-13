@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".comunicados.ComunicadosActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/comunicado_toolbar"
+        android:layout_width="409dp"
+        app:title="Comunicados"
+        app:titleTextColor="@color/white"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"/>
+
+    <ListView
+        android:id="@+id/comunicado_lista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarStyle="outsideInset"
+        android:layout_below="@id/comunicado_toolbar"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="16dp"
+        android:dividerHeight="15dp"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:divider="@null"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/comunicado_txt_aviso"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Não há nenhum comunicado no momento"/>
+
+</RelativeLayout>

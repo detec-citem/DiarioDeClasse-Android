@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.gov.sp.educacao.sed.mobile.RegistroDeAula.RegistroAulaActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/dialog_metade_arredondado"
+        android:layout_below="@id/toolbar"
+        android:elevation="5dp"
+        android:visibility="invisible">
+
+    </FrameLayout>
+
+    <FrameLayout
+
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@color/cinzaFrequenciaCalendario"
+        android:padding="10dp"
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <ImageView
+                android:id="@+id/fecharselecaocalendario"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:padding="5dp"
+                android:src="@drawable/deletaravaliacao"
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/texto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Selecione o dia de aula"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fecharselecaocalendario" />
+
+            <FrameLayout
+                android:id="@+id/container3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="40dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/texto">
+
+            </FrameLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/lay_turma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cinza_indice"
+        android:visibility="visible"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/tv_turma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cinza_titulo_tela_interna"
+            android:textSize="17dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:elevation="1dp"
+            android:drawableLeft="@drawable/ic_escola"
+            android:drawableStart="@drawable/ic_escola"
+            android:drawablePadding="15dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/nome_escola_ausente"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linhaBotoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lay_turma"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:paddingEnd="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="2dp"
+
+        >
+
+        <TextView
+            android:id="@+id/btn_1bim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_blue"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="1º Bloco"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_2bim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_blue"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="2º Bloco"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_3bim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_blue"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="3º Bloco"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_4bim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_blue"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="4º Bloco"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linhaTxtContHab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linhaBotoes"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/registro_txtContHab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botao_cinza"
+            android:text="Conteúdos"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:elevation="6dp"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        android:visibility="invisible"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/barraFooter"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="3dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/editTxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_blue"
+            android:text="Observações"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/selecionarDisciplina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/button_blue"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="DISCIPLINA"
+            android:elevation="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/editTxt1"
+            app:layout_constraintEnd_toStartOf="@+id/btn_salvar_registro"
+            app:layout_constraintStart_toEndOf="@+id/editTxt1"
+            app:layout_constraintTop_toTopOf="@+id/editTxt1" />
+
+        <Button
+            android:id="@+id/btn_salvar_registro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_blue"
+            android:text="   Registrar   "
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/listConteudo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/barraFooter"
+        android:layout_below="@+id/linhaTxtContHab"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:divider="@color/transparente"
+        android:padding="3dp"
+        android:scrollbarSize="3dp"
+        android:scrollbarThumbVertical="@drawable/scroolstyle"
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/listHabilidades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/barraFooter"
+        android:layout_below="@+id/linhaTxtContHab"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:padding="3dp"
+        android:divider="@color/transparente"
+        android:scrollbarSize="3dp"
+        android:scrollbarThumbVertical="@drawable/scroolstyle"
+        android:visibility="gone">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/txt_seleciona_bimestre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linhaTxtContHab"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Selecione o bloco"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="visible"/>
+
+    <EditText
+        android:id="@+id/et_observacoes"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/linhaTxtContHab"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:maxLength="499"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Escreva aqui as observações"
+        android:background="@android:color/transparent"
+        />
+
+</RelativeLayout>

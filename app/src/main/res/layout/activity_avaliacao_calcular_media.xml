@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_metade_arredondado"
+        android:elevation="5dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_label_disciplina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/label_disciplina"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ScrollView
+        android:id="@+id/scroll_pesos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tipo_media" />
+
+    <TextView
+        android:id="@+id/tv_disciplina"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toEndOf="@id/tv_label_disciplina"
+        android:layout_toRightOf="@+id/tv_label_disciplina"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:maxHeight="10dp"
+        android:text="MATEMÁTICA"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_disciplina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/spinner_tipo_media"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_disciplina" />
+
+    <TextView
+        android:id="@+id/tv_label_turma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/desc_turma"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_disciplina" />
+
+    <TextView
+        android:id="@+id/tv_turma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@id/tv_label_turma"
+        android:layout_toRightOf="@+id/tv_label_turma"
+        android:text="01 SERIE Q NOITE"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_turma"
+        app:layout_constraintStart_toStartOf="@+id/spinner_tipo_media"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_turma" />
+
+    <TextView
+        android:id="@+id/tv_tipo_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_tipo_media"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_turma" />
+
+    <Spinner
+        android:id="@+id/spinner_tipo_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@id/tv_tipo_media"
+        android:layout_toRightOf="@+id/tv_tipo_media"
+        android:entries="@array/tiposMedia"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tipo_media"
+        app:layout_constraintStart_toEndOf="@+id/tv_tipo_media"
+        app:layout_constraintTop_toTopOf="@+id/tv_tipo_media" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="6dp"
+        android:scaleX="1.3"
+        android:scaleY="1.3"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/lista_aluno"
+        app:layout_constraintEnd_toEndOf="@+id/lista_aluno"
+        app:layout_constraintStart_toStartOf="@+id/lista_aluno"
+        app:layout_constraintTop_toTopOf="@+id/lista_aluno" />
+
+    <ListView
+        android:id="@+id/lista_aluno"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bt_salvar"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_tipo_media"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:padding="3dp"
+        android:divider="@color/transparente"
+        android:scrollbarSize="3dp"
+        android:scrollbarThumbVertical="@drawable/scroolstyle"
+
+        />
+
+    <Button
+        android:id="@+id/bt_salvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_blue"
+        android:text="@string/salvar"
+        android:textColor="@color/default_color"
+        android:textSize="@dimen/titulo_turma"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
