@@ -6,7 +6,7 @@ interface ConteudoItemViewMvc {
 
     interface Listener {
 
-        void onConteudoSelecionado(Conteudo conteudo);
+        void onConteudoSelecionado(Object conteudo);
     }
 
     View getRootView();
@@ -15,5 +15,5 @@ interface ConteudoItemViewMvc {
 
     void unregisterListener();
 
-    void exibirInfoConteudo(Conteudo conteudo);
+    void exibirInfoConteudo(Object conteudo);
 }

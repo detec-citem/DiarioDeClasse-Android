@@ -1,40 +1,32 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-
-import android.support.v4.app.Fragment;
-import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Intent;
-import android.content.Context;
-import android.content.DialogInterface;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.widget.Toolbar;
-import android.support.v7.app.AlertDialog;
-
-import android.support.annotation.Nullable;
-
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 
@@ -65,8 +57,6 @@ class FrequenciaLancamentoViewMvcImpl
 
     private ImageView fecharSelecaoCalendario;
 
-    private int telaPequena;
-
     private final View mRootView;
 
     private ListView lvLancamento;
@@ -96,7 +86,6 @@ class FrequenciaLancamentoViewMvcImpl
     private Button btnReplica;
     private Button btConfirmar;
     private Button btnExcluirFrequencia;
-    private Button btnAplicarPresencaTodosAlunos;
 
     private ToolbarViewMvcImpl toolbarViewMvcImpl;
 
@@ -104,18 +93,9 @@ class FrequenciaLancamentoViewMvcImpl
 
     private Animation apenasRemoverMenuNavegacao, mudarTelaRemoverMenuNavegacao, animacaoProgressBarVoador;
 
-    FrequenciaLancamentoViewMvcImpl(LayoutInflater layoutInflater, FragmentManager fragmentManager, int tamanhoTela, ViewGroup parent) {
+    FrequenciaLancamentoViewMvcImpl(LayoutInflater layoutInflater, FragmentManager fragmentManager, ViewGroup parent) {
 
-        this.telaPequena = tamanhoTela;
-
-        if(telaPequena == 2) {
-
-            mRootView = layoutInflater.inflate(R.layout.activity_frequencia_lancamento_tela_muito_pequena, parent, false);
-        }
-        else {
-
-            mRootView = layoutInflater.inflate(R.layout.activity_frequencia_lancamento, parent, false);
-        }
+        mRootView = layoutInflater.inflate(R.layout.activity_frequencia_lancamento, parent, false);
 
         inicializarViews();
 
@@ -325,8 +305,6 @@ class FrequenciaLancamentoViewMvcImpl
 
         btnExcluirFrequencia = findViewById(R.id.bt_excluir_frequencia);
 
-        btnAplicarPresencaTodosAlunos = findViewById(R.id.btnMarcaPresencaTodos);
-
         tvTurma = findViewById(R.id.tv_diretoria);
 
         btnReplica = findViewById(R.id.btnReplica);
@@ -423,8 +401,10 @@ class FrequenciaLancamentoViewMvcImpl
 
     void avisarUsuarioSelecionarData() {
 
-        Toast.makeText(getContext(), "Selecione uma data e horário de aula", Toast.LENGTH_LONG).show();
+        if(frameLayout2.getVisibility() == View.INVISIBLE){
 
+            Toast.makeText(getContext(), "Selecione uma data e horário de aula", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -457,6 +437,15 @@ class FrequenciaLancamentoViewMvcImpl
             }
         });
 
+        btnReplica.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                listener.replicarChamadaMultiplosHorarios("", "");
+            }
+        });
+
         fecharSelecaoCalendario.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -480,24 +469,6 @@ class FrequenciaLancamentoViewMvcImpl
                     listener.inicializarCalendario();
                 }
 
-            }
-        });
-
-        btnAplicarPresencaTodosAlunos.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                listener.aplicarPresencaParaTodosAlunos(view);
-            }
-        });
-
-        btnReplica.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                listener.replicarChamadaMultiplosHorarios("", "");
             }
         });
     }
@@ -570,13 +541,17 @@ class FrequenciaLancamentoViewMvcImpl
     @Override
     public void avisarUsuarioChamadaIncompleta() {
 
-        Toast.makeText(getContext(),"É necessário lançar frequência para todos alunos", Toast.LENGTH_SHORT).show();
+        if(frameLayout2.getVisibility() == View.INVISIBLE){
+
+            Toast.makeText(getContext(),"É necessário lançar frequência para todos alunos", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void resgatarFaltasAluno(Aluno aluno) {
-
-        listener.resgatarFaltasAluno(aluno);
+        if (listener != null) {
+            listener.resgatarFaltasAluno(aluno);
+        }
     }
 
     @Override
@@ -631,9 +606,10 @@ class FrequenciaLancamentoViewMvcImpl
     }
 
     @Override
-    public void irParaProximoAlunoAtivo(Aluno aluno) {
-
-        listener.irParaProximoAlunoAtivo(aluno);
+    public void irParaProximoAlunoAtivo(int posicao) {
+        if (listener != null) {
+            listener.irParaProximoAlunoAtivo(posicao);
+        }
     }
 
     private void removerMenuNavegacao(Animation animation) {
@@ -648,20 +624,7 @@ class FrequenciaLancamentoViewMvcImpl
     }
 
     void irParaProximoAlunoAtivo(int index, final int count) {
-
-        if(telaPequena == 1) { //Tela maior que 880px e menor que 1000px de altura
-
-            lvLancamento.smoothScrollBy(300 * (count), 475);
-        }
-        else if(telaPequena == 2) { //Tela menor que 880px de altura
-
-            lvLancamento.smoothScrollByOffset(count);
-        }
-        else { //Tela maior que 1000 px de altura
-
-            lvLancamento.smoothScrollToPosition(index);
-        }
-
+        lvLancamento.smoothScrollToPositionFromTop(index, 0);
         lvLancamento.startLayoutAnimation();
     }
 

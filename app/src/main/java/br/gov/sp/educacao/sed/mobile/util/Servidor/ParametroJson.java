@@ -1,7 +1,6 @@
 package br.gov.sp.educacao.sed.mobile.util.Servidor;
 
 import android.content.Context;
-
 import android.util.Pair;
 
 import java.util.ArrayList;

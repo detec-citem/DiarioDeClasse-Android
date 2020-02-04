@@ -1,16 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
-import android.os.Bundle;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Collections;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
@@ -40,9 +37,9 @@ public class AlunosListaActivity
 
         turmasAlunosViewMvcImpl = new AlunosListaViewMvcImpl(LayoutInflater.from(this), getSupportFragmentManager(), null);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         turmaDBgetters = new TurmaDBgetters(banco);
 

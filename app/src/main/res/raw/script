@@ -49,11 +49,11 @@ CREATE TABLE IF NOT EXISTS ALUNOS (
 
 CREATE TABLE IF NOT EXISTS TURMASFREQUENCIA (
     id INTEGER PRIMARY KEY NOT NULL,
-    codigoTurma INTEGER, 
-    codigoDiretoria INTEGER, 
-    codigoEscola INTEGER, 
-    codigoTipoEnsino INTEGER, 
-    aulasBimestre INTEGER, 
+    codigoTurma INTEGER,
+    codigoDiretoria INTEGER,
+    codigoEscola INTEGER,
+    codigoTipoEnsino INTEGER,
+    aulasBimestre INTEGER,
     aulasAno INTEGER,
     aulasSemana INTEGER,
     turma_id INTEGER,
@@ -321,4 +321,43 @@ CREATE TABLE IF NOT EXISTS COMUNICADOS(
     comunicado TEXT,
     data TEXT,
     visualizado INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS CURRICULO_FUNDAMENTAL (
+    codigoCurriculo INTEGER PRIMARY KEY AUTOINCREMENT,
+    ano INTEGER NOT NULL,
+    serie INTEGER NOT NULL,
+    tipoEnsino INTEGER NOT NULL,
+    disciplina INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS CONTEUDO_FUNDAMENTAL (
+    codigoConteudo INTEGER NOT NULL PRIMARY KEY,
+    campoDeAtuacao TEXT,
+    descricao TEXT NOT NULL,
+    praticaLinguagem TEXT,
+    objetosConhecimento TEXT,
+    bimestre INTEGER NOT NULL,
+    curriculoFundamental INTEGER NOT NULL,
+    FOREIGN KEY(curriculoFundamental) REFERENCES CURRICULO_FUNDAMENTAL(codigoCurriculo)
+);
+
+CREATE TABLE IF NOT EXISTS REGISTRO_AULA_FUNDAMENTAL (
+    codigoRegistroAula INTEGER NOT NULL PRIMARY KEY,
+    dataCriacao VARCHAR(20) NOT NULL,
+    observacoes VARCHAR(20),
+    sincronizado INTEGER DEFAULT 0,
+    horarios TEXT,
+    bimestre INTEGER NOT NULL,
+    disciplina INTEGER NOT NULL,
+    turma INTEGER NOT NULL,
+    FOREIGN KEY(turma) REFERENCES TURMAS(id)
+);
+
+CREATE TABLE IF NOT EXISTS HABILIDADE_REGISTRO_FUNDAMENTAL (
+    registroAula INTEGER NOT NULL,
+    habilidade INTEGER NOT NULL,
+    FOREIGN KEY(registroAula) REFERENCES REGISTRO_AULA_FUNDAMENTAL(codigoRegistroAula),
+    FOREIGN KEY(habilidade) REFERENCES CONTEUDO_FUNDAMENTAL(codigoConteudo),
+    PRIMARY KEY(registroAula, habilidade)
 );

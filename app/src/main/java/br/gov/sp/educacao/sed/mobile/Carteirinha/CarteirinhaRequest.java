@@ -2,13 +2,10 @@ package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
-
-import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
-
-import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
-
 import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
+import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
+import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
 
 public class CarteirinhaRequest {
 

@@ -1,8 +1,7 @@
 package br.gov.sp.educacao.sed.mobile.util.Servidor;
 
-import java.net.URL;
-
 import java.io.IOException;
+import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 

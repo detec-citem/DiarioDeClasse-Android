@@ -1,18 +1,15 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import android.content.pm.PackageInfo;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.joda.time.LocalDate;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import android.content.pm.PackageInfo;
-
-import android.support.annotation.Nullable;
+import java.util.List;
 
 interface HomeViewMvc {
 
@@ -20,11 +17,9 @@ interface HomeViewMvc {
 
         void alterarFrequencias();
 
-        void completouSincronizacao();
-
         void atualizarToken(String token);
 
-        void completouEtapaSincronizacao();
+        void completouEtapaSincronizacao(String etapa, boolean sucesso);
 
         void terminouRequisicaoRecado(JSONArray jsonRetorno);
 
@@ -40,7 +35,7 @@ interface HomeViewMvc {
 
         void perfilSelecionado(boolean perfilOK);
 
-        void terminouSincronizacao(boolean sucess);
+        void terminouSincronizacaoTurma(boolean sucess);
 
         void alterarAvaliacoes(List<JSONObject> lista);
 
@@ -52,7 +47,9 @@ interface HomeViewMvc {
 
         void salvarFrequenciaComConflito(String dia, String horario, String turma, String disciplina);
 
-        void verificarSeExistemHorariosComConflito();
+        void frequenciasResultadoSincronizacao(List<JSONObject> listaResultadoFrequencia);
+
+        void terminouRequisicaoVersaoDoApp(int versaoApp);
     }
 
     View getRootView();
@@ -60,18 +57,6 @@ interface HomeViewMvc {
     void unregisterListener();
 
     void usuarioAvisoSemWiFi();
-
-    void exibirFalhaNaSincronizacao();
-
-    void completouEtapaSincronizacao();
-
-    void finalizaProgressoSincronizar();
-
-    void exibirSincronizacaoRealizada();
-
-    void revalidacaoDeToken(String token);
-
-    void inicializaProgressoSincronizar();
 
     void selecaoMenuPrincipal(View modulo);
 
@@ -81,13 +66,13 @@ interface HomeViewMvc {
 
     void registerListener(Listener listener);
 
-    void frequenciasResultadoSincronizacao(List<JSONObject> listaResultadoFrequencia);
-
     void usuarioAvisoDadosNaoSincronizados();
 
-    void terminouSincronizacao(boolean sucess);
+    void terminouSincronizacaoTurmas(boolean sucess);
 
     void sobreAplicativo(PackageInfo packageInfo);
+
+    void desabilitarBotao(String modulo);
 
     void deletarAvaliacaoNoBancoLocal(int codigoAvaliacao);
 
@@ -95,5 +80,8 @@ interface HomeViewMvc {
 
     void usuarioAvisoFechamentoIndisponivel(LocalDate aguardeData);
 
-    void avaliacoesResultadoSincronizacao(List<JSONObject> lista);
+    void completouEtapa(String etapa, boolean sucesso);
+
+    void mostrarViewSinc();
+
 }

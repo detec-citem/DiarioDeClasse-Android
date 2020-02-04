@@ -1,30 +1,24 @@
 package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
-import android.os.Build;
-
-import android.util.Base64;
-
-import android.widget.TextView;
-import android.widget.ImageView;
-
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import android.content.Context;
 import android.content.res.Resources;
-
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v4.content.res.ResourcesCompat;
 
 class CarteirinhaViewMvcImpl
         implements CarteirinhaViewMvc {
@@ -224,11 +218,16 @@ class CarteirinhaViewMvcImpl
 
     private Bitmap bitmapFromBase64(String imgString){
 
-        String[] base = imgString.split(",");
-
-        String input = base[1];
-
         byte[] imageBytes;
+        String[] base = imgString.split(",");
+        String input;
+
+        if (base.length > 1) {
+            input = base[1];
+        }
+        else {
+            input = base[0];
+        }
 
         imageBytes = Base64.decode(input, Base64.DEFAULT);
 

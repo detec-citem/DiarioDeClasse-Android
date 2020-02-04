@@ -1,27 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.util.AvaliarApp;
 
-import android.net.Uri;
-
-import android.os.Bundle;
-
 import android.content.Intent;
-
-import android.widget.Toast;
-import android.widget.EditText;
-
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import android.support.annotation.Nullable;
-
-import br.gov.sp.educacao.sed.mobile.R;
-
-import br.gov.sp.educacao.sed.mobile.util.Banco;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.Login.LoginDBcrud;
-
+import br.gov.sp.educacao.sed.mobile.R;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
 public class DialogEscreverFeedback
@@ -49,9 +40,9 @@ public class DialogEscreverFeedback
 
         etFeedback = view.findViewById(R.id.et_feedback);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
 
         loginDBcrud = new LoginDBcrud(banco);
 

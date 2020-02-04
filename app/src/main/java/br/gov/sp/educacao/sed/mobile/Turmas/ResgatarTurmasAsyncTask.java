@@ -1,20 +1,12 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
-import android.content.Context;
-import android.util.Log;
 import android.os.AsyncTask;
+import android.util.Log;
 
-import org.json.JSONObject;
 import org.json.JSONException;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import org.json.JSONObject;
 
 import br.gov.sp.educacao.sed.mobile.Menu.HomeViewMvcImpl;
-
-import br.gov.sp.educacao.sed.mobile.R;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
 public class ResgatarTurmasAsyncTask
@@ -45,15 +37,11 @@ public class ResgatarTurmasAsyncTask
 
         boolean sincronizacaoComSucesso = false;
 
-        String json;
+        String json = resgatarTurmasRequest.executeRequest(token[0]);
 
-        if(token[0].equals("aaa")){
+        if(json.equals("")){
 
-            json = lerArquivoEstatico(R.raw.offline3_test).toString();
-        }
-        else{
-
-            json = resgatarTurmasRequest.executeRequest(token[0]);
+            return false;
         }
 
         try {
@@ -62,6 +50,11 @@ public class ResgatarTurmasAsyncTask
 
             JSONObject jsonObject = new JSONObject(json);
 
+            if(!jsonObject.getString("Mensagem").equals("null")){
+
+                return false;
+            }
+
             turmaDBsetters.updateTurmas(jsonObject);
 
             sincronizacaoComSucesso = true;
@@ -69,7 +62,6 @@ public class ResgatarTurmasAsyncTask
         catch (JSONException e) {
 
             CrashAnalytics.e(TAG, e);
-            e.printStackTrace();
         }
         return sincronizacaoComSucesso;
     }
@@ -79,37 +71,8 @@ public class ResgatarTurmasAsyncTask
 
         super.onPostExecute(result);
 
-        delegate.terminouSincronizacao(result);
+        delegate.terminouSincronizacaoTurmas(result);
 
         delegate = null;
-    }
-
-    protected StringBuilder lerArquivoEstatico(int fileID) {
-
-        StringBuilder jsonString = new StringBuilder();
-
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(
-
-                    new InputStreamReader(delegate.getRootView().getResources().openRawResource(fileID), "UTF-8")
-            );
-
-            String line;
-
-            while ((line = br.readLine()) != null) {
-
-                line = line.trim();
-
-                if (line.length() > 0) {
-
-                    jsonString.append(line);
-                }
-            }
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-        return jsonString;
     }
 }

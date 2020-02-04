@@ -1,19 +1,16 @@
 package br.gov.sp.educacao.sed.mobile.Login;
 
 import android.content.ContentValues;
-
 import android.database.Cursor;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-import java.util.Locale;
-
-import java.text.SimpleDateFormat;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import br.gov.sp.educacao.sed.mobile.util.GenericsTable;
 

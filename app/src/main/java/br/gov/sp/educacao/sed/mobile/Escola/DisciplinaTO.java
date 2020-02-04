@@ -75,6 +75,6 @@ public class DisciplinaTO
     @Override
     public String getCodigoUnico() {
 
-        return "codigoDisciplina = " + getCodigoDisciplina() + " and turmasFrequencia_id = " + getTurmasFrequencia_id();
+        return "codigoDisciplina = " + getCodigoDisciplina() + " AND turmasFrequencia_id = " + getTurmasFrequencia_id();
     }
 }

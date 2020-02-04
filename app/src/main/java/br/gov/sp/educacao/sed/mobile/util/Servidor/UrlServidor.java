@@ -26,5 +26,9 @@ public class UrlServidor {
 
     public static final String URL_COMUNICADOS = URL_SERVIDOR + "/Comunicado/Buscar";
 
+    public static final String URL_VERSAO_APP = URL_SERVIDOR + "/VersaoAplicativo?codigoApp=1";
+
+    public static final String URL_CURRICULOS = URL_SERVIDOR + "/Curriculos";
+
     public static String URL_TRACKER = "https://sed.educacao.sp.gov.br/SedApi/Api";
 }

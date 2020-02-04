@@ -15,8 +15,6 @@ public class TurmasFrequenciaTO implements GenericsTable {
     private Integer codigoDiretoria;
     private Integer codigoEscola;
     private Integer codigoTipoEnsino;
-    private Integer aulasBimestre;
-    private Integer aulasAno;
     private Integer aulasSemana;
     private Integer turma_id;
 
@@ -30,8 +28,6 @@ public class TurmasFrequenciaTO implements GenericsTable {
         setCodigoDiretoria(retorno.getInt("CodigoDiretoria"));
         setCodigoEscola(retorno.getInt("CodigoEscola"));
         setCodigoTipoEnsino(retorno.getInt("CodigoTipoEnsino"));
-        setAulasBimestre(retorno.getInt("AulasBimestre"));
-        setAulasAno(retorno.getInt("AulasAno"));
 
         setTurma_id(turma_id);
     }
@@ -42,8 +38,6 @@ public class TurmasFrequenciaTO implements GenericsTable {
         setCodigoDiretoria(retorno.getInt("CodigoDiretoria"));
         setCodigoEscola(retorno.getInt("CodigoEscola"));
         setCodigoTipoEnsino(retorno.getInt("CodigoTipoEnsino"));
-        setAulasBimestre(retorno.getInt("AulasBimestre"));
-        setAulasAno(retorno.getInt("AulasAno"));
         setAulasSemana(retorno.getInt("NumeroAulasPorSemana"));
 
         setTurma_id(turma_id);
@@ -89,22 +83,6 @@ public class TurmasFrequenciaTO implements GenericsTable {
         this.codigoTipoEnsino = codigoTipoEnsino;
     }
 
-    public Integer getAulasBimestre() {
-        return aulasBimestre;
-    }
-
-    public void setAulasBimestre(Integer aulasBimestre) {
-        this.aulasBimestre = aulasBimestre;
-    }
-
-    public Integer getAulasAno() {
-        return aulasAno;
-    }
-
-    public void setAulasAno(Integer aulasAno) {
-        this.aulasAno = aulasAno;
-    }
-
     public Integer getTurma_id() {
         return turma_id;
     }
@@ -122,8 +100,8 @@ public class TurmasFrequenciaTO implements GenericsTable {
         values.put("codigoDiretoria", getCodigoDiretoria());
         values.put("codigoEscola", getCodigoEscola());
         values.put("codigoTipoEnsino", getCodigoTipoEnsino());
-        values.put("aulasBimestre", getAulasBimestre());
-        values.put("aulasAno", getAulasAno());
+        values.put("aulasBimestre", 0);
+        values.put("aulasAno", 0);
         values.put("aulasSemana", getAulasSemana());
         values.put("turma_id", getTurma_id());
 

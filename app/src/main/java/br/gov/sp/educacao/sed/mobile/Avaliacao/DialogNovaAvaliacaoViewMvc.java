@@ -10,6 +10,8 @@ interface DialogNovaAvaliacaoViewMvc {
 
         void inicializarCalendario();
 
+        boolean mediaCalculada();
+
         void usuarioQuerEditarAvaliacao(String nomeAvaliacao, String dataAvaliacao, String tipoAtividade, boolean valeNota);
 
         void usuarioQuerSalvarAvaliacao(String nomeAvaliacao, String dataAvaliacao, String tipoAtividade, boolean valeNota);

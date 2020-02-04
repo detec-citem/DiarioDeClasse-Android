@@ -1,22 +1,17 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
 import android.app.AlertDialog;
-
-import android.graphics.Typeface;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.widget.TextView;
-import android.widget.LinearLayout;
-import android.widget.NumberPicker;
-
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 class ListaAlunosAvaliacoesItemViewMvcImpl

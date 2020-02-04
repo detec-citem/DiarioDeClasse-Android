@@ -1,13 +1,10 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.content.Intent;
-
-import android.support.annotation.Nullable;
-
-import android.support.v4.view.PagerAdapter;
 
 interface FragmentLAPViewMvc {
 

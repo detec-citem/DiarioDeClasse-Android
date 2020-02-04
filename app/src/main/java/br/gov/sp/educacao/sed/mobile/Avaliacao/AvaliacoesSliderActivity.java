@@ -1,14 +1,11 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
-import android.support.v4.app.Fragment;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.app.AppCompatActivity;
 
 public class AvaliacoesSliderActivity
         extends AppCompatActivity

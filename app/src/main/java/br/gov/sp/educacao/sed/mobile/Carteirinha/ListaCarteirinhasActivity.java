@@ -1,36 +1,28 @@
 package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
 
 import org.json.JSONArray;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-
-import android.app.ActivityOptions;
-
-import android.view.View;
-import android.view.Window;
-import android.view.LayoutInflater;
-
-import android.content.Intent;
-import android.content.res.Resources;
-
-import android.support.v7.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
-import br.gov.sp.educacao.sed.mobile.R;
-import br.gov.sp.educacao.sed.mobile.util.Banco;
-import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
-
 import br.gov.sp.educacao.sed.mobile.Menu.RevalidarTokenAsyncTask;
 import br.gov.sp.educacao.sed.mobile.Menu.SelecionarPerfilAsyncTask;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
+import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
 public class ListaCarteirinhasActivity
         extends AppCompatActivity
@@ -77,9 +69,9 @@ public class ListaCarteirinhasActivity
 
         usuario = getIntent().getParcelableExtra("usuario");
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(this);
+
+        banco = CriarAcessoBanco.gerarBanco(this);
 
         carteirinhaDBCrud = new CarteirinhaDBcrud(banco);
 

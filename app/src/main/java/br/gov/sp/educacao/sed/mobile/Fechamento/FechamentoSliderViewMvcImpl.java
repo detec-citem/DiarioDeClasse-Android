@@ -1,19 +1,15 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.os.Handler;
-
 import android.content.Context;
-
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 class FechamentoSliderViewMvcImpl

@@ -1,31 +1,24 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import android.os.Bundle;
-
 import android.app.Activity;
-
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Collections;
-
-import java.text.SimpleDateFormat;
-
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 
-import android.support.v4.app.Fragment;
-
-import android.support.annotation.Nullable;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
-import br.gov.sp.educacao.sed.mobile.util.Banco;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
 import br.gov.sp.educacao.sed.mobile.util.Analytics;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
 public class SliderFragmentAvaliacao
@@ -85,9 +78,9 @@ public class SliderFragmentAvaliacao
 
         aluno = turma.getAlunos().get(position);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(activity.getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(activity.getApplicationContext());
 
         avaliacaoDBgetters = new AvaliacaoDBgetters(banco);
 

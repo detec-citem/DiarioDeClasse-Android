@@ -9,10 +9,10 @@ import java.io.OutputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
 import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
-import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
+import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
 
 class EnviarRegistrosRequest {
 

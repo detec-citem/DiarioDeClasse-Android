@@ -1,13 +1,11 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import android.widget.TextView;
-
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 class FrequenciaConsultaItemViewMvcImpl

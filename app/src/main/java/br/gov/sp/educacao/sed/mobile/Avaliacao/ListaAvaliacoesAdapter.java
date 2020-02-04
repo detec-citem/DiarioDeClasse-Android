@@ -1,26 +1,21 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import android.content.Context;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import br.gov.sp.educacao.sed.mobile.R;
-
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.Interpolator;
 import android.view.animation.AnimationUtils;
-
+import android.view.animation.Interpolator;
 import android.widget.ArrayAdapter;
 
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.gov.sp.educacao.sed.mobile.R;
 
 public class ListaAvaliacoesAdapter
         extends ArrayAdapter<Avaliacao>

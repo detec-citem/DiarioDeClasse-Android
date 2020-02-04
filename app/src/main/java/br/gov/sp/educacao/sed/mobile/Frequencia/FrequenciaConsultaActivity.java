@@ -1,19 +1,15 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import android.os.Bundle;
-
-import java.util.Comparator;
-import java.util.Collections;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
+import java.util.Collections;
+import java.util.Comparator;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
@@ -44,9 +40,9 @@ public class FrequenciaConsultaActivity
 
         turmaGrupo = bundle.getParcelable(TurmaGrupo.BUNDLE_TURMA_GRUPO);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(this);
+
+        banco = CriarAcessoBanco.gerarBanco(this);
 
         frequenciaDBsetters = new FrequenciaDBsetters(banco);
 

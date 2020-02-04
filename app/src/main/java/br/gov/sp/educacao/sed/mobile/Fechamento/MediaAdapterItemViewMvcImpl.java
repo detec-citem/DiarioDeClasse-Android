@@ -1,20 +1,16 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import java.math.BigDecimal;
-
 import android.content.Context;
-
 import android.util.SparseArray;
-
-import android.widget.TextView;
-import android.widget.ImageView;
-
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.math.BigDecimal;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 class MediaAdapterItemViewMvcImpl

@@ -1,19 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.Login;
 
-import android.widget.Toast;
-import android.widget.EditText;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.app.AlertDialog;
-
+import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 import br.gov.sp.educacao.sed.mobile.util.NetworkUtils;
 
 public class LoginViewMvcImpl
@@ -122,8 +121,12 @@ public class LoginViewMvcImpl
 
     @Override
     public void finalizaProgress() {
-
-        dialogLogin.dismiss();
+        try {
+            dialogLogin.dismiss();
+        }
+        catch (Exception e) {
+            Crashlytics.logException(e);
+        }
     }
 
     @Override

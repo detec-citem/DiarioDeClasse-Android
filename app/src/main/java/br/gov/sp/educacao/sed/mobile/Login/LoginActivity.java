@@ -1,21 +1,17 @@
 package br.gov.sp.educacao.sed.mobile.Login;
 
-import android.os.Bundle;
-
 import android.content.Intent;
-
-import android.view.View;
-import android.view.LayoutInflater;
-
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import org.json.JSONObject;
 
 import br.gov.sp.educacao.sed.mobile.Menu.HomeActivity;
-
 import br.gov.sp.educacao.sed.mobile.R;
-import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.Analytics;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 import br.gov.sp.educacao.sed.mobile.util.MyPreferences;
 
@@ -46,9 +42,9 @@ public class LoginActivity
 
         loginViewMvcImpl = new LoginViewMvcImpl(LayoutInflater.from(this), null);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         loginDBcrud = new LoginDBcrud(banco);
 
@@ -94,7 +90,7 @@ public class LoginActivity
     @Override
     public void resultadoLogin(UsuarioTO usuarioTO) {
 
-        try{
+        try {
 
             loginAsyncTask.delegate = null;
         }

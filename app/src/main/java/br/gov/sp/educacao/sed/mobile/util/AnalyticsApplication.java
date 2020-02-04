@@ -1,15 +1,15 @@
 package br.gov.sp.educacao.sed.mobile.util;
 
+import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import java.util.HashMap;
 
-import android.app.Application;
-
-import com.google.android.gms.analytics.Tracker;
-import com.google.android.gms.analytics.GoogleAnalytics;
-
-public class AnalyticsApplication
-        extends Application {
-
+public class AnalyticsApplication extends Application {
+    //Constantes
     private static final String PROPERTY_ID = "UA-111388867-2";
 
     public enum TrackerName {
@@ -17,16 +17,17 @@ public class AnalyticsApplication
         APP_TRACKER,
     }
 
-    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+    //Variáveis
+    private HashMap<TrackerName, Tracker> trackers = new HashMap<>();
 
-    public AnalyticsApplication() {
-
-        super();
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     public synchronized Tracker getTracker(TrackerName trackerId) {
-
-        if(!mTrackers.containsKey(trackerId)) {
+        if(!trackers.containsKey(trackerId)) {
 
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
 
@@ -34,9 +35,9 @@ public class AnalyticsApplication
 
                 Tracker t = analytics.newTracker(PROPERTY_ID);
 
-                mTrackers.put(trackerId, t);
+                trackers.put(trackerId, t);
             }
         }
-        return mTrackers.get(trackerId);
+        return trackers.get(trackerId);
     }
 }

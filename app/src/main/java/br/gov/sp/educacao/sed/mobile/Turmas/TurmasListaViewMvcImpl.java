@@ -1,28 +1,23 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
-import java.util.List;
-import java.util.Comparator;
-import java.util.Collections;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.widget.TextView;
-import android.widget.ListView;
-import android.widget.AbsListView;
-import android.widget.LinearLayout;
-
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.widget.Toolbar;
-
-import android.support.annotation.Nullable;
-
-import android.support.constraint.ConstraintLayout;
 
 class TurmasListaViewMvcImpl
         implements TurmasListaViewMvc, TurmasListaAdapter.OnTurmaSelecionadaListener {

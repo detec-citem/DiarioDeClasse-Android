@@ -159,7 +159,9 @@
     <string name="status_abrev_transferido">INA</string>
     <string name="atencao">Atenção!</string>
     <string name="dados_incompletos_no_servidor">
-        É necessário que o calendário escolar esteja homologado e a associação do professor à classe completa. O procedimento de associação é realizado em duas etapas:\n1) Inserir a associação do professor: João dá aula para o 6º Ano A de Artes\n2) Inserir o horário do professor: João dá aula de Artes para o 6º Ano A às segundas e quintas às 07 horas\nPor gentileza, verifique com o GOE/AOE da sua escola para que você possa utilizar o aplicativo Di@rio de Classe.
+        É necessário que o calendário escolar esteja homologado e a associação do professor à classe completa. O procedimento de associação é realizado da seguinte forma:\n
+        1) Inserir a associação do professor: João dá aula para o 6º Ano A de Artes\n
+        Por gentileza, verifique com o GOE/AOE da sua escola para que você possa utilizar o aplicativo Di@rio de Classe.
     </string>
     <string name="tentar_novamente">Sincronizar novamente</string>
     <string name="dados_incompletos_no_dispostivo_sem_internet">Seu dispostivo não foi sincronizado e você está sem WiFi, conecte-se e sincronize!</string>
@@ -173,5 +175,19 @@
     <string name="notaAvaliacao">Nota: %1$d,%2$d%3$d</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="aguarde_o_sistema_sincronizar_todos_os_dados_abaixo">Aguarde o sistema sincronizar todos os dados abaixo</string>
+    <string name="atualizando_credenciais">Atualizando credenciais</string>
+    <string name="enviando_avaliacoes">Enviando avaliações</string>
+    <string name="enviando_faltas">Enviando faltas</string>
+    <string name="enviando_registros_de_aula">Enviando registros de aula</string>
+    <string name="atualizando_dados">Atualizando dados</string>
+    <string name="sincronizar_novamente">Sincronizar novamente</string>
+    <string name="sincronizando">SINCRONIZANDO</string>
+    <string name="sincroniza_o_realizada_com_sucesso">Sincronização realizada com\nsucesso!</string>
+    <string name="aguarde">Aguarde</string>
+    <string name="buscando_versao_natual_do_app">Buscando versão\natual do app</string>
+    <string name="ir_para_loja">IR PARA LOJA</string>
+    <string name="conteudos">Conteúdos</string>
+    <string name="string_tutorial_link_atendimento"><u>https://atendimento.educacao.sp.gov.br/</u></string>
 
 </resources>

@@ -2,12 +2,11 @@ package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
 import android.content.ContentValues;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.gov.sp.educacao.sed.mobile.util.GenericsTable;
 

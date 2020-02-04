@@ -1,38 +1,55 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import java.util.List;
-import java.util.ArrayList;
-
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+
+import com.crashlytics.android.Crashlytics;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
 public class MenuDBcrud {
+    //Constantes
+    private final String TAG = "MenuDBcrud";
 
+    //Variáveis
     private Banco banco;
-
-    private String queryAtualizarTokenUsuario;
-
     private SQLiteStatement statementAtualizarTokenUsuario;
 
-    private final String TAG = MenuDBcrud.class.getSimpleName();
-
+    //Construtor
     public MenuDBcrud(Banco banco) {
-
         this.banco = banco;
+    }
 
-        queryAtualizarTokenUsuario =
-
-                "UPDATE USUARIO SET token = ? WHERE id = 1 AND ativo = 1;";
-
-
+    //Métodos
+    public void atualizarTokenUsuario(String token) {
+        SQLiteDatabase database = banco.get();
+        if (statementAtualizarTokenUsuario == null) {
+            statementAtualizarTokenUsuario = database.compileStatement("UPDATE USUARIO SET token = ? WHERE id = 1 AND ativo = 1;");
+        }
+        if (database.inTransaction()) {
+            database.endTransaction();
+        }
+        try {
+            database.beginTransaction();
+            statementAtualizarTokenUsuario.bindString(1, token);
+            statementAtualizarTokenUsuario.executeUpdateDelete();
+        }
+        catch(Exception e) {
+            Crashlytics.logException(e);
+            CrashAnalytics.e(TAG, e);
+        }
+        finally {
+            database.setTransactionSuccessful();
+            database.endTransaction();
+        }
     }
 
     void limparTabelas() {
-
-        List<String> tabelasParaApagar = new ArrayList<>(25);
-
+        List<String> tabelasParaApagar = new ArrayList<>(32);
         tabelasParaApagar.add("FECHAMENTO_TURMA");
         tabelasParaApagar.add("FECHAMENTO_ALUNO");
         tabelasParaApagar.add("MEDIA_ALUNO");
@@ -61,64 +78,27 @@ public class MenuDBcrud {
         tabelasParaApagar.add("CARTEIRINHAS");
         tabelasParaApagar.add("DIASCONFLITO");
         tabelasParaApagar.add("COMUNICADOS");
-
+        tabelasParaApagar.add("CURRICULO_FUNDAMENTAL");
+        tabelasParaApagar.add("CONTEUDO_FUNDAMENTAL");
+        tabelasParaApagar.add("REGISTRO_AULA_FUNDAMENTAL");
+        tabelasParaApagar.add("HABILIDADE_REGISTRO_FUNDAMENTAL");
         apagarTabelas(tabelasParaApagar);
     }
 
-    public void atualizarTokenUsuario(String token) {
-
-        statementAtualizarTokenUsuario = banco.get().compileStatement(queryAtualizarTokenUsuario);
-
-        try {
-
-            banco.get().beginTransaction();
-
-            statementAtualizarTokenUsuario.bindString(1, token);
-
-            statementAtualizarTokenUsuario.executeUpdateDelete();
-        }
-        catch(Exception e) {
-
-            CrashAnalytics.e(TAG, e);
-        }
-        finally {
-
-            banco.get().setTransactionSuccessful();
-
-            banco.get().endTransaction();
-
-            statementAtualizarTokenUsuario.clearBindings();
-
-            statementAtualizarTokenUsuario.close();
-
-            statementAtualizarTokenUsuario = null;
-        }
-    }
-
     private void apagarTabelas(List<String> tabelasParaApagar) {
-
-        try {
-
-            banco.get().beginTransaction();
-
-            for(int i = 0; i < tabelasParaApagar.size(); i++) {
-
-                banco.get().delete(tabelasParaApagar.get(i), null, null);
+        SQLiteDatabase database = banco.get();
+        database.beginTransaction();
+        for(int i = 0; i < 32; i++) {
+            try {
+                database.delete(tabelasParaApagar.get(i), null, null);
+            }
+            catch (Exception e) {
+                Crashlytics.logException(e);
+                CrashAnalytics.e(TAG, e);
             }
         }
-        catch (Exception e) {
-
-            CrashAnalytics.e(TAG, e);
-        }
-        finally {
-
-            banco.get().setTransactionSuccessful();
-
-            banco.get().endTransaction();
-
-            tabelasParaApagar.clear();
-
-            tabelasParaApagar = null;
-        }
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        tabelasParaApagar.clear();
     }
 }

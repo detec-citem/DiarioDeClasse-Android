@@ -1,22 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
 import android.content.Context;
-
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.widget.TextView;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.AnimationUtils;
-
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 
 public class ListaAvaliacoesItemViewMvcImpl
         implements ListaAvaliacoesItemViewMvc {

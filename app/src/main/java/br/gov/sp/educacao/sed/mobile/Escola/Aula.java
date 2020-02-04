@@ -7,18 +7,23 @@ public class Aula
         implements Parcelable {
 
     private int id;
-    private int diaSemana;
     private String inicio;
     private String fim;
 
     public Aula() {}
 
     private Aula(Parcel in) {
-
         id = in.readInt();
-        diaSemana = in.readInt();
         inicio = in.readString();
         fim = in.readString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getInicio() {
@@ -37,22 +42,6 @@ public class Aula
         this.fim = fim;
     }
 
-    public int getDiaSemana() {
-        return diaSemana;
-    }
-
-    public void setDiaSemana(int diaSemana) {
-        this.diaSemana = diaSemana;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -60,9 +49,7 @@ public class Aula
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeInt(id);
-        dest.writeInt(diaSemana);
         dest.writeString(inicio);
         dest.writeString(fim);
     }

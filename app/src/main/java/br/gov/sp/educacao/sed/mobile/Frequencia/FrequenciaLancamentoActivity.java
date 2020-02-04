@@ -1,60 +1,56 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.Set;
-import java.util.Date;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Calendar;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Collections;
-
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-
-import android.content.Intent;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.LayoutInflater;
-
-import br.gov.sp.educacao.sed.mobile.R;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
-import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
-
-import br.gov.sp.educacao.sed.mobile.RegistroDeAula.RegistroAulaActivity;
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
-import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import br.gov.sp.educacao.sed.mobile.Escola.Aula;
+import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
-
-import br.gov.sp.educacao.sed.mobile.util.Banco;
-import br.gov.sp.educacao.sed.mobile.util.DateUtils;
-import br.gov.sp.educacao.sed.mobile.util.Analytics;
-import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
-
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import br.gov.sp.educacao.sed.mobile.R;
+import br.gov.sp.educacao.sed.mobile.RegistroDeAula.RegistroAulaActivity;
+import br.gov.sp.educacao.sed.mobile.RegistroDeAula.RegistroAulaFundamentalActivity;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import br.gov.sp.educacao.sed.mobile.util.Analytics;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
+import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
+import br.gov.sp.educacao.sed.mobile.util.DateUtils;
 
 public class FrequenciaLancamentoActivity
         extends AppCompatActivity
          implements FrequenciaLancamentoViewMvc.Listener {
+
+    private boolean alterouFrequencia = false;
 
     Parcelable state;
 
@@ -68,7 +64,6 @@ public class FrequenciaLancamentoActivity
     private int faltasBimestre;
     private int mesSelecionado;
     private int aulasPorSemana;
-    private int diaSemana;
     private int semanaMes;
     private int mes1;
 
@@ -113,11 +108,6 @@ public class FrequenciaLancamentoActivity
     private List<String> listaHorariosSelecionados;
     private List<String> listaHorariosComLancamentos;
 
-    private Banco banco;
-
-    @SuppressWarnings("FieldCanBeLocal")
-    private CriarAcessoBanco criarAcessoBanco;
-
     private Calendar calendar;
 
     private ArrayList<String> disableDateStrings;
@@ -133,13 +123,15 @@ public class FrequenciaLancamentoActivity
 
     private FrequenciaLancamentoViewMvcImpl frequenciaLancamentoViewMvcImpl;
 
+    private SQLiteDatabase database;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         frequenciaLancamentoViewMvcImpl = new FrequenciaLancamentoViewMvcImpl(
 
-                LayoutInflater.from(this), getSupportFragmentManager(), checarTamanhoTela(), null
+                LayoutInflater.from(this), getSupportFragmentManager(), null
         );
 
         this.savedInstanceState = savedInstanceState;
@@ -180,7 +172,12 @@ public class FrequenciaLancamentoActivity
 
         inicializarCalendario();
 
-        popularListaDiasSemana();
+        listaDiaSemana = new ArrayList<>();
+        listaDiaSemana.add(1);
+        listaDiaSemana.add(2);
+        listaDiaSemana.add(3);
+        listaDiaSemana.add(4);
+        listaDiaSemana.add(5);
 
         popularListaDiasLetivosString();
 
@@ -247,6 +244,8 @@ public class FrequenciaLancamentoActivity
 
             frequenciaEnvio.setHorarioFimAula(horario.split("/")[1]);
 
+            frequenciaEnvio.setCodigoEscola(turmaGrupo.getTurma().getCodigoEscola());
+
             ExcluirFrequenciaTask excluirFrequenciaTask = new ExcluirFrequenciaTask(usuario.getToken());
 
             excluirFrequenciaTask.delegate = frequenciaLancamentoViewMvcImpl;
@@ -301,44 +300,6 @@ public class FrequenciaLancamentoActivity
         horarioExcluir = "";
     }
 
-    private int checarTamanhoTela() {
-
-        int width  = Resources.getSystem().getDisplayMetrics().widthPixels;
-        int height = Resources.getSystem().getDisplayMetrics().heightPixels;
-        int dpi    = Resources.getSystem().getDisplayMetrics().densityDpi;
-
-        int telaPequena = 0;
-
-        WindowManager windowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
-
-        final Display display = windowManager.getDefaultDisplay();
-
-        Point outPoint = new Point();
-
-        if (Build.VERSION.SDK_INT >= 19) {
-
-            display.getRealSize(outPoint);
-        }
-        else {
-
-            display.getSize(outPoint);
-        }
-
-        if(height >= 880 && height < 1000) {
-
-            telaPequena = 1; //Tela maior que 4.3 e menor que 5
-        }
-        else if(height < 880) {
-
-            telaPequena = 2; //Tela menor que 4.3
-        }
-
-        Log.e(TAG, "Medidas - " + "Width: " + width + " Height: " + height + " Dpi: " + dpi);
-        Log.e(TAG, "Medidas - " + "Height: " + outPoint.y);
-
-        return telaPequena;
-    }
-
     @Override
     protected void onStop() {
 
@@ -369,60 +330,73 @@ public class FrequenciaLancamentoActivity
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
-
-        listaAlunos.clear();
-        listaAula.clear();
-        listaDiasLetivosStr.clear();
-        listaDiaSemana.clear();
-        disableDateStrings.clear();
+        if (listaDiasLetivosStr != null) {
+            listaDiasLetivosStr.clear();
+        }
+        if (listaDiaSemana != null) {
+            listaDiaSemana.clear();
+        }
+        if (disableDateStrings != null) {
+            disableDateStrings.clear();
+        }
+        if (listaAula != null) {
+            listaAula.clear();
+        }
 
         if(listahorario != null) {
-
             listahorario.clear();
         }
-
         if(listaAlunos != null) {
-
             listaAlunos.clear();
         }
-
-        /*if(listaAulaSelecionada != null) {
-
-            listaAulaSelecionada.clear();
-        }*/
     }
 
     public void onBackPressed() {
-
-        finish();
+        if (alterouFrequencia) {
+            final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("Atenção");
+            alertBuilder.setMessage("Você tem lançamentos de frequência não salvos! Você tem certeza que deseja continuar?");
+            alertBuilder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    database.endTransaction();
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            AlertDialog alertDialog = alertBuilder.create();
+            alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialogarredondado);
+            alertDialog.show();
+        }
+        else {
+            finish();
+        }
     }
 
     private void inicializarBanco() {
-
-        criarAcessoBanco = new CriarAcessoBanco();
-
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
-
+        Banco banco = CriarAcessoBanco.gerarBanco(this);
+        database = banco.get();
         frequenciaDBgetters = new FrequenciaDBgetters(banco);
-
         frequenciaDBsetters = new FrequenciaDBsetters(banco);
-
         frequenciaDBcrud = new FrequenciaDBcrud(banco);
     }
 
     public void irParaInicioLista() {
-
         frequenciaLancamentoViewMvcImpl.irParaPrimeiroAluno();
     }
 
     @Override
     public void aplicarNA(Aluno aluno) {
-
-        if(!aluno.getComparecimento().equals("N")) {
-
-            salvarNaoAplica(aluno);
+        if (!aluno.getComparecimento().equals(siglaNaoSeAplica)) {
+            alterouFrequencia = true;
+            salvarFrequencia(siglaNaoSeAplica, aluno);
         }
     }
 
@@ -444,264 +418,99 @@ public class FrequenciaLancamentoActivity
 
     @Override
     public void usuarioClicouConfirmar() {
-
         int faltas = frequenciaDBgetters.getFaltas(diaLetivo, aulaEspecifica);
-
-        List<Aluno> alunos = frequenciaDBgetters.getAlunosAtivos(listaAlunos);
-
-        if(alunos.size() == faltas) {
-
+        if (alunosAtivos.size() == faltas) {
+            alterouFrequencia = false;
+            database.setTransactionSuccessful();
+            database.endTransaction();
             frequenciaLancamentoViewMvcImpl.avisarUsuarioChamadaRealizada();
-
             frequenciaLancamentoViewMvcImpl.exibirProgressBarVoador();
-
-            Intent intent = new Intent(this, RegistroAulaActivity.class);
-
+            Intent intent;
+            if (turmaGrupo.getTurma().getCodigoTipoEnsino() == 14) {
+                intent = new Intent(this, RegistroAulaFundamentalActivity.class);
+            }
+            else {
+                intent = new Intent(this, RegistroAulaActivity.class);
+            }
             Bundle bundle = new Bundle();
-
             bundle.putParcelable(TurmaGrupo.BUNDLE_TURMA_GRUPO, turmaGrupo);
-
             bundle.putParcelableArrayList("listaHorariosSelecionados", (ArrayList) listaHorariosSelecionados);
-
             bundle.putString("data", dataParaRegistroAula);
-
             intent.putExtras(bundle);
-
             navegarPara(intent);
         }
         else {
-
             frequenciaLancamentoViewMvcImpl.avisarUsuarioChamadaIncompleta();
-        }
-    }
-
-    public void salvarFalta(Aluno aluno) {
-
-        banco.get().beginTransaction();
-
-        if(listaHorariosSelecionados.size() > 0) {
-
-            for(int i = 0; i < listaHorariosSelecionados.size(); i++) {
-
-                String inicioHora = listaHorariosSelecionados.get(i).split("/")[0].trim();
-
-                String fimHora = listaHorariosSelecionados.get(i).split("/")[1].trim();
-
-                int aulaHorario = frequenciaDBgetters.getAula(
-
-                        inicioHora, fimHora, 0, turmaGrupo.getDisciplina().getId()
-                );
-
-                frequenciaDBsetters.setComparecimento(
-
-                        usuario.getId(), diaLetivo, aulaHorario, aluno.getId(), "F"
-                );
-
-                if(!aluno.getComparecimento().equals("F")) {
-
-                    adicionarFaltasBimestraisAnuais(aluno);
-                }
-
-                aluno.setComparecimento(siglaFaltou);
-
-                frequenciaDBsetters.setFaltasAluno(
-
-                        aluno, turmaGrupo.getDisciplina().getId()
-                );
-            }
-        }
-
-        else {
-
-            frequenciaDBsetters.setComparecimento(
-
-                    usuario.getId(), diaLetivo, aulaEspecifica, aluno.getId(), "F"
-            );
-
-            if(!aluno.getComparecimento().equals("F")) {
-
-                adicionarFaltasBimestraisAnuais(aluno);
-            }
-
-            aluno.setComparecimento(siglaFaltou);
-
-            frequenciaDBsetters.setFaltasAluno(
-
-                    aluno, turmaGrupo.getDisciplina().getId()
-            );
-        }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
-    }
-
-    private void popularListaDiasSemana() {
-
-        listaDiaSemana = new ArrayList<>();
-
-        for(Aula aulaFor : listaAula) {
-
-            if (!listaDiaSemana.contains(aulaFor.getDiaSemana())) {
-
-                listaDiaSemana.add(aulaFor.getDiaSemana());
-            }
         }
     }
 
     @Override
     public void aplicarFalta(Aluno aluno) {
-
-        if(!aluno.getComparecimento().equals("F")) {
-
-            salvarFalta(aluno);
+        if (!aluno.getComparecimento().equals(siglaFaltou)) {
+            alterouFrequencia = true;
+            salvarFrequencia(siglaFaltou, aluno);
         }
     }
 
     @Override
     public void navegarPara(Intent intent) {
-
         startActivity(intent);
     }
 
-    public void salvarPresenca(Aluno aluno) {
-
-        banco.get().beginTransaction();
-
-        if(listaHorariosSelecionados.size() > 0) {
-
-            for(int i = 0; i < listaHorariosSelecionados.size(); i++) {
-
-                String inicioHora = listaHorariosSelecionados.get(i).split("/")[0].trim();
-
-                String fimHora = listaHorariosSelecionados.get(i).split("/")[1].trim();
-
-                int aulaHorario = frequenciaDBgetters.getAula(
-
-                        inicioHora, fimHora, 0, turmaGrupo.getDisciplina().getId()
-                );
-
-                frequenciaDBsetters.setComparecimento(
-
-                        usuario.getId(), diaLetivo, aulaHorario, aluno.getId(), siglaCompareceu
-                );
-
-                if(aluno.getComparecimento().equals("F")) {
-
-                    subtrairFaltasBimestraisAnuais(aluno);
+    public void salvarFrequencia(String frequencia, Aluno aluno) {
+        int alunoId = aluno.getId();
+        int disciplinaId = turmaGrupo.getDisciplina().getId();
+        int usuarioId = usuario.getId();
+        aluno.setComparecimento(frequencia);
+        if (!listaHorariosSelecionados.isEmpty()) {
+            int i;
+            int numeroHorariosSelecionados = listaHorariosSelecionados.size();
+            for(i = 0; i < numeroHorariosSelecionados; i++) {
+                String horarioSelecionado = listaHorariosSelecionados.get(i);
+                String[] componentesHorario = horarioSelecionado.split("/");
+                if (componentesHorario.length == 2) {
+                    String inicioHora = componentesHorario[0].trim();
+                    String fimHora = componentesHorario[1].trim();
+                    int aulaHorario = frequenciaDBgetters.getAula(inicioHora, fimHora, 0, disciplinaId);
+                    frequenciaDBsetters.setComparecimento(usuarioId, diaLetivo, aulaHorario, alunoId, frequencia);
+                    if (frequencia.equals(siglaFaltou)) {
+                        adicionarFaltasBimestraisAnuais(aluno);
+                    }
+                    else {
+                        subtrairFaltasBimestraisAnuais(aluno);
+                    }
+                    frequenciaDBsetters.setFaltasAluno(aluno, disciplinaId);
                 }
-
-                aluno.setComparecimento(siglaCompareceu);
-
-                frequenciaDBsetters.setFaltasAluno(
-
-                        aluno, turmaGrupo.getDisciplina().getId()
-                );
             }
         }
         else {
-
-            frequenciaDBsetters.setComparecimento(
-
-                    usuario.getId(), diaLetivo, aulaEspecifica, aluno.getId(), siglaCompareceu
-            );
-
-            if(aluno.getComparecimento().equals("F")) {
-
+            frequenciaDBsetters.setComparecimento(usuarioId, diaLetivo, aulaEspecifica, alunoId, frequencia);
+            if (frequencia.equals(siglaFaltou)) {
+                adicionarFaltasBimestraisAnuais(aluno);
+            }
+            else {
                 subtrairFaltasBimestraisAnuais(aluno);
             }
-
-            aluno.setComparecimento(siglaCompareceu);
-
-            frequenciaDBsetters.setFaltasAluno(
-
-                    aluno, turmaGrupo.getDisciplina().getId()
-            );
+            frequenciaDBsetters.setFaltasAluno(aluno, disciplinaId);
         }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
-    }
-
-    public void salvarPresencaTodosAlunos() {
-
-        banco.get().beginTransaction();
-
-        for(int i = 0; i <= listaAlunos.size() - 1; i++) {
-
-            if(listaAlunos.get(i).getAlunoAtivo()) {
-
-                salvarPresenca(listaAlunos.get(i));
-            }
-        }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
-
-        frequenciaLancamentoViewMvcImpl.recarregarLista();
-    }
-
-    public void salvarNaoAplica(Aluno aluno) {
-
-        banco.get().beginTransaction();
-
-        frequenciaDBsetters.setFaltasAluno(aluno, turmaGrupo.getDisciplina().getId());
-
-        faltasBimestre = aluno.getFaltasBimestre();
-
-        faltasAnuais = aluno.getFaltasAnuais();
-
-        frequenciaDBsetters.setComparecimento(
-
-                usuario.getId(), diaLetivo, aulaEspecifica, aluno.getId(), siglaNaoSeAplica
-        );
-
-        if(aluno.getComparecimento().equals("F")) {
-
-            subtrairFaltasBimestraisAnuais(aluno);
-        }
-
-        aluno.setComparecimento(siglaNaoSeAplica);
-
-        frequenciaDBsetters.setFaltasAluno(
-
-                aluno, turmaGrupo.getDisciplina().getId()
-        );
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
     }
 
     @Override
     public void aplicarPresenca(Aluno aluno) {
-
-        banco.get().beginTransaction();
-
-        if(!aluno.getComparecimento().equals("C")) {
-
-            salvarPresenca(aluno);
+        if (!aluno.getComparecimento().equals(siglaCompareceu)) {
+            alterouFrequencia = true;
+            salvarFrequencia(siglaCompareceu, aluno);
         }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
     }
 
     private void inicializarGoogleAnalytics() {
-
         Analytics.setTela(this, this.getClass().toString());
     }
 
     private void inicializarSiglasFrequencia() {
-
-        siglaCompareceu = getResources().getString(R.string.sigla_compareceu);
-
-        siglaFaltou = getResources().getString(R.string.sigla_falta);
-
-        siglaNaoSeAplica = getResources().getString(R.string.sigla_nao_se_aplica);
+        siglaCompareceu = getString(R.string.sigla_compareceu);
+        siglaFaltou = getString(R.string.sigla_falta);
+        siglaNaoSeAplica = getString(R.string.sigla_nao_se_aplica);
     }
 
     private void ordenarAlunosPorNumeroChamada() {
@@ -739,26 +548,16 @@ public class FrequenciaLancamentoActivity
         );
     }
 
-    public void irParaProximoAlunoAtivo(Aluno aluno) {
-
-        int index = aluno.getNumeroChamada() - 1;
-
-        int count = 1;
-
-        for(int i = index + 1; i < listaAlunos.size(); i++) {
-
-            if(listaAlunos.get(i).getAlunoAtivo()) {
-
-                index = i;
-
+    public void irParaProximoAlunoAtivo(int posicao) {
+        int i;
+        int numeroAlunos = listaAlunos.size();
+        for(i = posicao + 1; i < numeroAlunos; i++) {
+            if (listaAlunos.get(i).getAlunoAtivo()) {
+                posicao = i;
                 break;
             }
-            else {
-
-                count++;
-            }
         }
-        frequenciaLancamentoViewMvcImpl.irParaProximoAlunoAtivo(index + 1, count);
+        frequenciaLancamentoViewMvcImpl.irParaProximoAlunoAtivo(posicao, 0);
     }
 
     @Override
@@ -888,8 +687,6 @@ public class FrequenciaLancamentoActivity
 
                 }
 
-                banco.get().beginTransaction();
-
                 for(int i = 0; i < listaDiasLetivosStr.size(); i++) {
 
                     try {
@@ -981,10 +778,6 @@ public class FrequenciaLancamentoActivity
                     }
                 }
 
-                banco.get().setTransactionSuccessful();
-
-                banco.get().endTransaction();
-
                 disableDateStrings = new ArrayList<>();
 
                 for(int diaLetivo : mapaDiasMes) {
@@ -1023,15 +816,6 @@ public class FrequenciaLancamentoActivity
 
     @Override
     public void aplicarPresencaParaTodosAlunos(View view) {
-
-        if(diaLetivo == 0 || horarioSelecionado.equals("")) {
-
-            frequenciaLancamentoViewMvcImpl.avisarUsuarioSelecionarData();
-        }
-        else {
-
-            salvarPresencaTodosAlunos();
-        }
     }
 
     @Override
@@ -1041,6 +825,8 @@ public class FrequenciaLancamentoActivity
     }
 
     public void usuarioSelecionouDataCalendario(Date date) {
+
+        state = null;
 
         frequenciaLancamentoViewMvcImpl.esconderFundoBranco(dialogCaldroidFragment);
 
@@ -1056,23 +842,9 @@ public class FrequenciaLancamentoActivity
 
         calendar.set(ano, mes - 1, dia);
 
-        diaSemana = calendar.get(Calendar.DAY_OF_WEEK);
-
         semanaMes = calendar.get(Calendar.WEEK_OF_MONTH);
 
         mes1 = calendar.get(Calendar.MONTH);
-
-        listahorario = new ArrayList<>();
-
-        for(int i = 0; i < listaAula.size(); i++) {
-
-            if(listaAula.get(i).getDiaSemana() + 1 == diaSemana) {
-
-                Aula aula = listaAula.get(i);
-
-                listahorario.add(aula.getInicio() + "/" + aula.getFim());
-            }
-        }
 
         anoAtual = ano;
 
@@ -1082,10 +854,6 @@ public class FrequenciaLancamentoActivity
 
         diaLetivo = frequenciaDBgetters.getDiaLetivoIdPelosBimestres(bimestre.getId(), bimestreAnterior.getId(), data);
 
-        frequenciaLancamentoViewMvcImpl.setTelaMaisQueUmHorario(listahorario, listaHorariosSelecionados);
-
-        aulaEspecifica = pegarAulaEspecifica(date, listahorario.get(0));
-
         dataSelecionada = date;
 
         frequenciaLancamentoViewMvcImpl.exibirData(data);
@@ -1094,34 +862,42 @@ public class FrequenciaLancamentoActivity
 
         frequenciaLancamentoViewMvcImpl.exibirOpcoesHorarios();
 
-        state = null;
+        listahorario = new ArrayList<>();
+
+        if (listaAula != null && !listaAula.isEmpty()) {
+            int i;
+            int numeroAulas = listaAula.size();
+            for(i = 0; i < numeroAulas; i++) {
+                Aula aula = listaAula.get(i);
+                listahorario.add(aula.getInicio() + "/" + aula.getFim());
+            }
+        }
+
+        if (!listahorario.isEmpty()) {
+            frequenciaLancamentoViewMvcImpl.setTelaMaisQueUmHorario(listahorario, listaHorariosSelecionados);
+            aulaEspecifica = pegarAulaEspecifica(date, listahorario.get(0));
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(R.string.atencao).setMessage("Você não possui horários cadastrados").setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int arg1) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            AlertDialog alerta = builder.create();
+            alerta.getWindow().setBackgroundDrawableResource(R.drawable.dialogarredondado);
+            alerta.show();
+        }
     }
 
     private void subtrairFaltasBimestraisAnuais(Aluno aluno) {
-
         faltasBimestre = aluno.getFaltasBimestre();
-
         faltasAnuais = aluno.getFaltasAnuais();
-
-        faltasBimestre = (faltasBimestre < 0 ? (0) : (faltasBimestre - 1));
-
-        banco.get().beginTransaction();
-
-        frequenciaDBsetters.setNumeroFaltasBimestre(
-
-                aluno, turmaGrupo.getDisciplina().getId(), faltasBimestre
-        );
-
-        faltasAnuais = (faltasAnuais < 0 ? (0) : (faltasAnuais - 1));
-
-        frequenciaDBsetters.setNumeroFaltasAnuais(
-
-                aluno, turmaGrupo.getDisciplina().getId(), faltasAnuais
-        );
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
+        faltasBimestre = (faltasBimestre <= 0 ? (0) : (faltasBimestre - 1));
+        int disciplinaId = turmaGrupo.getDisciplina().getId();
+        faltasAnuais = (faltasAnuais <= 0 ? (0) : (faltasAnuais - 1));
+        frequenciaDBsetters.salvarNumeroFaltasBimestre(disciplinaId, faltasBimestre, aluno, database);
+        frequenciaDBsetters.salvarNumeroFaltasAnuais(disciplinaId, faltasAnuais, aluno, database);
     }
 
     @Override
@@ -1135,9 +911,7 @@ public class FrequenciaLancamentoActivity
 
         pegarTipoFrequenciaAlunosPorData(diaLetivo);
 
-        boolean lancamentoExistenteDataHorario = false;
-
-        lancamentoExistenteDataHorario = frequenciaDBgetters.verificarSeExistemLancamentosParaHorario(aulaEspecifica, diaLetivo);
+        boolean lancamentoExistenteDataHorario = frequenciaDBgetters.verificarSeExistemLancamentosParaHorario(aulaEspecifica, diaLetivo);
 
         if(lancamentoExistenteDataHorario) {
 
@@ -1151,9 +925,9 @@ public class FrequenciaLancamentoActivity
         alcancouLimiteLancamentosSemana = totalLancamentosSemana >= aulasPorSemana;
 
         if(!alcancouLimiteLancamentosSemana && !alcancouLimiteSemanaCheckBox) {
-
+            database.beginTransaction();
+            presencaParaTodos();
             frequenciaLancamentoViewMvcImpl.exibirListaAlunos(listaAlunos, turmaGrupo);
-
             frequenciaLancamentoViewMvcImpl.removerSelecaoHorarios();
         }
         else {
@@ -1163,6 +937,26 @@ public class FrequenciaLancamentoActivity
             usuarioQuerFecharSelecaoHorarios();
 
             inicializarCalendario();
+        }
+    }
+
+    private void presencaParaTodos() {
+        int i;
+        boolean temAlunosSemFrequencia = false;
+        int numeroAlunos = listaAlunos.size();
+        for (i = 0; i < numeroAlunos; i++) {
+            Aluno aluno = listaAlunos.get(i);
+            if (aluno.getComparecimento().isEmpty()) {
+                temAlunosSemFrequencia = true;
+                break;
+            }
+        }
+        if (temAlunosSemFrequencia) {
+            alterouFrequencia = true;
+            for (i = 0; i < numeroAlunos; i++) {
+                Aluno aluno = listaAlunos.get(i);
+                salvarFrequencia(siglaCompareceu, aluno);
+            }
         }
     }
 
@@ -1177,15 +971,11 @@ public class FrequenciaLancamentoActivity
 
     @Override
     public void usuarioQuerAvancar() {
-
-        if(listaHorariosSelecionados.size() > 0) {
-
+        if (!listaHorariosSelecionados.isEmpty()) {
             usuarioSelecionouHorario(listaHorariosSelecionados.get(0));
-
             frequenciaLancamentoViewMvcImpl.mostrarPrimeiroHorarioDosSelecionados(listaHorariosSelecionados.get(0));
         }
         else {
-
             frequenciaLancamentoViewMvcImpl.avisoUsuarioSelecioneHorario();
         }
     }
@@ -1204,47 +994,23 @@ public class FrequenciaLancamentoActivity
     }
 
     private void adicionarFaltasBimestraisAnuais(Aluno aluno) {
-
         faltasBimestre = aluno.getFaltasBimestre();
-
         faltasAnuais = aluno.getFaltasAnuais();
-
-        faltasBimestre = (faltasBimestre < 0 ? (0) : (faltasBimestre + 1));
-
-        banco.get().beginTransaction();
-
-        frequenciaDBsetters.setNumeroFaltasBimestre(
-
-                aluno, turmaGrupo.getDisciplina().getId(), (faltasBimestre)
-        );
-
-        faltasAnuais = (faltasAnuais < 0 ? (0) : (faltasAnuais + 1));
-
-        frequenciaDBsetters.setNumeroFaltasAnuais(
-
-                aluno, turmaGrupo.getDisciplina().getId(), (faltasAnuais)
-        );
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
+        faltasBimestre = faltasBimestre + 1;
+        faltasAnuais = faltasAnuais + 1;
+        int disciplinaId = turmaGrupo.getDisciplina().getId();
+        frequenciaDBsetters.salvarNumeroFaltasBimestre(disciplinaId, faltasBimestre, aluno, database);
+        frequenciaDBsetters.salvarNumeroFaltasAnuais(disciplinaId, faltasAnuais, aluno, database);
     }
 
-    public void pegarTipoFrequenciaAlunosPorData(int diaLetivo) {
-
-        banco.get().beginTransaction();
-
-        for(Aluno aluno : listaAlunos) {
-
-            aluno.setComparecimento(frequenciaDBgetters.getSiglaComparecimento(
-
-                    aluno.getId(), aulaEspecifica, diaLetivo)
-            );
+    private void pegarTipoFrequenciaAlunosPorData(int diaLetivo) {
+        int i;
+        int numeroAlunos = listaAlunos.size();
+        for (i = 0; i < numeroAlunos; i++) {
+            Aluno aluno = listaAlunos.get(i);
+            String frequencia = frequenciaDBgetters.getSiglaComparecimento(aluno.getId(), aulaEspecifica, diaLetivo);
+            aluno.setComparecimento(frequencia);
         }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
     }
 
     private int pegarAulaEspecifica(Date date, String horarioAula) {
@@ -1253,15 +1019,13 @@ public class FrequenciaLancamentoActivity
 
         calendar.setTime(date);
 
-        int diaSemana = 0;//calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
         String inicioHora = horarioAula.split("/")[0].trim();
 
         String fimHora = horarioAula.split("/")[1].trim();
 
         return frequenciaDBgetters.getAula(
 
-                inicioHora, fimHora, diaSemana, turmaGrupo.getDisciplina().getId()
+                inicioHora, fimHora, 0, turmaGrupo.getDisciplina().getId()
         );
     }
 
@@ -1327,77 +1091,36 @@ public class FrequenciaLancamentoActivity
     }
 
     public void replicarChamadaMultiplosHorarios(String data, String horarioAula) {
-
-        //DiasLetivos diaLetivoSelecionado = frequenciaDBgetters.getDiaLetivo(data);
-
-        //int diaLetivoSelecionado = frequenciaDBgetters.getDiaLetivo(data);
-
-        banco.get().beginTransaction();
-
-        for(String horario : listaHorariosSelecionados) {
-
-            //if(!horario.equals(horarioAula)) {
-
-                //Calendar calendar = Calendar.getInstance();
-
-                //calendar.setTime(dataSelecionada);
-
-                //int diaSemana = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-                String inicioHora = horario.split("/")[0].trim();
-
-                String fimHora = horario.split("/")[1].trim();
-
-                int aulaHorario = frequenciaDBgetters.getAula(
-
-                        inicioHora, fimHora, 0, turmaGrupo.getDisciplina().getId()
-                );
-
-                for(Aluno aluno : alunosAtivos) {
-
-                    String comparecimento = frequenciaDBgetters.getSiglaComparecimento(
-
-                            aluno.getId(), aulaEspecifica, diaLetivo
-                    );
-
-                    frequenciaDBsetters.setComparecimento(
-
-                            usuario.getId(), diaLetivo, aulaHorario, aluno.getId(), comparecimento
-                    );
-
-                    Aluno alunoDB = frequenciaDBgetters.getTotalFaltas(
-
-                            aluno, turmaGrupo.getDisciplina().getId()
-                    );
-
+        int i;
+        int j;
+        int disciplinaId = turmaGrupo.getDisciplina().getId();
+        int numeroHorariosSelecionados = listaHorariosSelecionados.size();
+        for (i = 0; i < numeroHorariosSelecionados; i++) {
+            String horario = listaHorariosSelecionados.get(i);
+            String[] horarios = horario.split("/");
+            if (horarios.length == 2) {
+                String inicioHora = horarios[0].trim();
+                String fimHora = horarios[1].trim();
+                int aulaHorario = frequenciaDBgetters.getAula(inicioHora, fimHora, 0, disciplinaId);
+                int numeroAlunosAtivos = alunosAtivos.size();
+                for (j = 0; j < numeroAlunosAtivos; j++) {
+                    Aluno aluno = alunosAtivos.get(i);
+                    int alunoId = aluno.getId();
+                    String comparecimento = frequenciaDBgetters.getSiglaComparecimento(alunoId, aulaEspecifica, diaLetivo);
+                    frequenciaDBsetters.setComparecimento(usuario.getId(), diaLetivo, aulaHorario, alunoId, comparecimento);
+                    Aluno alunoDB = frequenciaDBgetters.getTotalFaltas(aluno, disciplinaId);
                     int faltasBimestre = alunoDB.getFaltasBimestre();
-
                     int faltasAnuais = alunoDB.getFaltasAnuais();
-
-                    if(comparecimento.equals("F")) {
-
-                        if(faltasBimestre > 0) {
-
-                            frequenciaDBsetters.setNumeroFaltasBimestre(
-
-                                    aluno, turmaGrupo.getDisciplina().getId(),faltasBimestre + 1
-                            );
+                    if (comparecimento.equals("F")) {
+                        if (faltasBimestre > 0) {
+                            frequenciaDBsetters.salvarNumeroFaltasBimestre(disciplinaId, faltasBimestre + 1, aluno, database);
                         }
-
                         if(faltasAnuais > 0) {
-
-                            frequenciaDBsetters.setNumeroFaltasAnuais(
-
-                                    aluno, turmaGrupo.getDisciplina().getId(),faltasAnuais + 1
-                            );
+                            frequenciaDBsetters.salvarNumeroFaltasAnuais(disciplinaId,faltasAnuais + 1, aluno, database);
                         }
                     }
                 }
-           // }
+            }
         }
-
-        banco.get().setTransactionSuccessful();
-
-        banco.get().endTransaction();
     }
 }

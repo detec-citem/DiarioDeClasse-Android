@@ -1,35 +1,28 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Calendar;
-import java.util.ArrayList;
-
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.json.JSONException;
-
-import android.database.Cursor;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-
-import android.database.sqlite.SQLiteStatement;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
-import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
-
+import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
+import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmasFrequencia;
-
-import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
@@ -367,7 +360,6 @@ public class AvaliacaoDBgetters {
 
                     aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
                     aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
-                    aula.setDiaSemana(i);
 
                     listaAula.add(aula);
                 }
@@ -467,7 +459,7 @@ public class AvaliacaoDBgetters {
 
                 "SELECT numero, inicioBimestre, fimBimestre, turmasFrequencia_id FROM BIMESTRE " +
                         "WHERE numero = ((SELECT numero FROM BIMESTRE WHERE turmasFrequencia_id = ? " +
-                        "AND bimestreAtual = 1) - 1) AND turmasFrequencia_id = ? ;",
+                        "AND bimestreAtual = 1) AND turmasFrequencia_id = ?);",
                 new String [] {String.valueOf(turmasFrequencia_id),
                         String.valueOf(turmasFrequencia_id)}
         );

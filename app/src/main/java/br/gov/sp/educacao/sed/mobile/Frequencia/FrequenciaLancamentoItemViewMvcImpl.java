@@ -1,29 +1,24 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
+import android.content.Context;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.support.v4.view.animation.PathInterpolatorCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
-import android.content.Context;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.AnimationUtils;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 
-import android.support.v4.view.animation.PathInterpolatorCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-
 class FrequenciaLancamentoItemViewMvcImpl
         implements FrequenciaLancamentoItemViewMvc {
-
+    private int position;
     private Aluno aluno;
 
     private TextView tvAluno;
@@ -65,6 +60,14 @@ class FrequenciaLancamentoItemViewMvcImpl
         inicializarListeners();
 
         inicializarAnimacoes();
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     @Override
@@ -200,7 +203,7 @@ class FrequenciaLancamentoItemViewMvcImpl
                     @Override
                     public void run() {
 
-                        listener.irParaProximoAlunoAtivo(aluno);
+                        listener.irParaProximoAlunoAtivo(position);
                     }
                 }, 200);
             }

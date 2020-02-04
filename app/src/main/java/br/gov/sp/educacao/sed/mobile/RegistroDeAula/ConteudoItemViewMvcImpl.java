@@ -3,14 +3,13 @@ package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import br.gov.sp.educacao.sed.mobile.Menu.ConteudoFundamental;
 import br.gov.sp.educacao.sed.mobile.R;
 
-class ConteudoItemViewMvcImpl
-        implements ConteudoItemViewMvc {
+class ConteudoItemViewMvcImpl implements ConteudoItemViewMvc {
 
     private final View mRootView;
 
@@ -64,12 +63,16 @@ class ConteudoItemViewMvcImpl
     }
 
     @Override
-    public void exibirInfoConteudo(Conteudo conteudo) {
-
-        this.conteudo = conteudo;
-
-        chckHabSelec.setChecked(conteudo.isHabilidadeCheck());
-
-        txtConteudo.setText(conteudo.getDescricao());
+    public void exibirInfoConteudo(Object conteudo) {
+        if (conteudo instanceof Conteudo) {
+            Conteudo conteudo1 = (Conteudo) conteudo;
+            this.conteudo = conteudo1;
+            chckHabSelec.setChecked(conteudo1.isHabilidadeCheck());
+            txtConteudo.setText(conteudo1.getDescricao());
+        }
+        else if (conteudo instanceof ConteudoFundamental) {
+            ConteudoFundamental conteudoFundamental = (ConteudoFundamental) conteudo;
+            txtConteudo.setText(conteudoFundamental.getDescricao());
+        }
     }
 }

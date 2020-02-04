@@ -1,31 +1,25 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Calendar;
-import java.util.ArrayList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteStatement;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
-import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
-
+import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
@@ -56,31 +50,23 @@ public class FrequenciaDBgetters {
     private SQLiteStatement statementNumeroFaltas;
 
     private String queryTotalDiasComConflito;
-
     private SQLiteStatement statementTotalDiasComConflito;
-
     private String queryInsertDiasComConflito;
-
     private SQLiteStatement statementInsertDiasComConflito;
 
     private String queryUpdateFaltasAlunos;
-
     private SQLiteStatement statementUpdateFaltasAlunos;
 
     private String queryGetAulaIdPeloHorario;
-
     private SQLiteStatement statementGetAulaIdPeloHorario;
 
     private String queryGetDisciplinaId;
-
     private SQLiteStatement statementGetDisciplinaId;
 
     private String queryDeleteConflitosResolvidos;
-
     private SQLiteStatement statementDeleteConflitosResolvidos;
 
     private String queryNumeroFaltasSincronizadas;
-
     @SuppressWarnings("FieldCanBeLocal")
     private SQLiteStatement statementFaltasSincronizadas;
 
@@ -96,52 +82,40 @@ public class FrequenciaDBgetters {
         this.banco = banco;
 
         queryIdDiaLetivo =
-
                 "SELECT id FROM DIASLETIVOS WHERE dataAula = ?";
 
         queryIdDiaLetivoPelosBimestres =
-
                 "SELECT id FROM DIASLETIVOS WHERE (bimestre_id = ? OR bimestre_id = ?) AND dataAula = ?";
 
         queryNumeroFaltas =
-
                 "SELECT COUNT(id) FROM FALTASALUNOS WHERE diasLetivos_id = ? AND aula_id = ?";
 
         queryNumeroFaltasSincronizadas =
-
                 "SELECT COUNT(id) FROM FALTASALUNOS WHERE diasLetivos_id = ? AND aula_id = ? AND dataServidor IS NOT NULL";
 
         queryTotalDiasComConflito =
-
                 "SELECT COUNT(id) FROM DIASCONFLITO WHERE diaLetivo_id = ? AND aula_id = ? AND turmasFrequencia_id = ? AND disciplina_id = ?";
 
         queryInsertDiasComConflito =
-
                 "INSERT INTO DIASCONFLITO (diaLetivo_id, aula_id, turmasFrequencia_id, disciplina_id) VALUES (?, ?, ?, ?)";
 
         queryUpdateFaltasAlunos =
-
                 "UPDATE FALTASALUNOS SET dataServidor = NULL WHERE diasLetivos_id = ? AND aula_id = ?";
 
         queryGetAulaIdPeloHorario =
-
                 "SELECT id FROM AULAS WHERE inicioHora = ? AND disciplina_id = ?";
 
         queryGetDisciplinaId =
-
                 "SELECT id FROM DISCIPLINA WHERE codigoDisciplina = ? AND turmasFrequencia_id = ?";
 
         queryDeleteConflitosResolvidos =
-
                 "DELETE FROM DIASCONFLITO WHERE id = ?";
 
         querySiglaComparecimento =
-
                 "SELECT F.tipoFalta FROM FALTASALUNOS AS F WHERE F.aluno_id = ?" +
                         "AND F.diasLetivos_id = ? AND F.aula_id = ?";
 
         queryIdAula =
-
                 "SELECT * FROM AULAS WHERE inicioHora = ? AND fimHora = ? AND diaSemana = ? AND disciplina_id = ?";
     }
     ///OK
@@ -187,9 +161,7 @@ public class FrequenciaDBgetters {
             banco.get().beginTransaction();
 
             statementIdDiaLetivoPelosBimestres.bindLong(  1, bimestreAtualId);
-
             statementIdDiaLetivoPelosBimestres.bindLong(  2, bimestreAnteriorId);
-
             statementIdDiaLetivoPelosBimestres.bindString(3, data);
 
             diaLetivoId = (int) statementIdDiaLetivoPelosBimestres.simpleQueryForLong();
@@ -201,11 +173,9 @@ public class FrequenciaDBgetters {
         finally {
 
             statementIdDiaLetivoPelosBimestres.clearBindings();
-
             statementIdDiaLetivoPelosBimestres.close();
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
 
@@ -231,13 +201,9 @@ public class FrequenciaDBgetters {
             int aulaId = getAulaIdPeloHorario(horario, disciplinaId);
 
             statementTotalDiasComConflito = banco.get().compileStatement(queryTotalDiasComConflito);
-
             statementTotalDiasComConflito.bindLong(1, diaLetivoId);
-
             statementTotalDiasComConflito.bindLong(2, aulaId);
-
             statementTotalDiasComConflito.bindLong(3, turmaFrequenciaId);
-
             statementTotalDiasComConflito.bindLong(4, disciplinaId);
 
             totalDiasComConflito = (int) statementTotalDiasComConflito.simpleQueryForLong();
@@ -245,24 +211,16 @@ public class FrequenciaDBgetters {
             if(totalDiasComConflito < 1) {
 
                 statementInsertDiasComConflito = banco.get().compileStatement(queryInsertDiasComConflito);
-
                 statementInsertDiasComConflito.bindLong(1, diaLetivoId);
-
                 statementInsertDiasComConflito.bindLong(2, aulaId);
-
                 statementInsertDiasComConflito.bindLong(3, turmaFrequenciaId);
-
                 statementInsertDiasComConflito.bindLong(4, disciplinaId);
-
                 statementInsertDiasComConflito.executeInsert();
             }
 
             statementUpdateFaltasAlunos = banco.get().compileStatement(queryUpdateFaltasAlunos);
-
             statementUpdateFaltasAlunos.bindLong(1, diaLetivoId);
-
             statementUpdateFaltasAlunos.bindLong(2, aulaId);
-
             statementUpdateFaltasAlunos.executeUpdateDelete();
         }
         catch(Exception e) {
@@ -272,19 +230,13 @@ public class FrequenciaDBgetters {
         finally {
 
             statementTotalDiasComConflito.clearBindings();
-
             statementTotalDiasComConflito.close();
-
             statementInsertDiasComConflito.clearBindings();
-
             statementInsertDiasComConflito.close();
-
             statementUpdateFaltasAlunos.clearBindings();
-
             statementUpdateFaltasAlunos.close();
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
     }
@@ -316,15 +268,10 @@ public class FrequenciaDBgetters {
                 while(cursor.moveToNext()) {
 
                     String dataAula = cursor.getString(cursor.getColumnIndex("dataAula"));
-
                     String horaInicio = cursor.getString(cursor.getColumnIndex("inicioHora"));
-
                     String horaFim = cursor.getString(cursor.getColumnIndex("fimHora"));
-
                     String nomeTurma = cursor.getString(cursor.getColumnIndex("nomeTurma"));
-
                     String nomeDisciplina = cursor.getString(cursor.getColumnIndex("nomeDisciplina"));
-
                     String mensagem = "Conflito de lançamento para Turma: " + nomeTurma +
                             " Disciplina: " + nomeDisciplina + " Horário: " + horaInicio + "/" + horaFim + " Data: " + dataAula;
 
@@ -344,7 +291,6 @@ public class FrequenciaDBgetters {
             }
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
 
@@ -374,7 +320,6 @@ public class FrequenciaDBgetters {
         finally {
 
             statementIdDiasLetivos.clearBindings();
-
             statementIdDiasLetivos.close();
         }
         return diasLetivos;
@@ -389,9 +334,7 @@ public class FrequenciaDBgetters {
             banco.get().beginTransaction();
 
             statementGetAulaIdPeloHorario = banco.get().compileStatement(queryGetAulaIdPeloHorario);
-
             statementGetAulaIdPeloHorario.bindString(1, horarioInicio);
-
             statementGetAulaIdPeloHorario.bindLong(  2, disciplinaId);
 
             aulaId = (int) statementGetAulaIdPeloHorario.simpleQueryForLong();
@@ -403,11 +346,9 @@ public class FrequenciaDBgetters {
         finally {
 
             statementGetAulaIdPeloHorario.clearBindings();
-
             statementGetAulaIdPeloHorario.close();
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
 
@@ -429,15 +370,13 @@ public class FrequenciaDBgetters {
                 JSONObject frequenciaLancamento = new JSONObject();
 
                 Bimestre bimestreAtual = getBimestre(listaTurmas.get(i).getTurmasFrequencia().getId());
-
                 Bimestre bimestreAnterior = getBimestreAnterior(listaTurmas.get(i).getTurmasFrequencia().getId());
 
                 List<DiasLetivos> listaDiasLetivos = getDiasLetivosTurma(bimestreAtual.getId(), bimestreAnterior.getId());
-
                 List<Aula> listaAulas = getAulaId(listaTurmas.get(i).getDisciplina().getId(), listaTurmas.get(i).getTurmasFrequencia().getId());
 
                 frequenciaLancamento.put("CodigoTurma", listaTurmas.get(i).getTurma().getCodigoTurma());
-
+                frequenciaLancamento.put("CodigoEscola", listaTurmas.get(i).getTurma().getCodigoEscola());
                 frequenciaLancamento.put("CodigoDisciplina", listaTurmas.get(i).getDisciplina().getCodigoDisciplina());
 
                 JSONArray dias = new JSONArray();
@@ -455,7 +394,6 @@ public class FrequenciaDBgetters {
                         JSONObject horario = new JSONObject();
 
                         horario.put("Inicio", listaAulas.get(k).getInicio());
-
                         horario.put("Fim", listaAulas.get(k).getFim());
 
                         JSONArray frequencias = new JSONArray();
@@ -476,36 +414,37 @@ public class FrequenciaDBgetters {
                         for(int l = 0; l < listaFaltasAlunos.size(); l++) {
 
                             JSONObject frequencia = new JSONObject();
-
                             frequencia.put("CodigoDisciplina", listaTurmas.get(i).getDisciplina().getCodigoDisciplina());
-
                             frequencia.put("CodigoTurma", listaTurmas.get(i).getTurma().getCodigoTurma());
-
                             frequencia.put("CodigoDaAula", 0);
+                            String tipoFalta = listaFaltasAlunos.get(l).getTipoFalta();
 
-                            frequencia.put("CodigoTipoFrequencia", listaFaltasAlunos.get(l).getTipoFalta());
+                            if(tipoFalta.equals("C")) {
+                                frequencia.put("CodigoTipoFrequencia", 1);
+                            }
+                            else if(tipoFalta.equals("F")) {
+                                frequencia.put("CodigoTipoFrequencia", 2);
+                            }
+                            else {
+                                frequencia.put("CodigoTipoFrequencia", 0);
+                            }
 
                             frequencia.put("DataDaAula", listaDiasLetivos.get(j).getDataAula());
-
                             frequencia.put("HorarioInicioAula", listaAulas.get(k).getInicio());
-
                             frequencia.put("HorarioFimAula", listaAulas.get(k).getFim());
-
                             frequencia.put("CodigoMotivoFrequencia", 0);
-
                             frequencia.put("Justificativa", "");
 
-                            if(frequencia.get("CodigoTipoFrequencia").equals("F")) {
+                            if(frequencia.get("CodigoTipoFrequencia").equals(2)) {
 
                                 frequencia.put("Presenca", false);
                             }
-                            else if(frequencia.get("CodigoTipoFrequencia").equals("C")) {
+                            else if(frequencia.get("CodigoTipoFrequencia").equals(1)) {
 
                                 frequencia.put("Presenca", true);
                             }
 
                             frequencia.put("CodigoMatriculaAluno", listaFaltasAlunos.get(l).getCodigoMatricula());
-
                             frequencias.put(frequencia);
                         }
 
@@ -534,7 +473,6 @@ public class FrequenciaDBgetters {
         finally {
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
 
@@ -593,7 +531,6 @@ public class FrequenciaDBgetters {
         try {
 
             statementNumeroFaltas.bindLong(1, diasLetivos);
-
             statementNumeroFaltas.bindLong(2, aula);
 
             numeroFaltas = (int) statementNumeroFaltas.simpleQueryForLong();
@@ -605,7 +542,6 @@ public class FrequenciaDBgetters {
         finally {
 
             statementNumeroFaltas.clearBindings();
-
             statementNumeroFaltas.close();
         }
         return numeroFaltas;
@@ -620,7 +556,6 @@ public class FrequenciaDBgetters {
         try {
 
             statementFaltasSincronizadas.bindLong(1, diasLetivos);
-
             statementFaltasSincronizadas.bindLong(2, aula);
 
             numeroFaltasSincronizadas = (int) statementFaltasSincronizadas.simpleQueryForLong();
@@ -632,7 +567,6 @@ public class FrequenciaDBgetters {
         finally {
 
             statementFaltasSincronizadas.clearBindings();
-
             statementFaltasSincronizadas.close();
         }
         return numeroFaltasSincronizadas;
@@ -652,11 +586,8 @@ public class FrequenciaDBgetters {
             if(cursor.moveToNext()) {
 
                 bimestre.setId(cursor.getInt(cursor.getColumnIndex("id")));
-
                 bimestre.setNumero(cursor.getInt(cursor.getColumnIndex("numero")));
-
                 bimestre.setInicio(cursor.getString(cursor.getColumnIndex("inicioBimestre")));
-
                 bimestre.setFim(cursor.getString(cursor.getColumnIndex("fimBimestre")));
             }
         }
@@ -715,47 +646,19 @@ public class FrequenciaDBgetters {
         return alunosAtivos;
     }
     ///OK
-    ArrayList<Aula> getAula(Disciplina disciplina) {
-
-        ArrayList<Aula> listaAula = new ArrayList<>();
-
-        try {
-
-            banco.get().beginTransaction();
-
-            cursor = banco.get().rawQuery(
-
-                    "SELECT * FROM AULAS WHERE disciplina_id = " + disciplina.getId(), null
-            );
-
-            while(cursor.moveToNext()) {
-
-                for(int i = 1; i <= 5; i++) {
-
-                    final Aula aula = new Aula();
-
-                    aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
-                    aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
-                    aula.setDiaSemana(i);
-
-                    listaAula.add(aula);
-                }
+   public ArrayList<Aula> getAula(Disciplina disciplina) {
+        ArrayList<Aula> listaAula = null;
+        cursor = banco.get().rawQuery("SELECT * FROM AULAS WHERE disciplina_id = " + disciplina.getId(), null);
+        int numeroAulas = cursor.getCount();
+        if (cursor != null && cursor.getCount() > 0) {
+            listaAula = new ArrayList<>(numeroAulas);
+            while (cursor.moveToNext()) {
+                Aula aula = new Aula();
+                aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
+                aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
+                listaAula.add(aula);
             }
-        }
-        catch(Exception e) {
-
-            CrashAnalytics.e(TAG, e);
-        }
-        finally {
-
-            if(cursor != null) {
-
-                cursor.close();
-            }
-
-            banco.get().setTransactionSuccessful();
-
-            banco.get().endTransaction();
+            cursor.close();
         }
         return listaAula;
     }
@@ -769,9 +672,7 @@ public class FrequenciaDBgetters {
             banco.get().beginTransaction();
 
             statementGetDisciplinaId = banco.get().compileStatement(queryGetDisciplinaId);
-
             statementGetDisciplinaId.bindString(1, codigoDisciplina);
-
             statementGetDisciplinaId.bindLong(  2, turmaFrequenciaId);
 
             disciplinaId = (int) statementGetDisciplinaId.simpleQueryForLong();
@@ -783,11 +684,9 @@ public class FrequenciaDBgetters {
         finally {
 
             statementGetDisciplinaId.clearBindings();
-
             statementGetDisciplinaId.close();
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
 
@@ -816,7 +715,6 @@ public class FrequenciaDBgetters {
 
                     aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
                     aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
-                    //aula.setDiaSemana(i);
                     aula.setId(cursor.getInt(cursor.getColumnIndex("id")));
 
                     listaAula.add(aula);
@@ -856,9 +754,7 @@ public class FrequenciaDBgetters {
             while(cursor.moveToNext()) {
 
                 DiasLetivos diasLetivos = new DiasLetivos();
-
                 diasLetivos.setId(cursor.getInt(cursor.getColumnIndex("id")));
-
                 diasLetivos.setDataAula(cursor.getString(cursor.getColumnIndex("dataAula")));
 
                 listaDiasLetivos.add(diasLetivos);
@@ -890,9 +786,7 @@ public class FrequenciaDBgetters {
             while(cursor.moveToNext()) {
 
                 Faltas faltas = new Faltas();
-
                 faltas.setTipoFalta(cursor.getString(cursor.getColumnIndex("tipoFalta")));
-
                 faltas.setCodigoMatricula(cursor.getString(cursor.getColumnIndex("codigoMatricula")));
 
                 listaIdAlunos.add(faltas);
@@ -920,9 +814,7 @@ public class FrequenciaDBgetters {
                 cursor.moveToNext();
 
                 aluno.setFaltasAnuais(cursor.getInt(cursor.getColumnIndex("faltasAnuais")));
-
                 aluno.setFaltasBimestre(cursor.getInt(cursor.getColumnIndex("faltasBimestre")));
-
                 aluno.setFaltasSequenciais(cursor.getInt(cursor.getColumnIndex("faltasSequenciais")));
             }
         }
@@ -949,7 +841,7 @@ public class FrequenciaDBgetters {
                 "SELECT numero, inicioBimestre, fimBimestre, id" +
                 " FROM BIMESTRE" +
                 " WHERE numero = ((SELECT numero FROM BIMESTRE WHERE turmasFrequencia_id = ? " +
-                " AND bimestreAtual = 1) - 1) AND turmasFrequencia_id = ? ;",
+                " AND bimestreAtual = 1) AND turmasFrequencia_id = ?);",
                 new String [] {String.valueOf(turmasFrequencia_id),
                         String.valueOf(turmasFrequencia_id)}
         );
@@ -976,9 +868,7 @@ public class FrequenciaDBgetters {
         try {
 
             statementSiglaComparecimento.bindLong(   1, alunoId);
-
             statementSiglaComparecimento.bindLong(   2, diaLetivoId);
-
             statementSiglaComparecimento.bindLong(   3, aula);
 
             siglaComparecimento = statementSiglaComparecimento.simpleQueryForString();
@@ -990,7 +880,6 @@ public class FrequenciaDBgetters {
         finally {
 
             statementSiglaComparecimento.clearBindings();
-
             statementSiglaComparecimento.close();
         }
         return siglaComparecimento;
@@ -1020,7 +909,6 @@ public class FrequenciaDBgetters {
         finally {
 
             statementIdAula.clearBindings();
-
             statementIdAula.close();
         }
         return aula;
@@ -1068,9 +956,7 @@ public class FrequenciaDBgetters {
         }
 
         query.append(" SELECT * FROM DIASLETIVOS ");
-
         query.append(" WHERE bimestre_id = ").append(bimestre.getId());
-
         query.append(" OR bimestre_id = ").append(bimestre_id);
 
         if(cursor != null) {
@@ -1097,11 +983,8 @@ public class FrequenciaDBgetters {
                 if(listaDiaSemana.contains(dayOfWeek)) {
 
                     final DiasLetivos diasLetivos = new DiasLetivos();
-
                     diasLetivos.setId(cursor.getInt(cursor.getColumnIndex("id")));
-
                     diasLetivos.setDataAula(cursor.getString(cursor.getColumnIndex("dataAula")));
-
                     listaDiasLetivos.add(diasLetivos);
                 }
             }
@@ -1118,7 +1001,6 @@ public class FrequenciaDBgetters {
             }
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
 
             calendar.clear();
@@ -1151,9 +1033,7 @@ public class FrequenciaDBgetters {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
 
                 statementDeleteConflitosResolvidos.bindLong(1, id);
-
                 statementDeleteConflitosResolvidos.executeUpdateDelete();
-
                 statementDeleteConflitosResolvidos.clearBindings();
             }
         }
@@ -1171,7 +1051,6 @@ public class FrequenciaDBgetters {
             statementDeleteConflitosResolvidos.close();
 
             banco.get().setTransactionSuccessful();
-
             banco.get().endTransaction();
         }
     }
@@ -1209,10 +1088,8 @@ public class FrequenciaDBgetters {
         banco.get().beginTransaction();
 
         Cursor cursor2 = banco.get().rawQuery("SELECT id FROM ALUNOS WHERE turma_id = " + turmaId + " AND alunoAtivo = 1", null);
-
         Cursor cursor1 = banco.get().rawQuery("SELECT DISTINCT AU.id FROM FALTASALUNOS AS FA JOIN AULAS AS AU ON " +
                 "FA.aula_id = AU.id WHERE FA.diasLetivos_id = " + diaLetivo, null);
-
         Cursor cursor5 = banco.get().rawQuery("SELECT dataAula FROM DIASLETIVOS WHERE id = " + diaLetivo, null);
 
         String dataAula = "";
@@ -1227,9 +1104,7 @@ public class FrequenciaDBgetters {
         }
 
         String dia = dataAula.split("/")[0];
-
         String mes = dataAula.split("/")[1];
-
         String ano = dataAula.split("/")[2];
 
         Cursor cursor4 = banco.get().rawQuery("SELECT id FROM AULAS WHERE disciplina_id = (SELECT id FROM DISCIPLINA WHERE turmasFrequencia_id = " +
@@ -1251,7 +1126,6 @@ public class FrequenciaDBgetters {
         }
 
         List<Integer> listaAulaIds = new ArrayList<>();
-
         List<Integer> listaAulaIdsDiasComFrequencia = new ArrayList<>();
 
         if(cursor1 != null) {
@@ -1339,7 +1213,6 @@ public class FrequenciaDBgetters {
         }
 
         banco.get().setTransactionSuccessful();
-
         banco.get().endTransaction();
 
         return listaHorariosComLancamento;

@@ -1,0 +1,267 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sincronizar_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sincronizando"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_fechar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="24dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_sucesso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sincronizar_toolbar">
+
+        <ImageView
+            android:id="@+id/iv_sucesso"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_sinc_sucess" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/sincroniza_o_realizada_com_sucesso"
+            android:textColor="@color/verde_fechamento_confirmado"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_sucesso" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_sicronizacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sincronizar_toolbar">
+
+        <TextView
+            android:id="@+id/tv_mensagem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center_horizontal"
+            android:text="@string/aguarde_o_sistema_sincronizar_todos_os_dados_abaixo"
+            android:textSize="@dimen/titulo_toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_token"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mensagem"
+            app:srcCompat="@drawable/ic_sinc_espera" />
+
+        <ProgressBar
+            android:id="@+id/pb_token"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mensagem" />
+
+        <TextView
+            android:id="@+id/tv_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/atualizando_credenciais"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_token"
+            app:layout_constraintLeft_toRightOf="@id/iv_token"
+            app:layout_constraintTop_toTopOf="@+id/iv_token" />
+
+        <ImageView
+            android:id="@+id/iv_avaliacoes"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_token"
+            app:srcCompat="@drawable/ic_sinc_espera" />
+
+        <ProgressBar
+            android:id="@+id/pb_avaliacoes"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_token" />
+
+        <TextView
+            android:id="@+id/tv_avaliacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/enviando_avaliacoes"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_avaliacoes"
+            app:layout_constraintLeft_toRightOf="@id/iv_avaliacoes"
+            app:layout_constraintTop_toTopOf="@+id/iv_avaliacoes" />
+
+        <ImageView
+            android:id="@+id/iv_frequencia"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_avaliacoes"
+            app:srcCompat="@drawable/ic_sinc_espera" />
+
+        <ProgressBar
+            android:id="@+id/pb_frequencia"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_avaliacoes" />
+
+        <TextView
+            android:id="@+id/tv_frequencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/enviando_faltas"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_frequencia"
+            app:layout_constraintLeft_toRightOf="@id/iv_frequencia"
+            app:layout_constraintTop_toTopOf="@+id/iv_frequencia" />
+
+        <ImageView
+            android:id="@+id/iv_registro"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_frequencia"
+            app:srcCompat="@drawable/ic_sinc_espera" />
+
+        <ProgressBar
+            android:id="@+id/pb_registro"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_frequencia" />
+
+        <TextView
+            android:id="@+id/tv_registro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/enviando_registros_de_aula"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_registro"
+            app:layout_constraintLeft_toRightOf="@id/iv_registro"
+            app:layout_constraintTop_toTopOf="@+id/iv_registro" />
+
+        <ImageView
+            android:id="@+id/iv_dados"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_registro"
+            app:srcCompat="@drawable/ic_sinc_espera" />
+
+        <ProgressBar
+            android:id="@+id/pb_dados"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_registro" />
+
+        <TextView
+            android:id="@+id/tv_dados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/atualizando_dados"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_dados"
+            app:layout_constraintLeft_toRightOf="@id/iv_dados"
+            app:layout_constraintTop_toTopOf="@+id/iv_dados" />
+
+        <Button
+            android:id="@+id/btn_falhou"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="24dp"
+            android:background="#219E44"
+            android:text="@string/sincronizar_novamente"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_dados" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

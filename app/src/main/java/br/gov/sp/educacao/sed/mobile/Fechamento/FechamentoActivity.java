@@ -1,21 +1,16 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.os.Bundle;
-
-import java.util.List;
-import java.util.ArrayList;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
-
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
@@ -58,9 +53,9 @@ public class FechamentoActivity
 
         fechamentoViewMvcImpl = new FechamentoViewMvcImpl(LayoutInflater.from(this), getSupportFragmentManager(), null);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(this);
+
+        banco = CriarAcessoBanco.gerarBanco(this);
 
         fechamentoDBcrud = new FechamentoDBcrud(banco);
 

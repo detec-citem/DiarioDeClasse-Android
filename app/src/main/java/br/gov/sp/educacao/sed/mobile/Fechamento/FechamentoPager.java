@@ -1,32 +1,25 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.os.Bundle;
-
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Collections;
-
 import android.content.Intent;
-
-import java.text.SimpleDateFormat;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
+import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import br.gov.sp.educacao.sed.mobile.Login.LoginDBcrud;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+import br.gov.sp.educacao.sed.mobile.Login.LoginDBcrud;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
@@ -91,9 +84,9 @@ public class FechamentoPager
 
         listaAlunos = turmaGrupo.getTurma().getAlunos();
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
 
         fechamentoDBcrud = new FechamentoDBcrud(banco);
 

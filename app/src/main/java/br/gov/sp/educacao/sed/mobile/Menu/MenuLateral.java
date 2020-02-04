@@ -1,12 +1,10 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.support.v4.app.Fragment;
 
 import br.gov.sp.educacao.sed.mobile.R;
 

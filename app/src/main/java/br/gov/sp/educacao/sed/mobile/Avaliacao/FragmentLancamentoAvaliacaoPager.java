@@ -1,22 +1,17 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import android.os.Bundle;
-
 import android.content.Intent;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
+import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import android.support.v4.view.PagerAdapter;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 
 public class FragmentLancamentoAvaliacaoPager
         extends Fragment

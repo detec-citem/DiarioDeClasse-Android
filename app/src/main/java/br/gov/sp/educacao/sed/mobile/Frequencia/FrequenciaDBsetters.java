@@ -1,16 +1,15 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.List;
-
 import android.database.Cursor;
-
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import java.util.List;
 
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
-import br.gov.sp.educacao.sed.mobile.util.DateUtils;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import br.gov.sp.educacao.sed.mobile.util.DateUtils;
 
 class FrequenciaDBsetters {
 
@@ -150,78 +149,42 @@ class FrequenciaDBsetters {
             }
         }
     }
-    ///OK
-    void setNumeroFaltasAnuais(Aluno aluno, int disciplinaId, int faltasAnuais) {
 
-        statementAtualizarFaltasAnuaisAluno = banco.get().compileStatement(queryAtualizarFaltasAnuaisAluno);
-
-        statementInserirFaltasAnuaisAluno = banco.get().compileStatement(queryInserirFaltasAnuaisAluno);
-
-        try {
-
-            statementAtualizarFaltasAnuaisAluno.bindLong(1, faltasAnuais);
-            statementAtualizarFaltasAnuaisAluno.bindLong(2, aluno.getId());
-            statementAtualizarFaltasAnuaisAluno.bindLong(3, disciplinaId);
-
-            if(statementAtualizarFaltasAnuaisAluno.executeUpdateDelete() == 0) {
-
-                statementInserirFaltasAnuaisAluno.bindLong(1, faltasAnuais);
-                statementInserirFaltasAnuaisAluno.bindString(2, aluno.getCodigoMatricula());
-                statementInserirFaltasAnuaisAluno.bindLong(3, disciplinaId);
-
-                statementInserirFaltasAnuaisAluno.executeInsert();
-            }
+    void salvarNumeroFaltasAnuais(int disciplinaId, int faltasAnuais, Aluno aluno, SQLiteDatabase database) {
+        if (statementAtualizarFaltasAnuaisAluno == null) {
+            statementAtualizarFaltasAnuaisAluno = database.compileStatement(queryAtualizarFaltasAnuaisAluno);
+            statementInserirFaltasAnuaisAluno = database.compileStatement(queryInserirFaltasAnuaisAluno);
         }
-        catch (Exception e) {
-
-            CrashAnalytics.e(TAG, e);
+        statementAtualizarFaltasAnuaisAluno.bindLong(1, faltasAnuais);
+        statementAtualizarFaltasAnuaisAluno.bindLong(2, aluno.getId());
+        statementAtualizarFaltasAnuaisAluno.bindLong(3, disciplinaId);
+        if(statementAtualizarFaltasAnuaisAluno.executeUpdateDelete() == 0) {
+            statementInserirFaltasAnuaisAluno.bindLong(1, faltasAnuais);
+            statementInserirFaltasAnuaisAluno.bindString(2, aluno.getCodigoMatricula());
+            statementInserirFaltasAnuaisAluno.bindLong(3, disciplinaId);
+            statementInserirFaltasAnuaisAluno.executeInsert();
         }
-        finally {
-
-            statementAtualizarFaltasAnuaisAluno.clearBindings();
-
-            statementAtualizarFaltasAnuaisAluno.close();
-
-            statementInserirFaltasAnuaisAluno.clearBindings();
-
-            statementInserirFaltasAnuaisAluno.close();
-        }
+        statementAtualizarFaltasAnuaisAluno.clearBindings();
+        statementInserirFaltasAnuaisAluno.clearBindings();
     }
-    ///OK
-    void setNumeroFaltasBimestre(Aluno aluno, int disciplinaId, int faltasBimestre) {
 
-        try {
-
-            statementAtualizarFaltasBimestreAluno = banco.get().compileStatement(queryAtualizarFaltasBimestreAluno);
-
-            statementInserirFaltasBimestreAluno = banco.get().compileStatement(queryInserirFaltasBimestreAluno);
-
-            statementAtualizarFaltasBimestreAluno.bindLong(1, faltasBimestre);
-            statementAtualizarFaltasBimestreAluno.bindLong(2, aluno.getId());
-            statementAtualizarFaltasBimestreAluno.bindLong(3, disciplinaId);
-
-            if(statementAtualizarFaltasBimestreAluno.executeUpdateDelete() == 0) {
-
-                statementInserirFaltasBimestreAluno.bindLong(   1, faltasBimestre);
-                statementInserirFaltasBimestreAluno.bindString( 2, aluno.getCodigoMatricula());
-                statementInserirFaltasBimestreAluno.bindLong(   3, disciplinaId);
-            }
+    void salvarNumeroFaltasBimestre(int disciplinaId, int faltasBimestre, Aluno aluno, SQLiteDatabase database) {
+        if (statementAtualizarFaltasBimestreAluno == null) {
+            statementAtualizarFaltasBimestreAluno = database.compileStatement(queryAtualizarFaltasBimestreAluno);
+            statementInserirFaltasBimestreAluno = database.compileStatement(queryInserirFaltasBimestreAluno);
         }
-        catch (Exception e) {
-
-            CrashAnalytics.e(TAG, e);
+        statementAtualizarFaltasBimestreAluno.bindLong(1, faltasBimestre);
+        statementAtualizarFaltasBimestreAluno.bindLong(2, aluno.getId());
+        statementAtualizarFaltasBimestreAluno.bindLong(3, disciplinaId);
+        if(statementAtualizarFaltasBimestreAluno.executeUpdateDelete() == 0) {
+            statementInserirFaltasBimestreAluno.bindLong(   1, faltasBimestre);
+            statementInserirFaltasBimestreAluno.bindString( 2, aluno.getCodigoMatricula());
+            statementInserirFaltasBimestreAluno.bindLong(   3, disciplinaId);
         }
-        finally {
-
-            statementAtualizarFaltasBimestreAluno.clearBindings();
-
-            statementAtualizarFaltasBimestreAluno.close();
-
-            statementInserirFaltasBimestreAluno.clearBindings();
-
-            statementInserirFaltasBimestreAluno.close();
-        }
+        statementAtualizarFaltasBimestreAluno.clearBindings();
+        statementInserirFaltasBimestreAluno.clearBindings();
     }
+
     ///OK
     void setComparecimento(int usuarioId, int diaLetivoId, int aulaId, int alunoId, String comparecimento) {
 

@@ -1,28 +1,24 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
 import android.app.Dialog;
-
-import android.widget.Button;
-import android.widget.Toast;
-import android.widget.Spinner;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Context;
-import android.content.res.Resources;
-import android.content.DialogInterface;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.app.AlertDialog;
 
 class DialogNovaAvaliacaoViewMvcImpl
         implements DialogNovaAvaliacaoViewMvc {
@@ -45,7 +41,7 @@ class DialogNovaAvaliacaoViewMvcImpl
 
     public final String TAG = "DialogNovaAvaliacao";
 
-    DialogNovaAvaliacaoViewMvcImpl(LayoutInflater layoutInflater, ViewGroup parent, boolean editar) {
+    DialogNovaAvaliacaoViewMvcImpl(final LayoutInflater layoutInflater, ViewGroup parent, boolean editar) {
 
         mRootView = layoutInflater.inflate(R.layout.alert_avaliacao , parent, false);
 
@@ -56,6 +52,16 @@ class DialogNovaAvaliacaoViewMvcImpl
         spTipo = findViewById(R.id.spTipo);
 
         ckVale = findViewById(R.id.ckVale);
+
+        ckVale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked && (listener != null &&listener.mediaCalculada())) {
+                    Toast.makeText(layoutInflater.getContext(), "Não é possível cadastrar uma avaliação que vale nota, pois já existe média calculada para essa turma e disciplina", Toast.LENGTH_LONG).show();
+                    ckVale.setChecked(false);
+                }
+            }
+        });
 
         mTvDiaAlert = findViewById(R.id.tv_dia_alert);
 

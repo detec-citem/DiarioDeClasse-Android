@@ -3,10 +3,8 @@ package br.gov.sp.educacao.sed.mobile.Menu;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
@@ -88,12 +86,6 @@ public class MenuDBgetters {
 
             dadosNaoSincronizados = true;
         }
-
-        statementFrequenciaParaSincronizar.close();
-
-        statementFechamentosParaSincronizar.close();
-
-        statementAvaliacoesParaSincronizar.close();
 
         banco.get().setTransactionSuccessful();
 

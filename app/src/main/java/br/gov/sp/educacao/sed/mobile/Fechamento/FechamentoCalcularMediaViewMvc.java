@@ -1,13 +1,10 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.text.Editable;
-
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.content.Intent;
-
-import android.support.annotation.Nullable;
 
 interface FechamentoCalcularMediaViewMvc {
 

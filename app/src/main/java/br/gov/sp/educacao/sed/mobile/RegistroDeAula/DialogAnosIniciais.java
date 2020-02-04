@@ -1,18 +1,12 @@
 package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 
 import android.app.Dialog;
-
-import android.graphics.Color;
 import android.os.Bundle;
-
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-
 import android.support.v7.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;

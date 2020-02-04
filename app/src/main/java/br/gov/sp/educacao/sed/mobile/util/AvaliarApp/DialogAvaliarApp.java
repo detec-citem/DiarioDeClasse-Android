@@ -1,23 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.util.AvaliarApp;
 
-import android.os.Bundle;
-
 import android.app.Dialog;
-
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 
-import android.view.View;
-import android.view.Window;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import android.support.v4.app.DialogFragment;
 
 public class DialogAvaliarApp
         extends DialogFragment

@@ -1,12 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 
 import android.content.ContentValues;
-
 import android.database.Cursor;
-
 import android.database.sqlite.SQLiteStatement;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;

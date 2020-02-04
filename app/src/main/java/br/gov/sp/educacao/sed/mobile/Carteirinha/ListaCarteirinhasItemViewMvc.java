@@ -1,6 +1,5 @@
 package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
-import android.content.res.Resources;
 import android.view.View;
 
 public interface ListaCarteirinhasItemViewMvc {

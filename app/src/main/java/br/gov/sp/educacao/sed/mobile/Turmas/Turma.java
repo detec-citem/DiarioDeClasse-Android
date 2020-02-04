@@ -2,6 +2,7 @@ package br.gov.sp.educacao.sed.mobile.Turmas;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class Turma
@@ -12,6 +13,7 @@ public class Turma
     private int codigoTipoEnsino;
     private int ano;
     private int serie;
+    private int codigoEscola;
     private String nomeEscola;
     private String nomeTurma;
     private String nomeDiretoria;
@@ -112,6 +114,14 @@ public class Turma
         this.nomeDiretoria = nomeDiretoria;
     }
 
+    public int getCodigoEscola() {
+        return codigoEscola;
+    }
+
+    public void setCodigoEscola(int codigoEscola) {
+        this.codigoEscola = codigoEscola;
+    }
+
     public int getCodigoTipoEnsino() {
         return codigoTipoEnsino;
     }
@@ -133,6 +143,7 @@ public class Turma
         id = in.readInt();
         codigoTurma = in.readInt();
         codigoTipoEnsino = in.readInt();
+        codigoEscola = in.readInt();
         ano = in.readInt();
         serie = in.readInt();
         nomeEscola = in.readString();
@@ -161,6 +172,7 @@ public class Turma
         dest.writeInt(id);
         dest.writeInt(codigoTurma);
         dest.writeInt(codigoTipoEnsino);
+        dest.writeInt(codigoEscola);
         dest.writeInt(ano);
         dest.writeInt(serie);
         dest.writeString(nomeEscola);

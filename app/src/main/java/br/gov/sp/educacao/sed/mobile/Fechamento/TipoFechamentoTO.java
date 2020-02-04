@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 
-import br.gov.sp.educacao.sed.mobile.util.GenericsTable;
 import br.gov.sp.educacao.sed.mobile.util.DateUtils;
+import br.gov.sp.educacao.sed.mobile.util.GenericsTable;
 
 public class TipoFechamentoTO
         implements GenericsTable {

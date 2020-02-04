@@ -4,10 +4,13 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
 import javax.net.ssl.HttpsURLConnection;
+
 import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
 import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
 import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;

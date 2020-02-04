@@ -1,18 +1,17 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.BufferedOutputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
-import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
-import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
+import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
+import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
 
 class EnviarFrequenciasRequest {
 
@@ -42,12 +41,15 @@ class EnviarFrequenciasRequest {
 
             sendFrequenciasJsonBytes(frequenciasJsonBytes, httpsURLConnection);
 
-            if(httpsURLConnection.getResponseCode() == 200
-                    || httpsURLConnection.getResponseCode() == 201) {
+            if(httpsURLConnection.getResponseCode() == 200) {
 
                 String jsonString = HttpsUrlConnectionUtil.readStringFromHttpsURLConnection(true, httpsURLConnection);
 
                 respostaFrequencia = new JSONObject(jsonString);
+            }
+            else{
+
+                respostaFrequencia = new JSONObject().put("Erro", httpsURLConnection.getResponseCode());
             }
         }
         catch (Exception e) {

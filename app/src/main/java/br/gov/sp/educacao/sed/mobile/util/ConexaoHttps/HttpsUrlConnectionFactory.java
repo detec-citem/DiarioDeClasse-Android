@@ -1,8 +1,7 @@
 package br.gov.sp.educacao.sed.mobile.util.ConexaoHttps;
 
-import java.net.URL;
-
 import java.io.IOException;
+import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -21,14 +20,13 @@ public class HttpsUrlConnectionFactory {
 
         httpsURLConnection.setRequestMethod(httpMethod);
 
-        httpsURLConnection.setRequestProperty("Content-Type", "application/json");
+
 
         if (httpMethod.equals("POST")) {
-
             httpsURLConnection.setDoOutput(true);
+            httpsURLConnection.setRequestProperty("Content-Type", "application/json");
         }
         if (token != null) {
-
             httpsURLConnection.setRequestProperty("Authorization", token);
         }
         return httpsURLConnection;

@@ -16,6 +16,7 @@ public class TurmaGrupo
     private Disciplina disciplina;
     private TurmasFrequencia turmasFrequencia;
 
+
     public TurmaGrupo() {}
 
     public Turma getTurma() {

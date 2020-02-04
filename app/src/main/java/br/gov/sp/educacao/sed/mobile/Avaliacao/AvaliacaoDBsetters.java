@@ -1,16 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import android.database.Cursor;
-
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
-
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 

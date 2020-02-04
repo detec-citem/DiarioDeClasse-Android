@@ -1,11 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 
 import android.support.annotation.Nullable;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;

@@ -10,66 +10,16 @@ import br.gov.sp.educacao.sed.mobile.util.GenericsTable;
 public class AulasTO implements GenericsTable {
     public static final String nomeTabela = "AULAS";
 
+    //Variáveis
     private String inicioHora;
     private String fimHora;
-    private Integer diaSemana;
-    private Integer codigoAula;
     private Integer disciplina_id;
 
-    public AulasTO() {
-
-    }
-
+    //Métodos
     public void setJSON(JSONObject retorno, int disciplina_id) throws JSONException {
-
-        setInicioHora(retorno.getString("Inicio").trim());
-        setFimHora(retorno.getString("Fim").trim());
-        setDiaSemana(retorno.getInt("DiaSemana"));
-        //setCodigoAula(retorno.getInt("CodigoAula"));
-
-        setDisciplina_id(disciplina_id);
-    }
-
-    public AulasTO(JSONObject retorno, Integer disciplina_id) throws JSONException {
-
-        setInicioHora(retorno.getString("Inicio").trim());
-        setFimHora(retorno.getString("Fim").trim());
-        setDiaSemana(retorno.getInt("DiaSemana"));
-        setCodigoAula(retorno.getInt("CodigoAula"));
-
-        setDisciplina_id(disciplina_id);
-    }
-
-    public String getInicioHora() {
-        return inicioHora;
-    }
-
-    public void setInicioHora(String inicioHora) {
-        this.inicioHora = inicioHora;
-    }
-
-    public String getFimHora() {
-        return fimHora;
-    }
-
-    public void setFimHora(String fimHora) {
-        this.fimHora = fimHora;
-    }
-
-    public Integer getDiaSemana() {
-        return diaSemana;
-    }
-
-    public void setDiaSemana(Integer diaSemana) {
-        this.diaSemana = diaSemana;
-    }
-
-    public Integer getCodigoAula() {
-        return codigoAula;
-    }
-
-    public void setCodigoAula(Integer codigoAula) {
-        this.codigoAula = codigoAula;
+        this.disciplina_id = disciplina_id;
+        inicioHora = retorno.getString("Inicio").trim();
+        fimHora = retorno.getString("Fim").trim();
     }
 
     public Integer getDisciplina_id() {
@@ -80,21 +30,20 @@ public class AulasTO implements GenericsTable {
         this.disciplina_id = disciplina_id;
     }
 
+    //GenericsTable
     @Override
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-
-        values.put("inicioHora", getInicioHora());
-        values.put("fimHora", getFimHora());
-        values.put("diaSemana", getDiaSemana());
-        values.put("codigoAula", getCodigoAula());
-        values.put("disciplina_id", getDisciplina_id());
-
+        values.put("inicioHora", inicioHora);
+        values.put("fimHora", fimHora);
+        values.put("diaSemana", 0);
+        values.put("codigoAula", 0);
+        values.put("disciplina_id", disciplina_id);
         return values;
     }
 
     @Override
     public String getCodigoUnico() {
-        return "inicioHora = '" + getInicioHora() + "' and fimHora = '" + getFimHora() + "' and diaSemana = " + getDiaSemana() + " and disciplina_id = " + getDisciplina_id();
+        return "inicioHora = '" + inicioHora + "' and fimHora = '" + fimHora + "' AND disciplina_id = " + disciplina_id;
     }
 }

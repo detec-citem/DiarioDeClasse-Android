@@ -1,7 +1,5 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.Date;
-
 public class FrequenciaEnvio {
 
     public int codigoFrequencia;
@@ -11,6 +9,8 @@ public class FrequenciaEnvio {
     public String codigoTipoFrequencia;
 
     public int numeroDiaSemana;
+
+    private int codigoEscola;
 
     public String horarioInicioAula;
 
@@ -122,5 +122,13 @@ public class FrequenciaEnvio {
 
     public void setCodigoDisciplina(int codigoDisciplina) {
         this.codigoDisciplina = codigoDisciplina;
+    }
+
+    public int getCodigoEscola() {
+        return codigoEscola;
+    }
+
+    public void setCodigoEscola(int codigoEscola) {
+        this.codigoEscola = codigoEscola;
     }
 }

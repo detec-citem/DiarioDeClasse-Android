@@ -1,30 +1,23 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.util.Log;
-
 import android.app.Activity;
+import android.util.Log;
 
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
-
 import java.util.concurrent.ExecutionException;
 
 import br.gov.sp.educacao.sed.mobile.Login.LoginDBcrud;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.Login.LoginRequest;
-
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 import br.gov.sp.educacao.sed.mobile.util.Servidor.ConnectHandler;
 import br.gov.sp.educacao.sed.mobile.util.Servidor.ParametroJson;
 import br.gov.sp.educacao.sed.mobile.util.Servidor.RetornoJson;
 import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
-
-import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
 public class EnviarFechamentoTurma
         implements Runnable {

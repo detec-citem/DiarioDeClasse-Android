@@ -1,12 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
-import android.os.Bundle;
-
 import android.content.Intent;
-
-import android.view.LayoutInflater;
-
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 
 public class AlunoDetalheActivity
         extends AppCompatActivity

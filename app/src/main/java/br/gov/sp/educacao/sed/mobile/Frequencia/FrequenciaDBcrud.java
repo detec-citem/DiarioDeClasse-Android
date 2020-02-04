@@ -1,13 +1,10 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.Date;
-
-import java.text.SimpleDateFormat;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;

@@ -1,14 +1,11 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Context;
-
 import android.widget.ArrayAdapter;
-
-import android.support.annotation.NonNull;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 

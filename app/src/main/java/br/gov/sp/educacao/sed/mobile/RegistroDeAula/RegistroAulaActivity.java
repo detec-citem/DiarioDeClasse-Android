@@ -1,11 +1,8 @@
 package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 
 import android.content.Intent;
-
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
-
 import android.view.LayoutInflater;
 
 import com.roomorama.caldroid.CaldroidFragment;
@@ -13,7 +10,6 @@ import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,13 +18,9 @@ import java.util.List;
 import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
-
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 import br.gov.sp.educacao.sed.mobile.util.DateUtils;
@@ -67,7 +59,6 @@ public class RegistroAulaActivity
     private List<Habilidade> listaHabilidadesCheckadas;
     private List<Habilidade> listaHabilidadesParaExibir;
 
-    private List<Integer> listaDiaSemana;
     private List<Integer> listaCodigosHabilidadesCheckadas;
     private List<Integer> listaCodigosConteudosCheckados = new ArrayList<>();
 
@@ -130,11 +121,11 @@ public class RegistroAulaActivity
 
         listaHorariosSelecionados = new ArrayList<>();
 
-        criarAcessoBanco = new CriarAcessoBanco();
+
 
         calendar = Calendar.getInstance();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         registroDBgetters = new RegistroDBgetters(banco);
 
@@ -346,20 +337,7 @@ public class RegistroAulaActivity
 
     @Override
     public void usuarioQuerFecharSelecaoHorarios() {
-
-        if(listaHorariosSelecionados.size() == 0) {
-
-            registroAulaActivityViewMvcImpl.avisoUsuarioSelecioneUmOuMaisHorarios();
-        }
-        else {
-
-            if(verificarDisciplina()) {
-
-                montarBlocoConteudos(numeroBimestreAtual);
-            }
-
-            registroAulaActivityViewMvcImpl.removerSelecaoHorarios();
-        }
+        finish();
     }
 
     @Override
@@ -544,17 +522,17 @@ public class RegistroAulaActivity
     }
 
     private void criarNovoRegistro(List<ObjetoConteudo> conteudos, String observacoes) {
-
         registroCriado = new Registro();
-
         registroCriado.setBimestre(registroDBgetters.getBimestreAtual(Integer.parseInt(turma)));
         registroCriado.setCodigoDisciplina(String.valueOf(disciplinaSelecionada));
-        registroCriado.setCodigoGrupoCurriculo(String.valueOf(grupoCurriculoContHab.getCodigoGrupo()));
         registroCriado.setCodigoTurma(turma);
         registroCriado.setConteudos(conteudos);
         registroCriado.setDataCriacao(dataCriacao);
         registroCriado.setObservacoes(observacoes);
         registroCriado.setOcorrencias("");
+        if (grupoCurriculoContHab != null) {
+            registroCriado.setCodigoGrupoCurriculo(String.valueOf(grupoCurriculoContHab.getCodigoGrupo()));
+        }
     }
 
     public void onBackPressed() {
@@ -626,24 +604,34 @@ public class RegistroAulaActivity
     }
 
     private void marcarConteudosCheckados() {
-
-        for(ObjetoConteudo conteudo : registroAtual.getConteudos()) {
-
-            if(conteudo.getCodigosHabilidades().size() > 0) {
-
-                listaCodigosConteudosCheckados.add(conteudo.getCodigoConteudo());
+        int i;
+        int numeroConteudosChecados = 0;
+        List<ObjetoConteudo> conteudos = registroAtual.getConteudos();
+        if (conteudos != null && !conteudos.isEmpty()) {
+            int numeroConteudos = conteudos.size();
+            for (i = 0; i < numeroConteudos; i++) {
+                ObjetoConteudo conteudo = conteudos.get(i);
+                if (conteudo != null) {
+                    List<Integer> codigosHabilidades = conteudo.getCodigosHabilidades();
+                    if (codigosHabilidades != null && !codigosHabilidades.isEmpty()) {
+                        numeroConteudosChecados++;
+                        listaCodigosConteudosCheckados.add(conteudo.getCodigoConteudo());
+                    }
+                }
             }
         }
-
-        for(int conteudo = 0; conteudo < conteudosParaExibir.size(); conteudo++) {
-
-            for(int indiceCodigo = 0; indiceCodigo < listaCodigosConteudosCheckados.size(); indiceCodigo++) {
-
-                if(listaCodigosConteudosCheckados.get(indiceCodigo) == conteudosParaExibir.get(conteudo).getCodigo()) {
-
-                    conteudosParaExibir.get(conteudo).setHabilidadeCheck(true);
-
-                    break;
+        int j;
+        int numeroConteudos = conteudosParaExibir.size();
+        for (i = 0; i < numeroConteudos; i++) {
+            Conteudo conteudo = conteudosParaExibir.get(i);
+            if (conteudo != null) {
+                int codigoConteudo = conteudo.getCodigo();
+                for (j = 0; j < numeroConteudosChecados; j++) {
+                    Integer codigoConteudoChecado = listaCodigosConteudosCheckados.get(j);
+                    if (codigoConteudoChecado != null && codigoConteudoChecado == codigoConteudo) {
+                        conteudo.setHabilidadeCheck(true);
+                        break;
+                    }
                 }
             }
         }
@@ -669,7 +657,9 @@ public class RegistroAulaActivity
 
         conteudosParaExibir = new ArrayList<>();
 
-        conteudosParaExibir = grupoCurriculoContHab.getConteudos();
+        if (turmaGrupo.getDisciplina().getCodigoDisciplina() <= 8400) {
+            conteudosParaExibir = grupoCurriculoContHab.getConteudos();
+        }
 
         registroAtual = registroDBgetters.buscarRegistrosDataTurma(
 
@@ -754,12 +744,8 @@ public class RegistroAulaActivity
 
         for(int i = 0; i < listaAula.size(); i++) {
 
-            if(listaAula.get(i).getDiaSemana() + 1 == diaSemana) {
-
-                Aula aula = listaAula.get(i);
-
-                listahorario.add(aula.getInicio() + "/" + aula.getFim());
-            }
+            Aula aula = listaAula.get(i);
+            listahorario.add(aula.getInicio() + "/" + aula.getFim());
         }
 
         dataCriacao = data;
@@ -790,24 +776,14 @@ public class RegistroAulaActivity
 
     public void iniciaCaldroid(Bundle savedInstanceState, int id) {
 
-        try {
+        listaAula = registroDBgetters.getAula(turmaGrupo.getDisciplina());
 
-            listaAula = registroDBgetters.getAula(turmaGrupo.getDisciplina());
-
-            listaDiaSemana = new ArrayList<>();
-
-            for(Aula aulaFor : listaAula) {
-
-                if(!listaDiaSemana.contains(aulaFor.getDiaSemana())) {
-
-                    listaDiaSemana.add(aulaFor.getDiaSemana());
-                }
-            }
-        }
-        catch(Exception e) {
-
-            e.printStackTrace();
-        }
+        List<Integer> listaDiaSemana = new ArrayList<>();
+        listaDiaSemana.add(1);
+        listaDiaSemana.add(2);
+        listaDiaSemana.add(3);
+        listaDiaSemana.add(4);
+        listaDiaSemana.add(5);
 
         listaDiasLetivos = registroDBgetters.getDiasLetivos(bimestreAtual, listaDiaSemana);
 
@@ -849,8 +825,6 @@ public class RegistroAulaActivity
         getCaldroid(savedInstanceState);
 
         listener = getListenerCaldroid();
-
-        getListenerCaldroid();
 
         dialogCaldroidFragment.setCaldroidListener(listener);
 
@@ -903,8 +877,7 @@ public class RegistroAulaActivity
 
         CaldroidFragmentListener listener = new CaldroidFragmentListener(
 
-                dialogCaldroidFragment, bimestreAtual, bimestreAnterior, listaDiaSemana, listaDiasLetivos, listaDiasMarcados,
-                turmaGrupo, fechamentoData, this
+                dialogCaldroidFragment, bimestreAtual, bimestreAnterior, listaDiasLetivos, listaDiasMarcados, fechamentoData, this
         );
 
         return listener;

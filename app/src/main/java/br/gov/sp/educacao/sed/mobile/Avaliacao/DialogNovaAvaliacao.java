@@ -1,37 +1,28 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import android.os.Bundle;
-
-import java.util.List;
-import java.util.Date;
-import java.util.ArrayList;
-
 import android.app.Dialog;
-
-import android.view.LayoutInflater;
-
-import br.gov.sp.educacao.sed.mobile.R;
-
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
-import br.gov.sp.educacao.sed.mobile.util.DateUtils;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
-import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
-
+import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoDBgetters;
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
+import br.gov.sp.educacao.sed.mobile.R;
+import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
+import br.gov.sp.educacao.sed.mobile.util.DateUtils;
 import br.gov.sp.educacao.sed.mobile.util.ListenerCalendario.CaldroidFragmentListener;
 
 public class DialogNovaAvaliacao
@@ -103,15 +94,13 @@ public class DialogNovaAvaliacao
 
         dadosAvaliacaoEditar();
 
-        List<Aula> mListaAulas;
-
         List<Avaliacao> mListaAvaliacaoes;
 
         mTurmaGrupo = getArguments().getParcelable(TurmaGrupo.BUNDLE_TURMA_GRUPO);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getActivity().getApplicationContext());
 
         avaliacaoDBcrud = new AvaliacaoDBcrud(banco);
 
@@ -133,9 +122,12 @@ public class DialogNovaAvaliacao
 
             bimestreAnterior = avaliacaoDBgetters.getBimestreAnterior(mTurmaGrupo.getTurmasFrequencia().getId());
 
-            mListaAulas = avaliacaoDBgetters.getAula(mTurmaGrupo.getDisciplina());
-
-            mListaDiasSemana = getDiasDaSemana(mListaAulas);
+            mListaDiasSemana = new ArrayList<>(5);
+            mListaDiasSemana.add(1);
+            mListaDiasSemana.add(2);
+            mListaDiasSemana.add(3);
+            mListaDiasSemana.add(4);
+            mListaDiasSemana.add(5);
 
             mListaAvaliacaoes = avaliacaoDBgetters.getAvaliacoes(
 
@@ -222,8 +214,8 @@ public class DialogNovaAvaliacao
 
         CaldroidFragmentListener listener = new CaldroidFragmentListener(
 
-                mDialogCaldroidFragment, bimestreAtual, bimestreAnterior, mListaDiasSemana, mListaDiasLetivos,
-                mListDiasMarcados, mTurmaGrupo, fechamentoData, getActivity()
+                mDialogCaldroidFragment, bimestreAtual, bimestreAnterior, mListaDiasLetivos,
+                mListDiasMarcados, fechamentoData, getActivity()
         ) {
 
             @Override
@@ -252,20 +244,6 @@ public class DialogNovaAvaliacao
     public void escolherTipoDialog(int tipoDialog) {
 
         this.mTipoDialog = tipoDialog;
-    }
-
-    private List<Integer> getDiasDaSemana(List<Aula> aulas) {
-
-        List<Integer> diasDaSemana = new ArrayList<>();
-
-        for(Aula aula : aulas) {
-
-            if(!diasDaSemana.contains(aula.getDiaSemana())) {
-
-                diasDaSemana.add(aula.getDiaSemana());
-            }
-        }
-        return diasDaSemana;
     }
 
     private int converterTipoAtividade(String tipoAtividade) {
@@ -423,5 +401,14 @@ public class DialogNovaAvaliacao
         }
 
         dialogNovaAvaliacaoViewMvcImpl.removerDialog();
+    }
+
+    @Override
+    public boolean mediaCalculada() {
+        FechamentoDBgetters fechamentoDBgetters = new FechamentoDBgetters(banco);
+        int codigoDisciplina = mTurmaGrupo.getDisciplina().getCodigoDisciplina();
+        Turma turma = mTurmaGrupo.getTurma();
+        int codigoTurma = turma.getCodigoTurma();
+        return fechamentoDBgetters.mediaFechadaParaTurma(codigoDisciplina, codigoTurma);
     }
 }

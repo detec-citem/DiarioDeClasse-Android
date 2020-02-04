@@ -2,9 +2,8 @@ package br.gov.sp.educacao.sed.mobile.Fechamento;
 
 import java.util.List;
 
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-
 import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 public class MediaSoma {
 

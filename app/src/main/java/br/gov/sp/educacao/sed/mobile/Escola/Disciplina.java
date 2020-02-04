@@ -1,7 +1,7 @@
 package br.gov.sp.educacao.sed.mobile.Escola;
 
-import android.os.Parcelable;
 import android.os.Parcel;
+import android.os.Parcelable;
 
 public class Disciplina
         implements Parcelable {

@@ -96,49 +96,39 @@ public class FragmentHorarios
     }
 
     public void deschecarUltimoHorarioChecado(String horario) {
-
+        int i;
         int id = 0;
-
-        for(int i = 0; i < listaHorarios.size(); i++) {
-
-            if(listaHorarios.get(i).equals(horario)) {
-
+        int numeroHorarios = listaHorarios.size();
+        for (i = 0; i < numeroHorarios; i++) {
+            if (listaHorarios.get(i).equals(horario)) {
                 id = i;
-
                 break;
             }
         }
-
-        View view = null;
-
-        view = listaDeHorarios.getChildAt(id);
-
-        CheckBox checkBox = view.findViewById(R.id.checkBoxHorario);
-
-        checkBox.setChecked(false);
+        View view = listaDeHorarios.getChildAt(id);
+        if (view != null) {
+            CheckBox checkBox = view.findViewById(R.id.checkBoxHorario);
+            if (checkBox != null) {
+                checkBox.setChecked(false);
+            }
+        }
     }
 
     public void desmarcarHorario(String horario) {
-
+        int i;
         int id = 0;
-
-        for(int i = 0; i < listaHorarios.size(); i++) {
-
-            if(listaHorarios.get(i).equals(horario)) {
-
+        int numeroHorarios = listaHorarios.size();
+        for(i = 0; i < numeroHorarios; i++) {
+            if (listaHorarios.get(i).equals(horario)) {
                 id = i;
-
                 break;
             }
         }
-
-        View view = null;
-
-        view = listaDeHorarios.getChildAt(id);
-
-        ConstraintLayout constraintLayout = view.findViewById(R.id.constraintId);
-
-        constraintLayout.setBackgroundColor(getResources().getColor(R.color.transparente));
+        View view = listaDeHorarios.getChildAt(id);
+        if (view != null) {
+            ConstraintLayout constraintLayout = view.findViewById(R.id.constraintId);
+            constraintLayout.setBackgroundColor(getResources().getColor(R.color.transparente));
+        }
     }
 
     public void atualizarListaHorariosComLancamento(List<String> listaHorariosComLancamento) {

@@ -1,7 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.comunicados;
 
 import android.os.AsyncTask;
+
 import org.json.JSONArray;
+
 import br.gov.sp.educacao.sed.mobile.Menu.HomeActivity;
 
 public class ComunicadoAsyncTask extends AsyncTask<String, Void, JSONArray> {

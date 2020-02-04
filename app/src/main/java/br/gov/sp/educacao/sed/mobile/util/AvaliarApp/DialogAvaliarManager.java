@@ -1,11 +1,8 @@
 package br.gov.sp.educacao.sed.mobile.util.AvaliarApp;
 
-import android.os.Bundle;
-
 import android.content.Context;
-
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v7.app.AppCompatActivity;
 
 public class DialogAvaliarManager {

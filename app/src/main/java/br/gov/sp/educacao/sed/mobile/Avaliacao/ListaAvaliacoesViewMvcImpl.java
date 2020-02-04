@@ -1,41 +1,32 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import java.util.List;
-
-import android.os.Bundle;
-
 import android.app.AlertDialog;
-
-import android.widget.Toast;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Intent;
 import android.content.Context;
 import android.content.DialogInterface;
-
-import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.v7.widget.Toolbar;
-
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import android.view.animation.Animation;
-import android.view.animation.Interpolator;
-import android.view.animation.AnimationUtils;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import br.gov.sp.educacao.sed.mobile.R;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 
 class ListaAvaliacoesViewMvcImpl
         implements

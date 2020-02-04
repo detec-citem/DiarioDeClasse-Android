@@ -1,26 +1,23 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import android.os.Bundle;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-
-import android.content.Intent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteException;
+import android.os.Bundle;
 
 import java.util.concurrent.TimeUnit;
 
-import android.database.sqlite.SQLiteException;
-
-import br.gov.sp.educacao.sed.mobile.Frequencia.Calendario;
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.Login.LoginActivity;
-
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
 import br.gov.sp.educacao.sed.mobile.R;
+import br.gov.sp.educacao.sed.mobile.tutorial.TutorialActivity;
 import br.gov.sp.educacao.sed.mobile.util.Analytics;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
+import br.gov.sp.educacao.sed.mobile.util.MyPreferences;
 
 public class MainActivity
         extends Activity {
@@ -30,6 +27,8 @@ public class MainActivity
     private MenuDBgetters menuDBgetters;
 
     private CriarAcessoBanco criarAcessoBanco;
+
+    private MyPreferences mPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +41,12 @@ public class MainActivity
 
         final Intent intent;
 
+        mPref = new MyPreferences(this);
+
         UsuarioTO usuario = null;
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         menuDBgetters = new MenuDBgetters(banco);
 
@@ -65,15 +65,36 @@ public class MainActivity
                 showErroDialog(this, getString(R.string.problemas_inicializacao, getString(R.string.app_name)));
             }
         }
-        if(usuario != null) {
 
-            intent = new Intent(MainActivity.this, HomeActivity.class);
+        if(mPref.getBoolean(MyPreferences.KEY_TUTORIAL)){
 
-            intent.putExtra("usuario", usuario);
+            if(usuario != null) {
+
+                intent = new Intent(MainActivity.this, HomeActivity.class);
+
+                intent.putExtra("usuario", usuario);
+            }
+            else {
+
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+            }
         }
-        else {
+        else{
 
-            intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent = new Intent(MainActivity.this, TutorialActivity.class);
+
+            if(usuario != null) {
+
+                intent.putExtra("origem", "splash");
+                intent.putExtra("usuarioLogado", true);
+            }
+            else{
+
+                intent.putExtra("origem", "splash");
+                intent.putExtra("temUsuario", false);
+            }
+
+            mPref.putBoolean(MyPreferences.KEY_TUTORIAL, true);
         }
 
         new Thread(new Runnable() {

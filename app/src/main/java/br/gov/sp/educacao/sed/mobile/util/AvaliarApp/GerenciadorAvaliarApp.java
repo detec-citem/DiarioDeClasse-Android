@@ -1,9 +1,8 @@
 package br.gov.sp.educacao.sed.mobile.util.AvaliarApp;
 
-import android.os.Bundle;
-
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 
 class GerenciadorAvaliarApp {
 

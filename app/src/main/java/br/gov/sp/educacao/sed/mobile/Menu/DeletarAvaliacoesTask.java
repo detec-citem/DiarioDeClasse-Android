@@ -1,8 +1,8 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import java.util.List;
-
 import android.os.AsyncTask;
+
+import java.util.List;
 
 class DeletarAvaliacoesTask
         extends AsyncTask<List<Integer>, Void, Void> {
@@ -46,13 +46,12 @@ class DeletarAvaliacoesTask
                 }
             }
         }
+
         return null;
     }
 
     @Override
     protected void onPostExecute(Void a) {
-
-        delegate.completouEtapaSincronizacao();
 
         delegate = null;
     }

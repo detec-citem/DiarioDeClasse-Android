@@ -1,35 +1,30 @@
 package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import android.support.v7.app.AlertDialog;
-import android.util.Base64;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Context;
-import android.content.res.Resources;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import br.gov.sp.educacao.sed.mobile.R;
-
-import android.support.annotation.Nullable;
-
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.LinearLayoutManager;
-
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListaCarteirinhasViewMvcImpl
         implements ListaCarteirinhasViewMvc,
@@ -218,12 +213,16 @@ public class ListaCarteirinhasViewMvcImpl
     @Override
     public void revalidacaoDeToken(String token) {
 
-        listener.atualizarToken(token);
+        if (listener != null) {
+            listener.atualizarToken(token);
+        }
+
     }
 
     public void perfilSelecionado(boolean perfilOk) {
-
-        listener.perfilSelecionado(perfilOk);
+        if (listener != null) {
+            listener.perfilSelecionado(perfilOk);
+        }
     }
 
     void atualizarListaDeCarteirinhas() {
@@ -267,7 +266,9 @@ public class ListaCarteirinhasViewMvcImpl
 
                 inicializaProgress();
 
-                listener.usuarioQuerAtualizarCarteirinhas();
+                if (listener != null) {
+                    listener.usuarioQuerAtualizarCarteirinhas();
+                }
             }
         });
     }
@@ -329,7 +330,10 @@ public class ListaCarteirinhasViewMvcImpl
             @Override
             public void onClick(View view) {
 
-                listener.onBackPressed();
+                if (listener != null) {
+                    listener.onBackPressed();
+                }
+
             }
         });
 
@@ -348,8 +352,9 @@ public class ListaCarteirinhasViewMvcImpl
     }
 
     void dadosRecebidosCarteirinhas(String respostaJsonCarteirinha) {
-
-        listener.analisarRespostaCarteirinhas(respostaJsonCarteirinha);
+        if (listener != null) {
+            listener.analisarRespostaCarteirinhas(respostaJsonCarteirinha);
+        }
     }
 
     @Override
@@ -360,8 +365,9 @@ public class ListaCarteirinhasViewMvcImpl
 
     @Override
     public void onCarteirinhaSelecionada(DadosCarteirinha dadosCarteirinha, View view1, View view2) {
-
-        listener.onCarteirinhaSelecionada(dadosCarteirinha, view1, view2);
+        if (listener != null) {
+            listener.onCarteirinhaSelecionada(dadosCarteirinha, view1, view2);
+        }
     }
 
     void avisoUsuarioErroBuscarCarteirinhas() {

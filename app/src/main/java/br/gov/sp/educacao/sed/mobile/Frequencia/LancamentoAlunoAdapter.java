@@ -1,15 +1,12 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
 import android.content.Context;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.widget.ArrayAdapter;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
@@ -34,7 +31,7 @@ public class LancamentoAlunoAdapter
 
         void resgatarFaltasAluno(Aluno aluno);
 
-        void irParaProximoAlunoAtivo(Aluno aluno);
+        void irParaProximoAlunoAtivo(int posicao);
     }
 
     LancamentoAlunoAdapter(Context context, OnFrequenciaSelecionadaListener onFrequenciaSelecionadaListener, TurmaGrupo turmaGrupo){
@@ -65,6 +62,8 @@ public class LancamentoAlunoAdapter
 
         FrequenciaLancamentoItemViewMvcImpl viewMvc = (FrequenciaLancamentoItemViewMvcImpl) convertView.getTag();
 
+        viewMvc.setPosition(position);
+
         mOnFrequenciaSelecionadaListener.resgatarFaltasAluno(aluno);
 
         viewMvc.exibirInfoAluno(aluno, turmaGrupo);
@@ -91,8 +90,8 @@ public class LancamentoAlunoAdapter
     }
 
     @Override
-    public void irParaProximoAlunoAtivo(Aluno aluno) {
+    public void irParaProximoAlunoAtivo(int posicao) {
 
-        mOnFrequenciaSelecionadaListener.irParaProximoAlunoAtivo(aluno);
+        mOnFrequenciaSelecionadaListener.irParaProximoAlunoAtivo(posicao);
     }
 }

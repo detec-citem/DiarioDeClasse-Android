@@ -1,7 +1,5 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.List;
-
 import android.os.AsyncTask;
 
 class ExcluirFrequenciaTask

@@ -1,20 +1,19 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import java.util.List;
-
-import android.os.Bundle;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
-import android.support.v7.app.AppCompatActivity;
+import java.util.List;
 
+import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoDBgetters;
+import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
@@ -63,9 +62,9 @@ public class ListaAvaliacoesActivity
 
         super.onCreate(savedInstanceState);
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         avaliacaoDBgetters = new AvaliacaoDBgetters(banco);
 
@@ -244,25 +243,27 @@ public class ListaAvaliacoesActivity
     }
 
     public void usuarioSelecionouAvaliacao(Avaliacao avaliacao) {
-
         if(avaliacaoTemDataFutura(avaliacao)) {
-
             listaAvaliacoesViewMvc.notasAvaliacoesFuturas();
-
             listaAvaliacoesViewMvc.removerProgressBarVoador();
+        }
+        else if(avaliacao.isValeNota()) {
+            FechamentoDBgetters fechamentoDBgetters = new FechamentoDBgetters(banco);
+            int codigoDisciplina = turmaGrupo.getDisciplina().getCodigoDisciplina();
+            Turma turma = turmaGrupo.getTurma();
+            int codigoTurma = turma.getCodigoTurma();
+            if (fechamentoDBgetters.mediaFechadaParaTurma(codigoDisciplina, codigoTurma)) {
+                Toast.makeText(this, "Não é possível lançar notas, pois já existe média calculada para essa turma e disciplina", Toast.LENGTH_LONG).show();
+            }
+            else {
+                navegarAplicarNotasAvaliacao(avaliacao);
+            }
         }
         else {
 
-            if(avaliacao.isValeNota()) {
+            listaAvaliacoesViewMvc.lancarNotasAvaliacaoNaoValeNota();
 
-                navegarAplicarNotasAvaliacao(avaliacao);
-            }
-            else {
-
-                listaAvaliacoesViewMvc.lancarNotasAvaliacaoNaoValeNota();
-
-                listaAvaliacoesViewMvc.removerProgressBarVoador();
-            }
+            listaAvaliacoesViewMvc.removerProgressBarVoador();
         }
     }
 

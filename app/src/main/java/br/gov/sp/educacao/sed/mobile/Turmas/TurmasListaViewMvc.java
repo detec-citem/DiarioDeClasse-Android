@@ -1,9 +1,8 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.support.annotation.Nullable;
 
 interface TurmasListaViewMvc {
 

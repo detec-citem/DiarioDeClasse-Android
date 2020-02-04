@@ -1,35 +1,71 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
+import android.database.Cursor;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.ArrayList;
-
-import android.database.Cursor;
-
-import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
-
+import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
-class FechamentoDBgetters {
+public class FechamentoDBgetters {
 
     private Banco banco;
 
     private final String TAG = FechamentoDBgetters.class.getSimpleName();
 
-    FechamentoDBgetters(Banco banco) {
+    public FechamentoDBgetters(Banco banco) {
 
         this.banco = banco;
     }
+
+    public boolean mediaFechadaParaTurma(int codigoDisciplina, int codigoTurma) {
+        int numeroFechamentos = 0;
+        Cursor cursor = banco.get().rawQuery("SELECT COUNT(*) FROM FECHAMENTO_ALUNO WHERE codigoDisciplina = " + codigoDisciplina + " AND codigoTurma = " + codigoTurma + " AND nota IS NOT NULL AND codigoTipoFechamento IN (SELECT codigoTipoFechamento FROM TIPO_FECHAMENTO WHERE inicio <= date('now') AND fim >= date('now'))", null);
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            numeroFechamentos = cursor.getInt(0);
+        }
+        cursor.close();
+        return numeroFechamentos > 0;
+    }
+
+    /*
+    CREATE TABLE IF NOT EXISTS FECHAMENTO_TURMA (
+    id INTEGER PRIMARY KEY NOT NULL,
+    codigoTurma INT,
+    codigoDisciplina INT,
+    codigoTipoFechamento INT,
+    aulasRealizadas INT,
+    aulasPlanejadas INT,
+    justificativa TEXT,
+    dataServidor VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS FECHAMENTO_ALUNO (
+    id INTEGER PRIMARY KEY NOT NULL,
+    codigoFechamento INT,
+    codigoTurma INT,
+    codigoMatricula TEXT,
+    codigoDisciplina INT,
+    codigoTipoFechamento INT,
+    nota INT,
+    faltas INT,
+    ausenciasCompensadas INT,
+    faltasAcumuladas INT,
+    justificativa TEXT,
+    dataServidor VARCHAR(20),
+    confirmado INT,
+    FOREIGN KEY(codigoTurma) REFERENCES FECHAMENTO_TURMA(codigoTurma)
+);*/
 
     int getFechamentoAtual() {
 

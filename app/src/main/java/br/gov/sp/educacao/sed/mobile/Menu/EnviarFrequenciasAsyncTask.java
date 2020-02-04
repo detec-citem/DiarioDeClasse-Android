@@ -1,19 +1,20 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.os.AsyncTask;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.gov.sp.educacao.sed.mobile.constants.EtapasSincronizacao;
 
 class EnviarFrequenciasAsyncTask
         extends AsyncTask<List<JSONObject>, Void, List<JSONObject>> {
 
     private String token;
 
-    HomeViewMvcImpl delegate;
+    HomeViewMvc.Listener delegate;
 
     EnviarFrequenciasAsyncTask(String token) {
 
@@ -69,7 +70,17 @@ class EnviarFrequenciasAsyncTask
             delegate.frequenciasResultadoSincronizacao(listaRespostasFrequencia);
         }
 
-        delegate.completouEtapaSincronizacao();
+        boolean sucesso = true;
+
+        for (JSONObject jsonObject : listaRespostasFrequencia) {
+
+            if(jsonObject.has("Erro")){
+
+                sucesso = false;
+            }
+        }
+
+        delegate.completouEtapaSincronizacao(EtapasSincronizacao.ETAPA_FALTAS, sucesso);
 
         delegate = null;
     }

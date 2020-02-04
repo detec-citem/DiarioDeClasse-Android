@@ -1,0 +1,209 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tutorial_background"
+    tools:context=".tutorial.TutorialActivity">
+
+    <ImageView
+        android:id="@+id/tutorial_img_fundo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/tutorial_img_01"
+        app:layout_constraintBottom_toTopOf="@+id/tutorial_btn_voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tutorial_btn_voltar"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/tutorial_btn_pular"
+        android:onClick="clickVoltarTutorial"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tutorial_btn_avancar"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/tutorial_btn_avancar"
+        android:onClick="clickAvancarTutorial"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/tutorial_btn_voltar"
+        app:layout_constraintEnd_toStartOf="@+id/tutorial_btn_avancar"
+        app:layout_constraintStart_toEndOf="@+id/tutorial_btn_voltar"
+        app:layout_constraintTop_toTopOf="@+id/tutorial_btn_voltar">
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_1"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_ativo"/>
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_2"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_3"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_4"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_5"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_6"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_7"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_8"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_9"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_10"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_11"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_12"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_13"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_14"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_15"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_16"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+        <ImageView
+            android:id="@+id/tutorial_img_ponto_17"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dp"
+            app:srcCompat="@drawable/tutorial_ponto_default" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tutorial_txt_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="3dp"
+        android:text="@string/string_tutorial_link_atendimento"
+        android:textAllCaps="false"
+        android:textColor="#56CCF2"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tutorial_img_fundo" />
+
+</android.support.constraint.ConstraintLayout>

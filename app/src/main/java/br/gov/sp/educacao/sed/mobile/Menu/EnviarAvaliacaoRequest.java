@@ -3,23 +3,21 @@ package br.gov.sp.educacao.sed.mobile.Menu;
 //import com.google.firebase.perf.FirebasePerformance;
 //import com.google.firebase.perf.metrics.HttpMetric;
 
-import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
-import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
-import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
-import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionFactory;
+import br.gov.sp.educacao.sed.mobile.util.ConexaoHttps.HttpsUrlConnectionUtil;
+import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
+import br.gov.sp.educacao.sed.mobile.util.Servidor.UrlServidor;
 
 class EnviarAvaliacaoRequest {
 
@@ -71,6 +69,10 @@ class EnviarAvaliacaoRequest {
                 resultJson.put("Id", avaliacao.getString("Id"));
 
                 resultJson.put("DataServidor", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+            }
+            else{
+
+                resultJson.put("Erro", httpsURLConnection.getResponseCode());
             }
         }
         catch (IOException | JSONException e) {

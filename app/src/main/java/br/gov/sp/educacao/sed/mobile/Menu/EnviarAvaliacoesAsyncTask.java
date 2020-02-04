@@ -7,6 +7,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.gov.sp.educacao.sed.mobile.constants.EtapasSincronizacao;
+
+
 public class EnviarAvaliacoesAsyncTask
         extends AsyncTask<List<JSONObject>,
                           Void,
@@ -14,7 +17,7 @@ public class EnviarAvaliacoesAsyncTask
 
     private String token;
 
-    HomeViewMvcImpl delegate = null;
+    HomeViewMvc.Listener delegate = null;
 
     EnviarAvaliacoesAsyncTask(String token) {
 
@@ -46,9 +49,19 @@ public class EnviarAvaliacoesAsyncTask
 
         super.onPostExecute(strings);
 
-        delegate.avaliacoesResultadoSincronizacao(strings);
+        boolean sucesso = true;
 
-        delegate.completouEtapaSincronizacao();
+        for(JSONObject jsonObject : strings){
+
+            if(jsonObject.has("Erro")){
+
+                sucesso = false;
+            }
+        }
+
+        delegate.alterarAvaliacoes(strings);
+
+        delegate.completouEtapaSincronizacao(EtapasSincronizacao.ETAPA_AVAL, sucesso);
 
         delegate = null;
     }

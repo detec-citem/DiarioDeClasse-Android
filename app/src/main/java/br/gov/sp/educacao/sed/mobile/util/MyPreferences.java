@@ -2,56 +2,69 @@ package br.gov.sp.educacao.sed.mobile.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 public class MyPreferences {
+    //Constantes
+    private final String PREF_NAME = "preferenciaDiarioClasse";
+    private final String KEY_ATUALIZAR = "precisaAtualizar";
+    private final String KEY_LOGIN_TESTE = "loginTeste";
+    private final String KEY_VERSAO_APP = "versaoApp";
+    public static final String KEY_TUTORIAL = "tutorial";
 
-    private String PREF_NAME = "preferenciaDiarioClasse";
-
-    private String KEY_ATUALIZAR = "precisaAtualizar";
-
-    private String KEY_LOGIN_TESTE = "loginTeste";
-
+    //Variáveis
     private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-    private Context ctx;
+    private Editor editor;
+    private Context context;
 
-    public MyPreferences(Context ctx) {
-
-        this.ctx = ctx;
-
-        preferences = ctx.getSharedPreferences(PREF_NAME, ctx.MODE_PRIVATE);
-
-        this.editor = preferences.edit();
+    //Construtor
+    public MyPreferences(Context context) {
+        this.context = context;
+        preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = preferences.edit();
     }
 
+    //Métodos
     public void salvarFlagAtualizar() {
-
-        this.editor.putBoolean(KEY_ATUALIZAR, true);
-
+        editor.putBoolean(KEY_ATUALIZAR, true);
         editor.commit();
     }
 
-    public boolean isLoginTeste(){
-
-        return this.preferences.getBoolean(KEY_LOGIN_TESTE, false);
+    public boolean isLoginTeste() {
+        return preferences.getBoolean(KEY_LOGIN_TESTE, false);
     }
 
-    public void setLoginTeste(){
-
-        this.editor.putBoolean(KEY_LOGIN_TESTE, true);
-
-        this.editor.commit();
+    public void setLoginTeste() {
+        editor.putBoolean(KEY_LOGIN_TESTE, true);
+        editor.commit();
     }
 
     public boolean precisaAtualizar() {
-
-        return this.preferences.getBoolean(KEY_ATUALIZAR, false);
+        return preferences.getBoolean(KEY_ATUALIZAR, false);
     }
 
     public void atualizou() {
-
-        this.editor.putBoolean(KEY_ATUALIZAR, false);
-
+        editor.putBoolean(KEY_ATUALIZAR, false);
         editor.commit();
+    }
+
+    public void salvarVersaoApp(int versaoApp) {
+        editor.putInt(KEY_VERSAO_APP, versaoApp);
+        editor.commit();
+    }
+
+    public void putBoolean(String key, boolean bol){
+
+        editor.putBoolean(key, bol);
+        editor.commit();
+    }
+
+    public boolean getBoolean(String key){
+
+        return preferences.getBoolean(key, false);
+    }
+
+    public int versaoAtual() {
+        return preferences.getInt(KEY_VERSAO_APP, 0);
     }
 }

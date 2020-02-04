@@ -1,13 +1,11 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import java.util.List;
-
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.content.Intent;
-
-import android.support.annotation.Nullable;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
@@ -40,7 +38,7 @@ interface FrequenciaLancamentoViewMvc {
 
         void resgatarFaltasAluno(Aluno aluno);
 
-        void irParaProximoAlunoAtivo(Aluno aluno);
+        void irParaProximoAlunoAtivo(int posicao);
 
         void usuarioQuerReplicarChamada(String data);
 

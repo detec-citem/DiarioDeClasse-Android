@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,13 +15,9 @@ import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
 import br.gov.sp.educacao.sed.mobile.Escola.DiasLetivos;
 import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
-
 import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoData;
-
 import br.gov.sp.educacao.sed.mobile.Login.UsuarioTO;
-
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmasFrequencia;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
@@ -144,7 +139,7 @@ public class RegistroDBgetters {
                         " turmasFrequencia_id" +
                         " FROM BIMESTRE" +
                         " WHERE numero = ((SELECT numero FROM BIMESTRE WHERE turmasFrequencia_id = ? " +
-                        " AND bimestreAtual = 1) - 1) AND turmasFrequencia_id = ? ;",
+                        " AND bimestreAtual = 1) AND turmasFrequencia_id = ?);",
                 new String [] {String.valueOf(turmasFrequencia_id),
                         String.valueOf(turmasFrequencia_id)});
 
@@ -615,12 +610,18 @@ public class RegistroDBgetters {
                 r.setDataCriacao(cursor.getString(7));
                 r.setConteudos(registroDBcrud.buscarConteudos(r.getCodNovoRegistro()));
 
-                String[] horarios = cursor.getString(8).split("-");
-
-                for(int i = 0; i < horarios.length; i++) {
-
-                    r.setHorarios(horarios[i]);
+                String campoHorarios = cursor.getString(8);
+                if (campoHorarios != null) {
+                    int i;
+                    String[] horarios = campoHorarios.split("-");
+                    int numeroHorarios = horarios.length;
+                    for (i = 0; i < numeroHorarios; i++) {
+                        r.setHorarios(horarios[i]);
+                    }
                 }
+
+
+
 
                 registros.add(r);
 
@@ -635,46 +636,15 @@ public class RegistroDBgetters {
     }
 
     ArrayList<Aula> getAula(Disciplina disciplina) {
-
         ArrayList<Aula> listaAula = new ArrayList<>();
-
-        Cursor cursor = null;
-
-        try {
-
-            //banco.open();
-
-            cursor = banco.get()
-                    .rawQuery("SELECT * " +
-                                    "FROM AULAS " +
-                                    "WHERE disciplina_id = " + disciplina.getId(),
-                            null);
-            while(cursor.moveToNext()) {
-
-                for(int i = 1; i <= 5; i++) {
-
-                    final Aula aula = new Aula();
-
-                    aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
-                    aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
-                    aula.setDiaSemana(i);
-
-                    listaAula.add(aula);
-                }
-            }
+        Cursor cursor = banco.get().rawQuery("SELECT * FROM AULAS WHERE disciplina_id = " + disciplina.getId(), null);
+        while (cursor.moveToNext()) {
+            Aula aula = new Aula();
+            aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
+            aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
+            listaAula.add(aula);
         }
-        catch(Exception e) {
-
-            CrashAnalytics.e(TAG, e);
-        }
-        finally {
-
-            if(cursor != null) {
-
-                cursor.close();
-            }
-            //banco.close();
-        }
+        cursor.close();
         return listaAula;
     }
 

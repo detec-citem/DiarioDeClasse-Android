@@ -1,14 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import java.util.List;
-import java.util.ArrayList;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
 
 import org.json.JSONObject;
 
-import android.database.Cursor;
-
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;

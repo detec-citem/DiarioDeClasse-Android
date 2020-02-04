@@ -1,26 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.os.Bundle;
-
-import java.util.List;
-import java.util.ArrayList;
-
-import android.os.Handler;
-import android.text.Editable;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.SparseIntArray;
-
 import android.view.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
-
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
@@ -79,9 +71,9 @@ public class FechamentoCalcularMedia
 
         avaliacoes = bundle.getParcelableArrayList("totalAvaliacoesCorrigidas");
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         fechamentoDBcrud = new FechamentoDBcrud(banco);
 

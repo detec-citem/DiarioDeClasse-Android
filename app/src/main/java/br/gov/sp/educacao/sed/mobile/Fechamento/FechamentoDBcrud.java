@@ -1,13 +1,11 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import java.util.ArrayList;
-
+import android.content.ContentValues;
 import android.database.Cursor;
 
-import android.content.ContentValues;
+import java.util.ArrayList;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 

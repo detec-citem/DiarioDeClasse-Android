@@ -1,16 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
 import android.content.Context;
-
-import android.widget.TextView;
-import android.widget.ImageView;
-
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.R;
-
 import br.gov.sp.educacao.sed.mobile.util.Utils;
 
 class FechamentoListaItemViewMvcImpl

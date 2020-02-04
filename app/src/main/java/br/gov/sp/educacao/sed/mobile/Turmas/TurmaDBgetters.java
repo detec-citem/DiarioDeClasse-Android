@@ -1,14 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Turmas;
 
-import java.util.ArrayList;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
+
+import java.util.ArrayList;
 
 import br.gov.sp.educacao.sed.mobile.Escola.Aula;
 import br.gov.sp.educacao.sed.mobile.Escola.Bimestre;
 import br.gov.sp.educacao.sed.mobile.Escola.Disciplina;
-
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CrashAnalytics.CrashAnalytics;
 
@@ -74,7 +73,6 @@ public class TurmaDBgetters {
                 Aula aula = new Aula();
 
                 aula.setFim(cursor.getString(cursor.getColumnIndex("fimHora")));
-                aula.setDiaSemana(cursor.getInt(cursor.getColumnIndex("diaSemana")));
                 aula.setInicio(cursor.getString(cursor.getColumnIndex("inicioHora")));
 
                 return aula;
@@ -147,14 +145,14 @@ public class TurmaDBgetters {
         String queryTurmas =
 
                 "SELECT T.id AS idTurma, T.anoLetivo AS anoLetivoTurma, T.codigoTurma AS codigoTurma, T.nomeTurma AS nomeTurma, T.serieTurma AS serieTurma, " +
-                "T.codigoDiretoria AS codigoDiretoria, T.nomeDiretoria AS nomeDiretoria, T.codigoEscola AS codigoEscola, T.nomeEscola AS nomeEscola, " +
-                "T.codigoTipoEnsino AS codigoTipoEnsino, T.nomeTipoEnsino AS nomeTipoEnsino, " +
-                "TF.id AS idTurmasFrequencia, TF.aulasBimestre AS aulasBimestre, TF.aulasAno AS aulasAno " +
-                "FROM TURMAS AS T, " +
-                "TURMASFREQUENCIA AS TF " +
-                "WHERE TF.turma_id = T.id " +
-                "AND T.anoLetivo = " + ano +
-                " ORDER BY nomeTurma;";
+                        "T.codigoDiretoria AS codigoDiretoria, T.nomeDiretoria AS nomeDiretoria, T.codigoEscola AS codigoEscola, T.nomeEscola AS nomeEscola, " +
+                        "T.codigoTipoEnsino AS codigoTipoEnsino, T.nomeTipoEnsino AS nomeTipoEnsino, " +
+                        "TF.id AS idTurmasFrequencia, TF.aulasBimestre AS aulasBimestre, TF.aulasAno AS aulasAno " +
+                        "FROM TURMAS AS T, " +
+                        "TURMASFREQUENCIA AS TF " +
+                        "WHERE TF.turma_id = T.id " +
+                        "AND T.anoLetivo = " + ano +
+                        " ORDER BY nomeTurma;";
 
         Cursor cursor = null;
 
@@ -174,6 +172,7 @@ public class TurmaDBgetters {
             int codigoTipoEnsinoIndex = cursor.getColumnIndex("codigoTipoEnsino");
             int nomeTipoEnsinoIndex = cursor.getColumnIndex("nomeTipoEnsino");
             int idTurmasFrequenciaIndex = cursor.getColumnIndex("idTurmasFrequencia");
+            int codigodEscolaIndex = cursor.getColumnIndex("codigoEscola");
             int aulasBimestreIndex = cursor.getColumnIndex("aulasBimestre");
             int aulasAnoIndex = cursor.getColumnIndex("aulasAno");
 
@@ -184,6 +183,7 @@ public class TurmaDBgetters {
                 turma.setId(cursor.getInt(idTurmaIndex));
                 turma.setAno(cursor.getInt(anoLetivoTurmaIndex));
                 turma.setCodigoTurma(cursor.getInt(codigoTurmaIndex));
+                turma.setCodigoEscola(cursor.getInt(codigodEscolaIndex));
                 turma.setNomeTurma(cursor.getString(nomeTurmaIndex));
                 turma.setSerie(cursor.getInt(serieTurmaIndex));
                 turma.setNomeEscola(cursor.getString(nomeEscolaIndex));
@@ -194,19 +194,8 @@ public class TurmaDBgetters {
                 TurmasFrequencia turmasFrequencia = new TurmasFrequencia();
 
                 turmasFrequencia.setId(cursor.getInt(idTurmasFrequenciaIndex));
-                turmasFrequencia.setAulasBimestre(cursor.getInt(aulasBimestreIndex));
-                turmasFrequencia.setAulasAno(cursor.getInt(aulasAnoIndex));
 
-                Disciplina disciplina = getDisciplina(turmasFrequencia);
-
-                TurmaGrupo turmaGrupo = new TurmaGrupo();
-
-                turmaGrupo.setTurma(turma);
-                turmaGrupo.setTurmasFrequencia(turmasFrequencia);
-                turmaGrupo.setDisciplina(disciplina);
-                turmaGrupo.setAula(getAula(disciplina));
-
-                listaTurmaGrupo.add(turmaGrupo);
+                ArrayList<Disciplina> disciplinas = getDisciplinas(turmasFrequencia);
 
                 Cursor cursorAluno = banco.get().rawQuery("SELECT * FROM ALUNOS WHERE turma_id = " + turma.getId(), null);
 
@@ -223,81 +212,87 @@ public class TurmaDBgetters {
                 int nascimentoIndex = cursorAluno.getColumnIndex("nascimento");
                 int necessidadesEspeciaisIndex = cursorAluno.getColumnIndex("necessidadesEspeciais");
 
-                if(fechamento && disciplina.getCodigoDisciplina() == 1000) {
+                for(Disciplina disciplina : disciplinas){
 
-                    int numeroSerie = cursor.getInt(serieTurmaIndex);
+                    TurmaGrupo turmaGrupo = new TurmaGrupo();
 
-                    int disciplinasAnosIniciais = 3;
+                    turmaGrupo.setTurma(turma);
+                    turmaGrupo.setTurmasFrequencia(turmasFrequencia);
+                    turmaGrupo.setDisciplina(disciplina);
+                    turmaGrupo.setAula(getAula(disciplina));
+                    listaTurmaGrupo.add(turmaGrupo);
 
-                    //if(numeroSerie < 4) {
+                    if(fechamento && disciplina.getCodigoDisciplina() == 1000) {
 
-                        //disciplinasAnosIniciais = 2;
-                    //}
+                        int numeroSerie = cursor.getInt(serieTurmaIndex);
 
-                    int[] codigoDisciplina = new int[]{2700, 1100, 7245};
+                        int disciplinasAnosIniciais = 3;
 
-                    String[] nomeDisciplina = new String[]{"MATEMÁTICA", "LÍNGUA PORTUGUESA", "CIÊNCIAS DA NATUREZA/CIÊNCIAS HUMANAS"};
+                        int[] codigoDisciplina = new int[]{2700, 1100, 7245};
 
-                    for(int i = 0; i < disciplinasAnosIniciais; i++) {
+                        String[] nomeDisciplina = new String[]{"MATEMÁTICA", "LÍNGUA PORTUGUESA", "CIÊNCIAS DA NATUREZA/CIÊNCIAS HUMANAS"};
 
-                        Turma ttg1 = new Turma();
+                        for(int i = 0; i < disciplinasAnosIniciais; i++) {
 
-                        ttg1.setId(cursor.getInt(idTurmaIndex));
-                        ttg1.setAno(cursor.getInt(anoLetivoTurmaIndex));
-                        ttg1.setCodigoTurma(cursor.getInt(codigoTurmaIndex));
-                        ttg1.setNomeTurma(cursor.getString(nomeTurmaIndex));
-                        ttg1.setSerie(cursor.getInt(serieTurmaIndex));
-                        ttg1.setNomeEscola(cursor.getString(nomeEscolaIndex));
-                        ttg1.setNomeDiretoria(cursor.getString(nomeDiretoriaIndex));
-                        ttg1.setCodigoTipoEnsino(cursor.getInt(codigoTipoEnsinoIndex));
-                        ttg1.setNomeTipoEnsino(cursor.getString(nomeTipoEnsinoIndex));
+                            Turma ttg1 = new Turma();
 
-                        while (cursorAluno.moveToNext()) {
+                            ttg1.setId(cursor.getInt(idTurmaIndex));
+                            ttg1.setAno(cursor.getInt(anoLetivoTurmaIndex));
+                            ttg1.setCodigoTurma(cursor.getInt(codigoTurmaIndex));
+                            ttg1.setNomeTurma(cursor.getString(nomeTurmaIndex));
+                            ttg1.setSerie(cursor.getInt(serieTurmaIndex));
+                            ttg1.setNomeEscola(cursor.getString(nomeEscolaIndex));
+                            ttg1.setNomeDiretoria(cursor.getString(nomeDiretoriaIndex));
+                            ttg1.setCodigoTipoEnsino(cursor.getInt(codigoTipoEnsinoIndex));
+                            ttg1.setNomeTipoEnsino(cursor.getString(nomeTipoEnsinoIndex));
 
-                            Aluno aluno = new Aluno();
+                            while (cursorAluno.moveToNext()) {
 
-                            aluno.setId(cursorAluno.getInt(alunoIdIndex));
-                            aluno.setCodigoAluno(cursorAluno.getInt(codigoAlunoIndex));
-                            aluno.setCodigoMatricula(cursorAluno.getString(codigoMatriculaIndex));
-                            aluno.setNumeroChamada((byte) cursorAluno.getInt(numeroChamadaIndex));
-                            aluno.setNomeAluno(cursorAluno.getString(nomeAlunoIndex));
-                            aluno.setNumeroRa(cursorAluno.getInt(numeroRaIndex));
-                            aluno.setDigitoRa(cursorAluno.getString(digitoRaIndex));
-                            aluno.setPai(cursorAluno.getString(paiIndex));
-                            aluno.setMae(cursorAluno.getString(maeIndex));
-                            aluno.setNascimento(cursorAluno.getString(nascimentoIndex));
-                            aluno.setNecessidadesEspeciais(cursorAluno.getString(necessidadesEspeciaisIndex));
+                                Aluno aluno = new Aluno();
 
-                            int alunoAtivoColuna = cursorAluno.getInt(alunoAtivoIndex);
+                                aluno.setId(cursorAluno.getInt(alunoIdIndex));
+                                aluno.setCodigoAluno(cursorAluno.getInt(codigoAlunoIndex));
+                                aluno.setCodigoMatricula(cursorAluno.getString(codigoMatriculaIndex));
+                                aluno.setNumeroChamada((byte) cursorAluno.getInt(numeroChamadaIndex));
+                                aluno.setNomeAluno(cursorAluno.getString(nomeAlunoIndex));
+                                aluno.setNumeroRa(cursorAluno.getInt(numeroRaIndex));
+                                aluno.setDigitoRa(cursorAluno.getString(digitoRaIndex));
+                                aluno.setPai(cursorAluno.getString(paiIndex));
+                                aluno.setMae(cursorAluno.getString(maeIndex));
+                                aluno.setNascimento(cursorAluno.getString(nascimentoIndex));
+                                aluno.setNecessidadesEspeciais(cursorAluno.getString(necessidadesEspeciaisIndex));
 
-                            if(alunoAtivoColuna == 0) {
+                                int alunoAtivoColuna = cursorAluno.getInt(alunoAtivoIndex);
 
-                                aluno.setAlunoAtivo(false);
+                                if(alunoAtivoColuna == 0) {
+
+                                    aluno.setAlunoAtivo(false);
+                                }
+                                else {
+
+                                    aluno.setAlunoAtivo(true);
+                                }
+                                ttg1.addAluno(aluno);
                             }
-                            else {
+                            cursorAluno.moveToFirst();
 
-                                aluno.setAlunoAtivo(true);
-                            }
-                            ttg1.addAluno(aluno);
+                            Disciplina dc1 = new Disciplina();
+
+                            dc1.setCodigoDisciplina(codigoDisciplina[i]);
+
+                            dc1.setNomeDisciplina(nomeDisciplina[i]);
+
+                            dc1.setId(disciplina.getId());
+
+                            TurmaGrupo turmaGrupo1 = new TurmaGrupo();
+
+                            turmaGrupo1.setTurma(ttg1);
+                            turmaGrupo1.setTurmasFrequencia(turmasFrequencia);
+                            turmaGrupo1.setDisciplina(dc1);
+                            turmaGrupo1.setAula(getAula(disciplina));
+
+                            listaTurmaGrupo.add(turmaGrupo1);
                         }
-                        cursorAluno.moveToFirst();
-
-                        Disciplina dc1 = new Disciplina();
-
-                        dc1.setCodigoDisciplina(codigoDisciplina[i]);
-
-                        dc1.setNomeDisciplina(nomeDisciplina[i]);
-
-                        dc1.setId(disciplina.getId());
-
-                        TurmaGrupo turmaGrupo1 = new TurmaGrupo();
-
-                        turmaGrupo1.setTurma(ttg1);
-                        turmaGrupo1.setTurmasFrequencia(turmasFrequencia);
-                        turmaGrupo1.setDisciplina(dc1);
-                        turmaGrupo1.setAula(getAula(disciplina));
-
-                        listaTurmaGrupo.add(turmaGrupo1);
                     }
                 }
 
@@ -329,7 +324,9 @@ public class TurmaDBgetters {
                     }
                     turma.addAluno(aluno);
                 }
+
                 cursorAluno.close();
+
             }
         }
         catch(Exception e) {
@@ -350,9 +347,11 @@ public class TurmaDBgetters {
         return listaTurmaGrupo;
     }
 
-    public Disciplina getDisciplina(TurmasFrequencia turmasFrequencia) {
+    public ArrayList<Disciplina> getDisciplinas(TurmasFrequencia turmasFrequencia) {
 
         Cursor cursor = null;
+
+        ArrayList<Disciplina> disciplinas = new ArrayList<>();
 
         try {
 
@@ -361,15 +360,20 @@ public class TurmaDBgetters {
                     "SELECT * FROM DISCIPLINA WHERE turmasFrequencia_id = " + turmasFrequencia.getId(), null
             );
 
-            if(cursor.getCount() > 0 && cursor.moveToNext()) {
+            if(cursor.moveToFirst()) {
 
-                Disciplina disciplina = new Disciplina();
+                do{
 
-                disciplina.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                disciplina.setNomeDisciplina(cursor.getString(cursor.getColumnIndex("nomeDisciplina")));
-                disciplina.setCodigoDisciplina(cursor.getInt(cursor.getColumnIndex("codigoDisciplina")));
+                    Disciplina disciplina = new Disciplina();
 
-                return  disciplina;
+                    disciplina.setId(cursor.getInt(cursor.getColumnIndex("id")));
+                    disciplina.setNomeDisciplina(cursor.getString(cursor.getColumnIndex("nomeDisciplina")));
+                    disciplina.setCodigoDisciplina(cursor.getInt(cursor.getColumnIndex("codigoDisciplina")));
+
+                    disciplinas.add(disciplina);
+                }while (cursor.moveToNext());
+
+                return  disciplinas;
             }
         }
         catch(Exception e) {

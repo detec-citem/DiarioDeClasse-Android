@@ -1,28 +1,20 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import android.os.Bundle;
-
 import android.content.Intent;
-
-import android.widget.TextView;
-
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.support.v4.app.Fragment;
-
-import br.gov.sp.educacao.sed.mobile.R;
-
-import br.gov.sp.educacao.sed.mobile.Menu.HomeActivity;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-import br.gov.sp.educacao.sed.mobile.Turmas.TurmasListaActivity;
-
-import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoActivity;
+import android.widget.TextView;
 
 import br.gov.sp.educacao.sed.mobile.Avaliacao.ListaAvaliacoesActivity;
+import br.gov.sp.educacao.sed.mobile.Fechamento.FechamentoActivity;
+import br.gov.sp.educacao.sed.mobile.Menu.HomeActivity;
+import br.gov.sp.educacao.sed.mobile.R;
 import br.gov.sp.educacao.sed.mobile.RegistroDeAula.RegistroAulaActivity;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
+import br.gov.sp.educacao.sed.mobile.Turmas.TurmasListaActivity;
 
 public class MenuNavegacao
         extends Fragment {

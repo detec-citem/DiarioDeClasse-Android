@@ -1,11 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.content.Intent;
-
-import android.support.annotation.Nullable;
 
 interface ListaAvaliacoesViewMvc {
 

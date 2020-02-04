@@ -1,22 +1,18 @@
 package br.gov.sp.educacao.sed.mobile.Avaliacao;
 
-import android.os.Bundle;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Collections;
-
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
-import android.support.v7.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
-import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.Analytics;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
 
 public class ListaAlunosAvaliacoesActivity
@@ -58,9 +54,9 @@ public class ListaAlunosAvaliacoesActivity
 
         listaAlunos = turmaGrupo.getTurma().getAlunos();
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(getApplicationContext());
+
+        banco = CriarAcessoBanco.gerarBanco(getApplicationContext());
 
         avaliacaoDBgetters = new AvaliacaoDBgetters(banco);
 

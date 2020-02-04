@@ -1,23 +1,10 @@
 package br.gov.sp.educacao.sed.mobile.Frequencia;
 
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.R;
 

@@ -27,6 +27,8 @@ public class LoginAsyncTask
 
         super.onPostExecute(result);
 
-        delegate.resultadoLogin(result);
+        if (delegate != null) {
+            delegate.resultadoLogin(result);
+        }
     }
 }

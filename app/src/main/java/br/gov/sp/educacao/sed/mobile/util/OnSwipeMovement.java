@@ -1,7 +1,6 @@
 package br.gov.sp.educacao.sed.mobile.util;
 
 import android.content.Context;
-
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;

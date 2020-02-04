@@ -1,25 +1,21 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
 import android.os.Bundle;
-
-import java.util.ArrayList;
-
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 
-import android.support.v4.app.Fragment;
-
-import android.support.annotation.Nullable;
+import java.util.ArrayList;
 
 import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 import br.gov.sp.educacao.sed.mobile.Turmas.Turma;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
-
-import br.gov.sp.educacao.sed.mobile.util.Banco;
-import br.gov.sp.educacao.sed.mobile.util.Utils;
 import br.gov.sp.educacao.sed.mobile.util.Analytics;
+import br.gov.sp.educacao.sed.mobile.util.Banco;
 import br.gov.sp.educacao.sed.mobile.util.CriarAcessoBanco;
+import br.gov.sp.educacao.sed.mobile.util.Utils;
 
 public class FechamentoSlider
         extends Fragment
@@ -87,9 +83,9 @@ public class FechamentoSlider
 
         turma = turmaGrupo.getTurma();
 
-        criarAcessoBanco = new CriarAcessoBanco();
 
-        banco = criarAcessoBanco.gerarBanco(fechamentoSliderViewMvcImpl.getContext());
+
+        banco = CriarAcessoBanco.gerarBanco(fechamentoSliderViewMvcImpl.getContext());
 
         fechamentoDBcrud = new FechamentoDBcrud(banco);
 

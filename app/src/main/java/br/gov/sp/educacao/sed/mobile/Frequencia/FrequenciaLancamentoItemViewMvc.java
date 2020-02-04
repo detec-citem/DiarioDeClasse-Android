@@ -15,7 +15,7 @@ interface FrequenciaLancamentoItemViewMvc {
 
         void aplicarPresenca(Aluno aluno);
 
-        void irParaProximoAlunoAtivo(Aluno aluno);
+        void irParaProximoAlunoAtivo(int posicao);
     }
 
     View getRootView();

@@ -1,16 +1,13 @@
 package br.gov.sp.educacao.sed.mobile.Fechamento;
 
-import android.util.SparseArray;
 import android.util.SparseIntArray;
-
-import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
-import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
-
-import br.gov.sp.educacao.sed.mobile.util.Utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+
+import br.gov.sp.educacao.sed.mobile.Avaliacao.Avaliacao;
+import br.gov.sp.educacao.sed.mobile.Turmas.Aluno;
 
 public class MediaPonderada {
 

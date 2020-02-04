@@ -1,28 +1,21 @@
 package br.gov.sp.educacao.sed.mobile.RegistroDeAula;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import android.content.Intent;
-
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -35,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Frequencia.FragmentHorarios;
+import br.gov.sp.educacao.sed.mobile.Menu.HomeActivity;
 import br.gov.sp.educacao.sed.mobile.R;
 import br.gov.sp.educacao.sed.mobile.Turmas.TurmaGrupo;
 
@@ -98,9 +92,16 @@ class RegistroAulaActivityViewMvcImpl
 
     public final String TAG = "DialogAnosIniciais";
 
-    RegistroAulaActivityViewMvcImpl(LayoutInflater layoutInflater, FragmentManager fragmentManager, ViewGroup parent) {
+    RegistroAulaActivityViewMvcImpl(final LayoutInflater layoutInflater, FragmentManager fragmentManager, ViewGroup parent) {
 
         mRootView = layoutInflater.inflate(R.layout.activity_new_hab_comp2, parent, false);
+
+        findViewById(R.id.fecharselecaocalendario).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((Activity) layoutInflater.getContext()).finish();
+            }
+        });
 
         listViewConteudo = findViewById(R.id.listConteudo);
 
@@ -749,8 +750,10 @@ class RegistroAulaActivityViewMvcImpl
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int arg1) {
-
                 dialog.dismiss();
+                Intent intent = new Intent(menuNavegacao.getContext(), HomeActivity.class);
+                listener.navegarPara(intent);
+
             }
         });
 

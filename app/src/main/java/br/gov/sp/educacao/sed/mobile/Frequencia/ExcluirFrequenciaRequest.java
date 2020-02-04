@@ -38,6 +38,8 @@ public class ExcluirFrequenciaRequest {
 
             excluirFrequenciaJson.put("HorarioFimAula", frequenciaEnvio.getHorarioFimAula());
 
+            excluirFrequenciaJson.put("CodigoEscola", frequenciaEnvio.getCodigoEscola());
+
             excluirFrequenciaJson.put("CodigoDisciplina", frequenciaEnvio.getCodigoDisciplina());
 
             httpsURLConnection = HttpsUrlConnectionFactory.createHttpsUrlConnection (

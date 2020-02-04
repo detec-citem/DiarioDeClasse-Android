@@ -1,76 +1,60 @@
 package br.gov.sp.educacao.sed.mobile.Menu;
 
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONObject;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.LocalDate;
 
-import android.widget.Toast;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.FrameLayout;
-
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.LayoutInflater;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.DialogInterface;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.Carteirinha.RevalidarTokenInterface;
 import br.gov.sp.educacao.sed.mobile.R;
 
-import android.support.v7.widget.Toolbar;
-import android.support.v7.app.AlertDialog;
-
-import android.support.annotation.Nullable;
-
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-
-import android.support.constraint.ConstraintLayout;
-
-public class HomeViewMvcImpl
-        implements HomeViewMvc, RevalidarTokenInterface {
+public class HomeViewMvcImpl implements HomeViewMvc, RevalidarTokenInterface, SincronizacaoDialogListener {
+    //Constantes
 
     private TextView menu;
-
     private Toolbar toolbar;
-
     private Listener listener;
-
     private boolean menuAberto;
-
     private TextView statusView;
-
     private final View mRootView;
-
     private TextView nomeUsuario;
-
     private MenuLateral menuLateral;
-
     private FrameLayout frameLayout;
-
     private Button botaoSincronizar;
-
     private LayoutInflater layoutInflater;
-
     private ToolbarViewMvc toolbarViewMvc;
-
-    private AlertDialog avisoSincronizando;
-
     private ConstraintLayout homeContainer;
-
     private FragmentManager fragmentManager;
-
     private TextView fechamento, avaliacao, turmas, registroDeAula, frequencia, carteirinha, comunicado;
+    private WeakReference<HomeActivity> activityWeakRef;
+    private SincronizacaoDialog sincronizacaoDialog;
 
-    HomeViewMvcImpl(LayoutInflater layoutInflater, final FragmentManager fragmentManager, boolean telaPequena, ViewGroup parent) {
 
-        if(telaPequena) {
+    HomeViewMvcImpl(LayoutInflater layoutInflater, final FragmentManager fragmentManager, boolean telaPequena, ViewGroup parent, HomeActivity activity) {
+        activityWeakRef = new WeakReference<>(activity);
+
+        /*
+        if(false) {
 
             mRootView = layoutInflater.inflate(R.layout.activity_home_tela_pequena, parent, false);
         }
@@ -78,45 +62,36 @@ public class HomeViewMvcImpl
 
             mRootView = layoutInflater.inflate(R.layout.activity_home, parent, false);
         }
+        */
+
+        mRootView = layoutInflater.inflate(R.layout.activity_home, parent, false);
 
         toolbar = findViewById(R.id.toolbar);
-
         nomeUsuario = findViewById(R.id.txt_nomeUsuario);
-
         this.layoutInflater = layoutInflater;
-
         this.fragmentManager = fragmentManager;
-
         homeContainer = findViewById(R.id.homeContainer);
-
         toolbarViewMvc = getToolbarViewMvc(toolbar);
-
         initToolbar();
-
         menu = toolbarViewMvc.getMenu();
-
         menu.setVisibility(View.VISIBLE);
-
         menuAberto = false;
-
         frameLayout = findViewById(R.id.container);
-
         fechamento = findViewById(R.id.tv_fechamento);
-
         avaliacao = findViewById(R.id.tv_avaliacao);
-
         turmas = findViewById(R.id.tv_turmas);
-
         carteirinha = findViewById(R.id.tv_carteirinha);
-
         registroDeAula = findViewById(R.id.tv_registroAula);
-
         frequencia = findViewById(R.id.tv_frequencia);
-
-        comunicado = findViewById(R.id.tv_comunicados);
-
         botaoSincronizar = findViewById(R.id.bt_sincronizar);
-
+        comunicado = findViewById(R.id.tv_comunicados);
+        VectorDrawableCompat iconeComunicados = VectorDrawableCompat.create(activity.getResources(), R.drawable.ic_comunicados, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            comunicado.setCompoundDrawablesRelativeWithIntrinsicBounds(iconeComunicados, null, null, null);
+        }
+        else {
+            comunicado.setCompoundDrawablesWithIntrinsicBounds(iconeComunicados, null, null, null);
+        }
         inicializarListener();
     }
 
@@ -205,12 +180,11 @@ public class HomeViewMvcImpl
                         "de que a utilização poderá acarretar em cobranças adicionais de sua operadora de telefonia móvel.")
 
                 .setPositiveButton("SIM, ACEITO", new DialogInterface.OnClickListener() {
-
                     @Override
-
                     public void onClick(DialogInterface dialog, int which) {
-
-                        listener.usuarioAceitaUsarPlanoDeDados();
+                        if (listener != null) {
+                            listener.usuarioAceitaUsarPlanoDeDados();
+                        }
                     }
                 })
                 .setNeutralButton("NÃO, VOLTAR", new DialogInterface.OnClickListener() {
@@ -249,11 +223,11 @@ public class HomeViewMvcImpl
         });
 
         botaoSincronizar.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-
-                listener.usuarioClicouBotaoSincronizar();
+                if (listener != null) {
+                    listener.usuarioClicouBotaoSincronizar();
+                }
             }
         });
 
@@ -288,109 +262,62 @@ public class HomeViewMvcImpl
     }
 
     @Override
-    public void exibirFalhaNaSincronizacao() {
-
-        criarDialogDeAlerta(R.string.erro_turmas, "Não foi possível sincronizar");
-    }
-
-    @Override
-    public void completouEtapaSincronizacao() {
-
-        listener.completouEtapaSincronizacao();
-    }
-
-    @Override
-    public void finalizaProgressoSincronizar() {
-
-        if(avisoSincronizando != null){
-
-            avisoSincronizando.dismiss();
+    public void revalidacaoDeToken(String token) {
+        if (listener != null) {
+            listener.atualizarToken(token);
         }
     }
 
     @Override
-    public void exibirSincronizacaoRealizada() {
-
-        criarDialogDeAlerta(R.string.sincronizacao_realizada, "Sucesso");
-    }
-
-    @Override
-    public void revalidacaoDeToken(String token) {
-
-        listener.atualizarToken(token);
-    }
-
-    @Override
-    public void inicializaProgressoSincronizar() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(
-
-                getContext(), R.style.ThemeOverlay_AppCompat_Dialog
-        );
-
-        View view = layoutInflater.inflate(R.layout.dialogsincronizar, null, false);
-
-        builder.setView(view);
-
-        statusView = view.getRootView().findViewById(R.id.status);
-
-        avisoSincronizando = builder.create();
-
-        avisoSincronizando.setCancelable(false);
-
-        avisoSincronizando.setCanceledOnTouchOutside(false);
-
-        avisoSincronizando.getWindow().setBackgroundDrawableResource(R.drawable.dialogarredondado);
-
-        avisoSincronizando.show();
-
-        atualizarProgressoSincronizar(1);
-    }
-
-    @Override
     public void selecaoMenuLateral(View menuItem) {
+        if (listener != null) {
+            int id = menuItem.getId();
+            switch (id) {
 
-        int id = menuItem.getId();
+                case R.id.compartilhar:
 
-        switch (id) {
+                    listener.usuarioSelecionouMenuLateral("COMPARTILHAR");
 
-            case R.id.compartilhar:
+                    break;
 
-                listener.usuarioSelecionouMenuLateral("COMPARTILHAR");
+                case R.id.avaliar:
 
-                break;
+                    listener.usuarioSelecionouMenuLateral("AVALIAR");
 
-            case R.id.avaliar:
+                    break;
 
-                listener.usuarioSelecionouMenuLateral("AVALIAR");
+                case R.id.sincronizar:
 
-                break;
+                    listener.usuarioSelecionouMenuLateral("SINCRONIZAR");
 
-            case R.id.sincronizar:
+                    break;
 
-                listener.usuarioSelecionouMenuLateral("SINCRONIZAR");
+                case R.id.sobre:
 
-                break;
+                    listener.usuarioSelecionouMenuLateral("SOBRE");
 
-            case R.id.sobre:
+                    break;
 
-                listener.usuarioSelecionouMenuLateral("SOBRE");
+                case R.id.tutorial:
 
-                break;
+                    listener.usuarioSelecionouMenuLateral("TUTORIAL");
 
-            case R.id.sair:
+                    break;
 
-                listener.usuarioSelecionouMenuLateral("LOGOUT");
+                case R.id.sair:
 
-                break;
+                    listener.usuarioSelecionouMenuLateral("LOGOUT");
+
+                    break;
 
 
-            case R.id.tabelas:
+                case R.id.tabelas:
 
-                listener.usuarioSelecionouMenuLateral("TABELAS");
+                    listener.usuarioSelecionouMenuLateral("TABELAS");
 
-                break;
+                    break;
 
+            }
         }
     }
 
@@ -438,7 +365,7 @@ public class HomeViewMvcImpl
 
             case R.id.tv_avaliacao:
 
-                avaliacao.setClickable(false);
+                //avaliacao.setClickable(false);
 
                 listener.usuarioSelecionouMenuPrincipal("AVALIACAO");
 
@@ -474,8 +401,9 @@ public class HomeViewMvcImpl
     }
 
     public void perfilSelecionado(boolean perfilOk) {
-
-        listener.perfilSelecionado(perfilOk);
+        if (listener != null) {
+            listener.perfilSelecionado(perfilOk);
+        }
     }
 
     @Override
@@ -488,8 +416,9 @@ public class HomeViewMvcImpl
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        listener.usuarioQuerSairSemSincronizar();
+                        if (listener != null) {
+                            listener.usuarioQuerSairSemSincronizar();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -515,94 +444,10 @@ public class HomeViewMvcImpl
     }
 
     @Override
-    public void frequenciasResultadoSincronizacao(List<JSONObject> listaResultadoFrequencia) {
-
-        listener.alterarFrequencias();
-
-        for(int i = 0; i < listaResultadoFrequencia.size(); i++) {
-
-            try {
-
-                if(listaResultadoFrequencia.get(i).getInt("Status") == 409) {
-
-                    for(int j = 0; j < listaResultadoFrequencia.get(i).getJSONArray("DiasComConflito").length(); j++) {
-
-                        if(listaResultadoFrequencia.get(i).getJSONArray("DiasComConflito").getJSONObject(j).getJSONArray("HorariosComConflito").length() > 0) {
-
-                            for(int k = 0; k < listaResultadoFrequencia.get(i).getJSONArray("DiasComConflito").getJSONObject(j).getJSONArray("HorariosComConflito").length(); k++) {
-
-                                String dia = listaResultadoFrequencia.get(i).getJSONArray("DiasComConflito").getJSONObject(j).getString("Dia");
-
-                                String horario = listaResultadoFrequencia.get(i).getJSONArray("DiasComConflito").getJSONObject(j).getJSONArray("HorariosComConflito").getJSONObject(k).getString("Horario");
-
-                                String turma = String.valueOf(listaResultadoFrequencia.get(i).getInt("Turma"));
-
-                                String disciplina = String.valueOf(listaResultadoFrequencia.get(i).getInt("Disciplina"));
-
-                                listener.salvarFrequenciaComConflito(dia, horario, turma, disciplina);
-                            }
-                        }
-                    }
-                }
-            }
-            catch(Exception e) {
-
-                e.printStackTrace();
-            }
+    public void terminouSincronizacaoTurmas(boolean success) {
+        if (listener != null) {
+            listener.terminouSincronizacaoTurma(success);
         }
-
-        listener.resolverConflitos();
-    }
-
-    void atualizarProgressoSincronizar(int progresso) {
-
-        int delay = 200;
-
-        if(progresso == 1) {
-
-            for(int i = 0; i <= 80 + 1; i++) {
-
-                final int porcentagem = i;
-
-                new android.os.Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        statusView.setText(String.valueOf(porcentagem) + " %");
-                    }
-                }, (delay * (i * 2) ));
-            }
-        }
-        else {
-
-            for(int i = 81; i <= 101 + 1; i++) {
-
-                final int porcentagem = i;
-
-                delay = 300;
-
-                new android.os.Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        statusView.setText(String.valueOf(porcentagem) + " %");
-
-                        if(porcentagem > 100) {
-
-                            listener.completouSincronizacao();
-                        }
-                    }
-                }, (delay * i));
-            }
-        }
-    }
-
-    @Override
-    public void terminouSincronizacao(boolean success) {
-
-        listener.terminouSincronizacao(success);
     }
 
     @Override
@@ -628,14 +473,13 @@ public class HomeViewMvcImpl
 
     @Override
     public void deletarAvaliacaoNoBancoLocal(int codigoAvaliacao) {
-
-        listener.deletarAvaliacaoNoBancoLocal(codigoAvaliacao);
+        if (listener != null) {
+            listener.deletarAvaliacaoNoBancoLocal(codigoAvaliacao);
+        }
     }
 
     @Override
     public void usuarioAvisoFechamentoIndisponivel(LocalDate data) {
-
-        fechamento.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_fechamento_disabled,0,0);
 
         Toast.makeText(getContext(),"Aguarde " + data.toString("dd/MM/yyyy"), Toast.LENGTH_SHORT).show();
     }
@@ -649,7 +493,9 @@ public class HomeViewMvcImpl
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        if (listener != null) {
+                            listener.usuarioClicouBotaoSincronizar();
+                        }
                         dialogInterface.dismiss();
                     }
                 })
@@ -662,33 +508,30 @@ public class HomeViewMvcImpl
     }
 
     @Override
+    public void desabilitarBotao(String modulo) {
+
+        switch (modulo){
+
+            case "fechamento":
+
+                fechamento.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_fechamento_disabled,0,0,0);
+
+                fechamento.setBackgroundResource(R.drawable.botao_cinza);
+                break;
+
+            case "avaliacao":
+
+                avaliacao.setBackgroundResource(R.drawable.botao_cinza);
+
+                avaliacao.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_avaliacao_disabled, 0,0,0);
+                break;
+        }
+    }
+
+    @Override
     public ToolbarViewMvc getToolbarViewMvc(@Nullable ViewGroup parent) {
 
         return new ToolbarViewMvc(layoutInflater, parent);
-    }
-
-    private void criarDialogDeAlerta(int messageStringId, String title) {
-
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setCancelable(false)
-                .setTitle(title)
-                .setMessage(messageStringId)
-                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        dialogInterface.dismiss();
-
-                        listener.verificarSeExistemHorariosComConflito();
-                    }
-                }).create();
-
-        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialogarredondado);
-
-        alertDialog.setCanceledOnTouchOutside(false);
-
-        alertDialog.show();
     }
 
     public void avisoUsuarioHorariosConflito(List<String> listaMensagens) {
@@ -721,8 +564,35 @@ public class HomeViewMvcImpl
     }
 
     @Override
-    public void avaliacoesResultadoSincronizacao(List<JSONObject> lista) {
+    public void completouEtapa(String etapa, boolean sucesso){
 
-        listener.alterarAvaliacoes(lista);
+        if (sincronizacaoDialog != null) {
+
+            sincronizacaoDialog.terminouEtapa(etapa, sucesso);
+        }
     }
+
+    @Override
+    public void terminouSincronizacao() {
+
+    }
+
+    @Override
+    public void mostrarViewSinc() {
+        if (sincronizacaoDialog == null) {
+
+            sincronizacaoDialog = new SincronizacaoDialog(getContext(), this);
+        }
+
+        sincronizacaoDialog.mostrarDialogSincronizacao();
+    }
+
+    @Override
+    public void tentarNovamente() {
+        HomeActivity activity = activityWeakRef.get();
+        if (activity != null) {
+            activity.iniciarSincronizacao();
+        }
+    }
+
 }

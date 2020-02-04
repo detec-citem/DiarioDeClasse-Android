@@ -1,9 +1,9 @@
 package br.gov.sp.educacao.sed.mobile.Carteirinha;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import android.database.Cursor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.gov.sp.educacao.sed.mobile.util.Banco;
 
